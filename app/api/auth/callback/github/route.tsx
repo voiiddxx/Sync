@@ -46,7 +46,7 @@ export async function GET(req: NextRequest){
 
 
     if(!data){
-        throw new Error('No user data provided');
+        throw new Error('Error occured while getting user data');
         return;
     }
     
