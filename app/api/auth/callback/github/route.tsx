@@ -46,7 +46,7 @@ export async function GET(req: NextRequest){
 
 
     if(!data){
-        throw new Error('Error occured while getting user data');
+        throw new Error('Some Error occured internally Please wait for a while');
         return;
     }
     
