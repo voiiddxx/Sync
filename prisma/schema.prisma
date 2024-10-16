@@ -13,14 +13,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
 model User {
-  id  Int @id @default(autoincrement())
-  username String
-  email String
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String
   google_access_token String?
   github_access_token String?
-  github_avarat_url String?
-  bio String?
+  github_avatar_url  String?
+  bio       String? 
+  commits   Commit[] 
+}
+
+model Commit {
+  id              Int           @id @default(autoincrement())
+  repo            String
+  branch          String
+  status          String?
+  commit_message  String?
+  commit_desc     String?
+
+  files           changeFiles[] 
+
+  userId          Int  
+  user            User    @relation(fields: [userId], references: [id])
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model changeFiles {
+  id        Int     @id @default(autoincrement())
+  path      String?
+  content   String?
+  commitId  Int     
+  commit    Commit  @relation(fields: [commitId], references: [id])
 }

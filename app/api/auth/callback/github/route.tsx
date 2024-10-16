@@ -30,9 +30,6 @@ export async function GET(req: NextRequest){
 
     const {access_token} = await response.data;
 
-    console.log(response.data , "this is");
-    
-
 
     if(!access_token){
         throw new Error('No access token provided');
@@ -64,7 +61,7 @@ export async function GET(req: NextRequest){
                 username: data.login,
                 bio: data.bio,
                 github_access_token:access_token,
-                github_avarat_url:data.avatar_url
+                github_avatar_url:data.avatar_url
             }
         });
 
@@ -80,56 +77,3 @@ export async function GET(req: NextRequest){
    }
 }
 
-
-
-// response format
-
-
-
-//   {
-//     login: '',
-//     id: ,
-//     node_id: '',
-//     avatar_url: '',
-//     gravatar_id: '',
-//     url: '',
-//     html_url: '',
-//     followers_url: 'httpss',
-//     following_url: 'https://api.github.com/r}',
-//     gists_url: 'https://api._id}',
-//     starred_url: 'htepo}',
-//     subscriptions_url: 'https://api.',
-//     organizations_url: 'https://api.github.com/users/voiiddxx/orgs',
-//     repos_url: 'https://api.github.com/,dmfkdsmgekjgioerjhtreds',
-//     events_url: 'https://api.github.com/users/privacy}',
-//     received_events_url: 'https://api.github.c',
-//     type: 'User',
-//     site_admin: false,
-//     name: '',
-//     company: null,
-//     blog: 'https:.app/',
-//     location: '',
-//     email: null,
-//     hireable: null,
-//     bio: ' Products🔥 \r\n',
-//     twitter_username: null,
-//     notification_email: null,
-//     public_repos: 49,
-//     public_gists: 0,
-//     followers: 30,
-//     following: 26,
-//     created_at: '2021-12-09T12:00:11Z',
-//     updated_at: '2024-07-27T15:45:02Z',
-//     private_gists: 0,
-//     total_private_repos: 18,
-//     owned_private_repos: 18,
-//     disk_usage: 194348,
-//     collaborators: 1,
-//     two_factor_authentication: false,
-//     plan: {
-//       name: 'free',
-//       space: 976562499,
-//       collaborators: 0,
-//       private_repos: 10000
-//     }
-//   }
