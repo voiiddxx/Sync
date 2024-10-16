@@ -40,21 +40,14 @@ export async function GET(req: NextRequest){
     }
 
 
-
-    
-    
-
     // fetching user github data 
     const userRes = await fetch('https://api.github.com/user' , {
         headers:{
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer ${access_token}`,
         }
     });
 
     const data = await userRes.json();
-
-
-    console.log("this is data" , data);
     
     if(!data){
         throw new Error('Error occured');
