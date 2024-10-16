@@ -1,7 +1,9 @@
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 
+const prisma = new PrismaClient()
 
 export async function GET(req: NextRequest){
    try {
@@ -28,6 +30,9 @@ export async function GET(req: NextRequest){
 
     const {access_token} = await response.data;
 
+    console.log(response.data , "this is");
+    
+
 
     if(!access_token){
         throw new Error('No access token provided');
@@ -35,24 +40,46 @@ export async function GET(req: NextRequest){
     }
 
 
+
+    
+    
+
     // fetching user github data 
     const userRes = await fetch('https://api.github.com/user' , {
         headers:{
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer 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`,
         }
     });
 
     const data = await userRes.json();
 
 
+    console.log("this is data" , data);
+    
     if(!data){
         throw new Error('Error occured');
         return;
     }
-    
+
 
     // store the user impo infromation in db using prisma
 
+    if(data){
+        const userResponse = await prisma.user.create({
+            data:{
+                email: data?.email || '',
+                username: data.login,
+                bio: data.bio,
+                github_access_token:access_token,
+                github_avarat_url:data.avatar_url
+            }
+        });
+
+        if(!userResponse){
+            throw new Error('Some Error occured');
+        }
+
+    }
     return NextResponse.redirect('http:localhost:3000')
    } catch (error) {
     console.log('Error: ' , error);
