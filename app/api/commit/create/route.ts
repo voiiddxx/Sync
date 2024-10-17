@@ -237,7 +237,6 @@ const createTree = async (username: string, branch: string, repo: string, access
             return treeResponse.data.sha;
         } catch (error) {
             console.log(error);
-
         }
     } catch (error) {
         throw new Error('Error occured while creating Tree')
