@@ -1,22 +1,40 @@
 'use client'
-
 import LandingPage from "@/components/shared/landingPage/landingPage";
-import Link from "next/link";
-
-
+import { updateUser } from "@/store/slices/user";
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
 
-  const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URL}&scope=repo,workflow,admin:repo_hook,user`;
+const searchParams = useSearchParams();
+const username = searchParams.get('username');
+const dispatch = useDispatch();
 
-  // return (
-  //   <div className="h-screen w-full flex justify-center items-center">
-  //     <Link href={GITHUB_AUTH_URL}>
-  //     <div className="h-16 w-40 bg-black rounded-2xl flex items-center justify-center" >
-  //     <p className="text-xs text-white" >Connect to github</p>
-  //     </div></Link>
-  //     </div>
-  // );
+
+const getUserdata = async (username : string)=>{
+    try {
+      if(username){
+        const res = await axios.get(`http://localhost:3000/api/user?username=voiiddxx` , );
+        if(res.status!=200){
+          // show popup for nu user found
+          return;
+        }
+        dispatch(updateUser(res.data.data));
+      }
+    } catch (error) {
+      console.log("No Data found");
+      // show popup
+      
+    }
+} 
+
+useEffect(()=>{
+  if(username){
+    getUserdata(username!);
+  }
+} , [username])
 
 
   return (
