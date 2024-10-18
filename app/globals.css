@@ -19,11 +19,16 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, monospace ,  sans-serif;
+  font-family: Arial, Helvetica, monospace , 'Poppins' ,  sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+html {
+  font-family: var(--font-inter), sans-serif;
 }

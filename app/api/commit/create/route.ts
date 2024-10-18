@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: 400, message: 'No username or commitId provided' })
         }
 
-        let user = await prisma.user.findFirst({
+        const user = await prisma.user.findFirst({
             where: { username: username }
         });
 
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: 400, message: 'No User found' })
         }
 
-        let commit = await prisma.commit.findFirst({
+        const commit = await prisma.commit.findFirst({
             where: { id: commitId }, include: {
                 files: true
             }

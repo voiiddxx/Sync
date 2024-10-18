@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET(req:NextRequest){
+    
     const username = req.nextUrl.searchParams.get('username');
 
     if(!username){
@@ -12,7 +13,7 @@ export async function GET(req:NextRequest){
     }
 
     try {
-        let existingUser = await prisma.user.findFirst({
+        const existingUser = await prisma.user.findFirst({
             where:{username: username} ,include:{
                 commits:true
             },

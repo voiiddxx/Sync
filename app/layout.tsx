@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Inter , Poppins } from "next/font/google"; // Import Inter font
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
-
 
 // Load local fonts
 const geistSans = localFont({
@@ -13,7 +13,13 @@ const geistSans = localFont({
 const geistMono = localFont({
   src: "./fonts/Gilroy-Medium.ttf",
   variable: "--font-geist-mono",
-  // weight: "100 900", // Optional
+});
+
+// Load Inter font with default styles
+const inter = Poppins({
+  subsets: ["latin"],
+  weight:['100' , "200" , "300" , "400" , "500" , "600" , "700" , "800" , "900"],
+  variable: "--font-inter", // Optional: Add CSS variable if needed
 });
 
 export const metadata: Metadata = {
@@ -28,15 +34,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans`}
+        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} `}
       >
-       <StoreProvider>
-        {children}
-       </StoreProvider>
+        <StoreProvider>{children}</StoreProvider>
       </body>
-    
     </html>
   );
 }

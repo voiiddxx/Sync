@@ -11,7 +11,7 @@ export async function POST(req : NextRequest){
     const {username , repo , branch , files} = body;
 
 
-    let existingUser = await prisma.user.findFirst({
+    const existingUser = await prisma.user.findFirst({
         where:{username:username}
     });
 

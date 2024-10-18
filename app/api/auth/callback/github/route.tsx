@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     // store the user impo infromation in db using prisma
 
     if (data) {
-      let existingUser = await prisma.user.findFirst({
+      const existingUser = await prisma.user.findFirst({
         where: { username: data?.login },
       });
 
