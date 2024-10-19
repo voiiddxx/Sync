@@ -9,6 +9,7 @@ import {
 import { GitPullRequestArrow } from "lucide-react";
 import ScheduledCommit from "./shceduledCommit";
 import RequestedCommits from "./requestedCommit";
+import ActivitySection from "./activityPage";
 
 const DashBoardTabSection = () => {
   return (
@@ -60,7 +61,9 @@ const DashBoardTabSection = () => {
         </Tabs>
       </div>
 
-      <div className=" w-1/3 bg-white rounded-md"></div>
+      <div className=" w-1/3 bg-white rounded-md">
+      <ActivitySection/>
+      </div>
     </div>
   );
 };
