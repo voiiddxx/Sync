@@ -33,19 +33,25 @@ const TopBar = () => {
           <InboxArrowDownIcon className="size-5 text-zinc-800" />
         </div>
 
-        <div className="flex px-4 items-center justify-center gap-2 h-10  border rounded-lg shadow-lg bg-indigo-600">
-          <PlusCircle className="text-white" size={18} />
-          <p className="text-white text-sm leading-loose tracking-wide ">
+        <div className="flex px-4 items-center justify-center gap-2 h-10  border rounded-lg shadow-sm bg-white">
+          <PlusCircle className="text-zinc-800" size={18} />
+          <p className="text-zinc-800 text-sm leading-loose tracking-wide ">
             Schedule{" "}
           </p>
         </div>
 
-       <div className=" flex flex-col items-center mt-4 justify-center" >
-       <div className="h-8 w-8 rounded-full bg-slate-300 shadow-md ">
-            <Image className="rounded-full" src={user?.github_avatar_url} height={1500} width={1500} alt="user avatar" />
+        <div className=" flex flex-col items-center mt-4 justify-center">
+          <div className="h-8 w-8 rounded-full bg-slate-300 shadow-md ">
+            <Image
+              className="rounded-full"
+              src={user?.github_avatar_url}
+              height={1500}
+              width={1500}
+              alt="user avatar"
+            />
+          </div>
+          <Dot size={25} className="-mt-2 text-indigo-500" />
         </div>
-        <Dot  size={25} className="-mt-2 text-indigo-500" />
-       </div>
       </div>
     </div>
   );

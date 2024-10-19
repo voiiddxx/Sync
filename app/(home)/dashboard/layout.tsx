@@ -12,7 +12,7 @@ export default function DashboardLayout ({children} : any){
                 {/* upper bar */}
                 <div className="h-[60px] w-full border-b" >
                 <TopBar/>
-
+                {children}
                 </div>
             </div>
         </div>

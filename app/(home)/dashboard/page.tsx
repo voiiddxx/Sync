@@ -1,9 +1,10 @@
+import MainPage from '@/components/shared/dashboard/mainPage'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-        this is dashbord page
+    <div className=' w-full h-full' >
+        <MainPage/>
     </div>
   )
 }
