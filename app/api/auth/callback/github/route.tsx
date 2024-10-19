@@ -38,6 +38,7 @@ export async function GET(req: NextRequest) {
       return;
     }
 
+    
     // fetching user github data
     const userRes = await fetch("https://api.github.com/user", {
       headers: {

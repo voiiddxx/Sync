@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   BugAntIcon,
@@ -10,6 +12,8 @@ import { GitPullRequestArrow } from "lucide-react";
 import ScheduledCommit from "./shceduledCommit";
 import RequestedCommits from "./requestedCommit";
 import ActivitySection from "./activityPage";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const DashBoardTabSection = () => {
   return (
@@ -17,7 +21,7 @@ const DashBoardTabSection = () => {
       <div className="bg-white w-2/3 rounded-md py-2  ">
         <Tabs defaultValue="commit" className="w-full">
           <TabsList>
-          <TabsTrigger value="request">
+            <TabsTrigger value="request">
               <FireIcon className="size-4 ml-1 mr-1" />
               Requested Commits
               <div className="h-3 w-3 rounded-full bg-green-500 flex items-center justify-center ml-1">
@@ -50,11 +54,10 @@ const DashBoardTabSection = () => {
           <TabsContent value="commit">
             <div className=" h-full w-full px-2 py-1">
               <ScheduledCommit />
-           
             </div>
           </TabsContent>
           <TabsContent value="request">
-          <div className=" h-full w-full px-2 py-1">
+            <div className=" h-full w-full px-2 py-1">
               <RequestedCommits />
             </div>
           </TabsContent>
@@ -62,7 +65,7 @@ const DashBoardTabSection = () => {
       </div>
 
       <div className=" w-1/3 bg-white rounded-md">
-      <ActivitySection/>
+        <ActivitySection />
       </div>
     </div>
   );

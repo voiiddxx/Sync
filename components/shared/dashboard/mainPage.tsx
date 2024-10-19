@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowPathIcon,
   ChevronDoubleDownIcon,
@@ -8,25 +10,56 @@ import {
 } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { GitPullRequestArrowIcon, Search } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashBoardTabSection from "./dashboardTab";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import ComboBox from "../combobox";
 
 const MainPage = () => {
+  const user = useSelector((state: any) => state.user.value);
+  const [userRepos, setuserRepos] = useState<any[]>([]);
+
+  const getAllRepos = async (username: string) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3000/api/github/repo?username=${username}`
+      );
+      if (res.status !== 200) {
+        console.log("Error getting repositories");
+        // show toast here
+        return false;
+      }
+
+      if (res?.data?.data?.length > 0) {
+        const formattedData = res.data.data.map((curr: any) => ({
+          label: curr.name,
+          value: curr.name,
+          data:curr
+        }));
+        setuserRepos(formattedData);
+      }
+    } catch (error) {
+      console.log(error);
+      // show toast
+    }
+  };
+
+  useEffect(() => {
+    getAllRepos(user?.username);
+  }, []);
+
   return (
     <div className=" w-full h-full">
       {/* upper */}
       <div className="h-16 w-full flex justify-between px-6 border-b">
         {/* left div */}
         <div className="flex items-center justify-between gap-2">
-          <div className="h-10 w-[150px] px-2 flex items-center border border-gray-200 text-gray-700 rounded-md justify-between">
-            <div className=" flex items-center gap-2">
-              <GitHubLogoIcon className="size-4" />
-              <p className="text-gray-700 text-sm">Floww</p>
-            </div>
-            <div>
-              <ChevronUpDownIcon className="size-4 text-gray-800" />
-            </div>
-          </div>
+          <ComboBox
+            data={userRepos}
+            onChange={() => {}}
+            icon={<GitHubLogoIcon />}
+          />
           <div className="h-10 w-[150px] px-2 flex items-center border border-gray-200 text-gray-700 rounded-md justify-between">
             <div className=" flex items-center gap-2">
               <ArrowPathIcon className="size-4" />
@@ -63,7 +96,7 @@ const MainPage = () => {
 
       {/* bottom sectiom */}
       <div className="h-[84vh] w-full bg-zinc-100">
-        <DashBoardTabSection/>
+        <DashBoardTabSection />
       </div>
     </div>
   );
