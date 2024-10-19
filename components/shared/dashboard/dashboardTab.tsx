@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { GitPullRequestArrow } from "lucide-react";
 import ScheduledCommit from "./shceduledCommit";
+import RequestedCommits from "./requestedCommit";
 
 const DashBoardTabSection = () => {
   return (
@@ -15,6 +16,13 @@ const DashBoardTabSection = () => {
       <div className="bg-white w-2/3 rounded-md py-2  ">
         <Tabs defaultValue="commit" className="w-full">
           <TabsList>
+          <TabsTrigger value="request">
+              <FireIcon className="size-4 ml-1 mr-1" />
+              Requested Commits
+              <div className="h-3 w-3 rounded-full bg-green-500 flex items-center justify-center ml-1">
+                <p className="text-[8px] font-medium text-white">2</p>
+              </div>
+            </TabsTrigger>
             <TabsTrigger value="commit">
               <FireIcon className="size-4 ml-1 mr-1" />
               Sheduled Commits
@@ -37,17 +45,18 @@ const DashBoardTabSection = () => {
               <BugAntIcon className="size-4 ml-1 mr-1" />
               Issues
             </TabsTrigger>
-            <TabsTrigger className="px-4" value="setting">
-              <Cog6ToothIcon className="size-4 mr-1 ml-1" />
-              Settings
-            </TabsTrigger>
           </TabsList>
           <TabsContent value="commit">
-            <div className=" h-full w-full px-2 py-1" >
-                <ScheduledCommit/>
+            <div className=" h-full w-full px-2 py-1">
+              <ScheduledCommit />
+           
             </div>
           </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
+          <TabsContent value="request">
+          <div className=" h-full w-full px-2 py-1">
+              <RequestedCommits />
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
 

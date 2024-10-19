@@ -1,5 +1,5 @@
 "use client";
-import { DotFilledIcon } from "@radix-ui/react-icons";
+import { DotFilledIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { GitBranch, GitCommit } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -75,7 +75,7 @@ const ScheduledCommit = () => {
             <div className="h-20  flex px-4 items-center first:rounded-t-md last:rounded-b-md justify-between  w-full border-b border-r border-l border-gray-200    first:border-t">
               <div className="flex gap-1 items-center">
                 <div>
-                  <p className="text-sm font-medium  text-gray-900">
+                  <p className="text-sm font-medium  text-gray-900 font-Poppins">
                     {curr.commitid}
                   </p>
                   <div className=" flex items-center gap-1">
@@ -109,6 +109,7 @@ const ScheduledCommit = () => {
                     alt="logo"
                   />
                 </div>
+                <DotsHorizontalIcon className="ml-2" />
               </div>
             </div>
           );
