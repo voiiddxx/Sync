@@ -5,7 +5,11 @@ import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const ScheduledCommit = () => {
+const ScheduledCommit = ({data}:any) => {
+
+
+  console.log(data , ">>>");
+  
   const user = useSelector((state: any) => state.user.value);
 
   const shceduledData = [

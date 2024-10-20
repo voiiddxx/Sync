@@ -81,6 +81,11 @@ const MainPage = () => {
     getAllRepos(user?.username);
   }, []);
 
+
+
+  console.log(repo);
+  
+
   return (
     <div className=" w-full h-full">
       {/* upper */}

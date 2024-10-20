@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   BugAntIcon,
-  Cog6ToothIcon,
   FireIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/solid";
@@ -16,6 +15,9 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const DashBoardTabSection = () => {
+
+  const repo = useSelector((state:any)=>state.repo.value);
+
   return (
     <div className="w-full h-full flex gap-2 py-2 px-2 ">
       <div className="bg-white w-2/3 rounded-md py-2  ">
@@ -53,12 +55,12 @@ const DashBoardTabSection = () => {
           </TabsList>
           <TabsContent value="commit">
             <div className=" h-full w-full px-2 py-1">
-              <ScheduledCommit />
+              <ScheduledCommit data={repo?.reqCommit} />
             </div>
           </TabsContent>
           <TabsContent value="request">
             <div className=" h-full w-full px-2 py-1">
-              <RequestedCommits />
+              <RequestedCommits data={repo?.reqCommit} />
             </div>
           </TabsContent>
         </Tabs>
