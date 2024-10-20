@@ -22,7 +22,6 @@ const MainPage = () => {
   const [userRepos, setuserRepos] = useState<any[]>([]);
   const [branches, setbranches] = useState<any[]>([]);
 
-
   const getAllRepos = async (username: string) => {
     try {
       const res = await axios.get(
@@ -64,7 +63,7 @@ const MainPage = () => {
       }
       dispatch(updateUserRepo(res.data.repo));
 
-      const repoBranches= res.data.repo.branches.map((curr:any)=>({
+      const repoBranches = res.data.repo.branches.map((curr: any) => ({
         label: curr.name,
         value: curr.name,
         data: curr,
@@ -80,11 +79,6 @@ const MainPage = () => {
   useEffect(() => {
     getAllRepos(user?.username);
   }, []);
-
-
-
-  console.log(repo);
-  
 
   return (
     <div className=" w-full h-full">
