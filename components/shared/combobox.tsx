@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {  ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -49,10 +49,13 @@ const ComboBox = ({ data, onChange, icon }: any) => {
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
+                    onChange(framework);
                   }}
                 >
                   <div className="mr-2">{icon}</div>
-                  {framework.label}
+                  <p className="font-Poppins tracking-tight">
+                    {framework.label}
+                  </p>
                 </CommandItem>
               ))}
             </CommandGroup>

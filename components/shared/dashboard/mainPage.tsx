@@ -2,28 +2,32 @@
 
 import {
   ArrowPathIcon,
-  ChevronDoubleDownIcon,
   ChevronUpDownIcon,
-  InboxArrowDownIcon,
   PlusCircleIcon,
   ServerStackIcon,
 } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { GitPullRequestArrowIcon, Search } from "lucide-react";
+import { GitBranch, GitPullRequestArrowIcon, Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import DashBoardTabSection from "./dashboardTab";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ComboBox from "../combobox";
+import { updateUserRepo } from "@/store/slices/repoSlice";
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+  const repo = useSelector((state: any) => state.repo.value);
   const user = useSelector((state: any) => state.user.value);
   const [userRepos, setuserRepos] = useState<any[]>([]);
+  const [branches, setbranches] = useState<any[]>([]);
+
+  console.log(repo, ">>>>");
 
   const getAllRepos = async (username: string) => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/github/repo?username=${username}`
+        `${process.env.NEXT_PUBLIC_URL}/api/github/repo?username=${username}`
       );
       if (res.status !== 200) {
         console.log("Error getting repositories");
@@ -35,13 +39,42 @@ const MainPage = () => {
         const formattedData = res.data.data.map((curr: any) => ({
           label: curr.name,
           value: curr.name,
-          data:curr
+          data: curr,
         }));
         setuserRepos(formattedData);
       }
     } catch (error) {
       console.log(error);
       // show toast
+    }
+  };
+
+  const getSpecificRepo = async (repo: string, username: string) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/api/github/repo/get`,
+        {
+          repo,
+          username,
+        }
+      );
+      if (res.status !== 200) {
+        // show popup
+        console.log("Some error occured");
+        return;
+      }
+      dispatch(updateUserRepo(res.data.repo));
+
+      const repoBranches= res.data.repo.branches.map((curr:any)=>({
+        label: curr.name,
+        value: curr.name,
+        data: curr,
+      }));
+
+      setbranches(repoBranches);
+    } catch (error) {
+      console.log(error);
+      // show popup
     }
   };
 
@@ -57,18 +90,18 @@ const MainPage = () => {
         <div className="flex items-center justify-between gap-2">
           <ComboBox
             data={userRepos}
-            onChange={() => {}}
+            onChange={(data: any) => {
+              getSpecificRepo(data?.value, user?.username);
+            }}
             icon={<GitHubLogoIcon />}
           />
-          <div className="h-10 w-[150px] px-2 flex items-center border border-gray-200 text-gray-700 rounded-md justify-between">
-            <div className=" flex items-center gap-2">
-              <ArrowPathIcon className="size-4" />
-              <p className="text-gray-700 text-sm">Main</p>
-            </div>
-            <div>
-              <ChevronUpDownIcon className="size-4 text-gray-800" />
-            </div>
-          </div>
+          <ComboBox
+            data={branches}
+            onChange={(data: any) => {
+              getSpecificRepo(data?.value, user?.username);
+            }}
+            icon={<GitBranch size={20} />}
+          />
         </div>
         <div className=" flex items-center gap-2">
           <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center">

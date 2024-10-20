@@ -35,9 +35,6 @@ export async function GET(req: NextRequest) {
 
         const allRepos = repoResponse.data;
 
-        console.log(allRepos);
-
-
         const formattedRepoData = allRepos.map((repo: any) => ({
             name: repo.name,
             fullname: repo.full_name,
@@ -53,7 +50,6 @@ export async function GET(req: NextRequest) {
         });
 
         return NextResponse.json({ status: 200, data: sortedRepoData });
-
 
     } catch (error) {
         console.log(error);
