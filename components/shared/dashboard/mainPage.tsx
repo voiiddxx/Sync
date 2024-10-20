@@ -22,7 +22,6 @@ const MainPage = () => {
   const [userRepos, setuserRepos] = useState<any[]>([]);
   const [branches, setbranches] = useState<any[]>([]);
 
-  console.log(repo, ">>>>");
 
   const getAllRepos = async (username: string) => {
     try {

@@ -28,7 +28,7 @@ model Commit {
   id              Int           @id @default(autoincrement())
   repo            String
   branch          String
-  status          String?
+  status          String? 
   commit_message  String?
   commit_desc     String?
 

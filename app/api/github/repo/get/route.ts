@@ -33,10 +33,30 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        const allBranchForRepo = await axios.get(`https://api.github.com/repos/${username}/${repo}/branches`)
+        console.log(repoData);
+
+
+        const allBranchForRepo = await axios.get(`https://api.github.com/repos/${username}/${repo}/branches`, {
+            headers: {
+                'Authorization': `token ${user.github_access_token}`
+            }
+        });
+
+
+        const commits = await prisma.commit.findMany({
+            where: {
+                repo: repo,
+                user: {
+                    username: username
+                },
+            },
+        });
+
+
 
         const repoJSON = repoData.data;
         repoJSON.branches = allBranchForRepo.data;
+        repoJSON.reqCommit = commits;
 
         return NextResponse.json({
             repo: repoJSON,

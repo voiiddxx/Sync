@@ -38,7 +38,7 @@ const ComboBox = ({ data, onChange, icon }: any) => {
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0">
         <Command>
-          <CommandInput placeholder="Search repos..." />
+          <CommandInput placeholder="Search..." />
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
