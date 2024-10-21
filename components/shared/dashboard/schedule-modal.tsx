@@ -4,7 +4,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { GitBranch } from "lucide-react";
+import { GitBranch, LoaderIcon } from "lucide-react";
 import React, { useState } from "react";
 
 import { SlackSVGIcon } from "./sideBar";
@@ -26,7 +26,7 @@ const ScheduleModalContent = ({ data }: any) => {
   const [commit_message, setcommit_message] = useState<string>("");
   const [isForcePush, setisForcePush] = useState<boolean>(false);
   const [isSlackReminder, setisSlackReminder] = useState<boolean>(false);
-
+  const [isLoading, setisLoading] = useState<boolean>(false);
   const handleCommitSubmission = async () => {
     try {
       if (commit_message == "") {
@@ -35,6 +35,7 @@ const ScheduleModalContent = ({ data }: any) => {
         return;
       }
 
+      setisLoading(true);
       const res = await axios.patch(
         `${process.env.NEXT_PUBLIC_URL}/api/commit/request`,
         {
@@ -48,11 +49,14 @@ const ScheduleModalContent = ({ data }: any) => {
       );
 
       if (res.status !== 200) {
+        setisLoading(false);
         console.log("Some error occured");
         // show popup
       }
       console.log(res.data);
+      setisLoading(false);
     } catch (error) {
+      setisLoading(false);
       console.log(error);
       // show popup of error
     }
@@ -185,7 +189,7 @@ const ScheduleModalContent = ({ data }: any) => {
 
           <div className=" mt-6 w-full flex items-center gap-2 justify-end">
             <Button variant={"outline"}>
-              <p className="text-sm font-light text-gray-800 font-Poppins">
+              <p className="text-xs font-normal text-gray-800 font-Poppins">
                 Cancel
               </p>
             </Button>
@@ -193,7 +197,13 @@ const ScheduleModalContent = ({ data }: any) => {
               onClick={handleCommitSubmission}
               className="bg-purple-500 hover:bg-purple-700"
             >
-              <p className="text-sm font-light font-Poppins">Schedule</p>
+              {isLoading ? (
+                <div className=" w-full flex items-center justify-center">
+                  <LoaderIcon className="animate-spin" strokeWidth={2} />
+                </div>
+              ) : (
+                <p className="text-xs font-normal font-Poppins">Schedule</p>
+              )}
             </Button>
           </div>
         </div>

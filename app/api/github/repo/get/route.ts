@@ -52,11 +52,21 @@ export async function POST(req: NextRequest) {
             },
         });
 
+        const scheduledCommit = await prisma.commit.findMany({
+            where: {
+                status: 'Scheduled',
+                user: {
+                    username: username
+                }
+            }
+        });
+
 
 
         const repoJSON = repoData.data;
         repoJSON.branches = allBranchForRepo.data;
         repoJSON.reqCommit = commits;
+        repoJSON.scheduledCommit = scheduledCommit;
 
         return NextResponse.json({
             repo: repoJSON,
