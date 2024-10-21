@@ -21,7 +21,6 @@ import {
 import ScheduleModalContent from "./schedule-modal";
 
 const RequestedCommits = ({ data }: any) => {
-
   const user = useSelector((state: any) => state.user.value);
 
   return (
@@ -45,7 +44,7 @@ const RequestedCommits = ({ data }: any) => {
           </div>
         </div>
         <div className="w-full "></div>
-        {data.map((curr: any, index: number) => {
+        {data?.map((curr: any, index: number) => {
           return (
             <div className="min-h-40 px-2 py-2 w-[49vh] bg-zinc-50 flex justify-between  rounded-md border border-zinc-300 overflow-hidden relative">
               <div className="  ml-2 mt-1 h-full flex flex-col justify-between">
@@ -147,4 +146,3 @@ const RequestedCommits = ({ data }: any) => {
 };
 
 export default RequestedCommits;
-

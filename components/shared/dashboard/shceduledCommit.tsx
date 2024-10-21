@@ -9,7 +9,7 @@ import {
   DotsHorizontalIcon,
   GitHubLogoIcon,
 } from "@radix-ui/react-icons";
-import { Clock1, GitBranch, GitCommit } from "lucide-react";
+import { Clock1, FileChartColumn, GitBranch, GitCommit } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import React from "react";
@@ -20,36 +20,57 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
+import axios from "axios";
 
 const ScheduledCommit = ({ data }: any) => {
-
   const dataforpopOver = [
     {
-      label:'Edit commit',
-      icon: <GitCommit size={20} />
+      label: "Edit commit",
+      icon: <GitCommit size={20} />,
     },
     {
-      label:'Change Branch',
-      icon : <GitBranch size={16} />
+      label: "Change Branch",
+      icon: <GitBranch size={16} />,
     },
-    
+
     {
-      label:'Reschedule commit',
-      icon : <Clock1 size={16} />
+      label: "Reschedule commit",
+      icon: <Clock1 size={16} />,
     },
-
-  ]
-
+    {
+      label: "View File Changes",
+      icon: <FileChartColumn size={16} />,
+    },
+  ];
 
   const user = useSelector((state: any) => state.user.value);
+
+  const postCommit = async (commitId: any) => {
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/api/commit/push`,
+        {
+          username: user?.username,
+          commitId: commitId,
+        }
+      );
+      if (res.status !== 200) {
+        console.log("Some error occured");
+        return;
+      }
+
+      console.log("Commit scheduled successfully", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full h-full px-4 font-Poppins">
       <p className="text-sm text-gray-500">Sheduled Requests</p>
 
       <div className=" flex  flex-col mt-4  rounded-md gap-2">
-        {data.map((curr: any, index: Number) => {
+        {data?.map((curr: any, index: Number) => {
           return (
             <div className="min-h-40 pb-3 w-full rounded-xl border px-6 py-6 ">
               <div className=" w-full flex items-center  pb-3">
@@ -132,10 +153,12 @@ const ScheduledCommit = ({ data }: any) => {
                         <DotsHorizontalIcon />
                       </div>
                     </PopoverTrigger>
-                    <PopoverContent className="flex  flex-col gap-6 px-4 w-60 py-4 " >
-                    {
-                      dataforpopOver.map((item: any) => (
-                        <div key={item.label} className="flex items-center gap-2 font-Poppins">
+                    <PopoverContent className="flex  flex-col  px-4 w-60 py-2 ">
+                      {dataforpopOver.map((item: any) => (
+                        <div
+                          key={item.label}
+                          className="flex items-center gap-2 font-Poppins hover:bg-zinc-50 px-2 py-3 rounded-xl w-full cursor-pointer"
+                        >
                           <div className="flex items-center gap-1 text-gray-700">
                             {item.icon}
                           </div>
@@ -143,11 +166,15 @@ const ScheduledCommit = ({ data }: any) => {
                             {item.label}
                           </p>
                         </div>
-                      ))
-                    }
-                    <div className="h-10 w-full flex items-center justify-center bg-gradient-to-b from-purple-600 to-purple-700  rounded-lg" >
-                      <p className="text-sm text-white" >Push Now</p>
-                    </div>
+                      ))}
+                      <div
+                        className="h-10 w-full flex items-center justify-center bg-gradient-to-b from-purple-600 to-purple-700  rounded-lg mt-3 cursor-pointer"
+                        onClick={() => {
+                          postCommit(curr.id);
+                        }}
+                      >
+                        <p className="text-sm text-white">Push Now</p>
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>

@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
+
 export async function POST(req: NextRequest) {
     try {
         const { username, commitId } = await req.json();
@@ -209,8 +210,6 @@ const createTree = async (username: string, branch: string, repo: string, access
             );
 
             console.log("file added in blobs ", res.data);
-
-
             if (!res) {
                 throw new Error('Error occured while uploading file')
             }
