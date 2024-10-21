@@ -50,7 +50,7 @@ const MainPage = () => {
   const getSpecificRepo = async (repo: string, username: string) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/github/repo/get`,
+        `${process.env.NEXT_PUBLIC_URL}/api/github/repo/get`,
         {
           repo,
           username,

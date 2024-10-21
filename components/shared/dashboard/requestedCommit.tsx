@@ -1,25 +1,18 @@
 import {
   AdjustmentsHorizontalIcon,
-  BoltIcon,
-  CalendarDateRangeIcon,
   DocumentDuplicateIcon,
   HashtagIcon,
   PencilIcon,
   PlusCircleIcon,
   QueueListIcon,
-  RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { GitBranch, GitCommit, GitPullRequest } from "lucide-react";
+import { GitPullRequest } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
 import CustomModal from "../modal";
-import { SlackSVGIcon } from "./sideBar";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
@@ -28,6 +21,7 @@ import {
 import ScheduleModalContent from "./schedule-modal";
 
 const RequestedCommits = ({ data }: any) => {
+
   const user = useSelector((state: any) => state.user.value);
 
   return (
@@ -84,7 +78,7 @@ const RequestedCommits = ({ data }: any) => {
                         </p>
                       </div>
                     }
-                    modalContent={<ScheduleModalContent />}
+                    modalContent={<ScheduleModalContent data={curr} />}
                   />
                   <div className="px-2 py-1 border bg-white rounded-md">
                     <p className="text-[10px]  font-Poppins text-red-400">

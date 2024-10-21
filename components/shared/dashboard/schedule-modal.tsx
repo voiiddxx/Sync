@@ -3,8 +3,8 @@ import {
   CalendarDateRangeIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
-import {  GitHubLogoIcon } from "@radix-ui/react-icons";
-import { GitBranch,  } from "lucide-react";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { GitBranch } from "lucide-react";
 import React, { useState } from "react";
 
 import { SlackSVGIcon } from "./sideBar";
@@ -17,8 +17,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const ScheduleModalContent = () => {
+const ScheduleModalContent = ({ data }: any) => {
+  const user = useSelector((state: any) => state.user.value);
+
   const [date, setDate] = useState<Date>();
   const [commit_message, setcommit_message] = useState<string>("");
   const [isForcePush, setisForcePush] = useState<boolean>(false);
@@ -32,7 +35,23 @@ const ScheduleModalContent = () => {
         return;
       }
 
-      const res = await axios.post("apiurlforupdatingcommitdetai", {}, {});
+      const res = await axios.patch(
+        `${process.env.NEXT_PUBLIC_URL}/api/commit/request`,
+        {
+          username: user.username,
+          message: commit_message,
+          time: date,
+          isSlack: isSlackReminder,
+          isForce: isForcePush,
+          commitId: data.id,
+        }
+      );
+
+      if (res.status !== 200) {
+        console.log("Some error occured");
+        // show popup
+      }
+      console.log(res.data);
     } catch (error) {
       console.log(error);
       // show popup of error
@@ -170,7 +189,10 @@ const ScheduleModalContent = () => {
                 Cancel
               </p>
             </Button>
-            <Button className="bg-purple-500 hover:bg-purple-700">
+            <Button
+              onClick={handleCommitSubmission}
+              className="bg-purple-500 hover:bg-purple-700"
+            >
               <p className="text-sm font-light font-Poppins">Schedule</p>
             </Button>
           </div>

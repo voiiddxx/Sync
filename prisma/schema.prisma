@@ -31,7 +31,10 @@ model Commit {
   status          String? 
   commit_message  String?
   commit_desc     String?
-
+  scheduled_time  DateTime @default(now())
+  isSlack         Boolean @default(false)
+  isForce         Boolean @default(false)
+  
   files           changeFiles[] 
 
   userId          Int  
