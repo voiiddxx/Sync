@@ -20,6 +20,7 @@ model User {
   google_access_token String?
   github_access_token String?
   github_avatar_url  String?
+  slack_access_token String?
   bio       String? 
   commits   Commit[] 
 }

@@ -1,3 +1,4 @@
+"use client";
 import {
   Dot,
   FolderGit2,
@@ -19,6 +20,8 @@ import {
   HomeIcon,
   InboxArrowDownIcon,
 } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const sideBarOptions = [
   {
@@ -54,6 +57,9 @@ const sideBarOptions = [
 ];
 
 const SideBar = () => {
+  const user = useSelector((state: any) => state.user.value);
+  const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&user_scope=`;
+
   return (
     <div className="h-screen px-4 w-72 border-r py-4">
       <div className=" flex items-center justify-between gap-2">
@@ -105,7 +111,7 @@ const SideBar = () => {
         Your Apps
       </p>
 
-      <div className="flex gap-2 mt-4 items-center justify-between">
+      <Link href={slackUrl} ><div className="flex gap-2 mt-4 items-center justify-between">
         <div className=" flex items-center gap-2">
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
             <SlackSVGIcon />
@@ -113,9 +119,13 @@ const SideBar = () => {
           <p className=" text-sm font-medium text-gray-700">Slack</p>
         </div>
         <div>
-          <Dot className="text-red-500" size={35} />
+          {user?.slack_access_token ? (
+            <Dot className="text-green-500" size={35} />
+          ) : (
+            <Dot className="text-red-500" size={35} />
+          )}
         </div>
-      </div>
+      </div></Link>
       <div className="flex gap-2 mt-4 items-center justify-between">
         <div className=" flex items-center gap-2">
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
@@ -132,9 +142,7 @@ const SideBar = () => {
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
             <LinedInIcon />
           </div>
-          <p className="text-sm font-medium text-gray-700">
-            LinkedIn
-          </p>
+          <p className="text-sm font-medium text-gray-700">LinkedIn</p>
         </div>
         <div>
           <Dot className="text-red-500" size={35} />
