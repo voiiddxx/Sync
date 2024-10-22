@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   BugAntIcon,
@@ -17,6 +17,23 @@ import axios from "axios";
 const DashBoardTabSection = () => {
 
   const repo = useSelector((state:any)=>state.repo.value);
+  const user = useSelector((state:any)=>state.user.value);
+  const [activities, setactivities] = useState<any>([])
+
+  const fetchRecentActivity = async ()=>{
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/github/activity?username=${user.username}`);
+      console.log(res.data);
+      setactivities(res.data.data);
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  useEffect(()=>{
+    fetchRecentActivity();
+  } , []) 
 
   return (
     <div className="w-full h-full flex gap-2 py-2 px-2 ">
@@ -67,7 +84,7 @@ const DashBoardTabSection = () => {
       </div>
 
       <div className=" w-1/3 bg-white rounded-md">
-        <ActivitySection />
+        <ActivitySection activities={activities} />
       </div>
     </div>
   );
