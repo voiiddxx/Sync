@@ -1,3 +1,4 @@
+import { GlobeDemo } from '@/components/ui/GitGlobe';
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link';
 import React from 'react'
@@ -8,6 +9,7 @@ const FirstFold = () => {
   const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URL}&scope=repo,workflow,admin:repo_hook,user`;
 
   return (
+    <>
     <div className='h-full w-full flex flex-col justify-center items-center gap-2' >
       <div className=' bg-zinc-100 px-1 py-1 rounded-full flex items-center group justify-center md:mt-20  cursor-pointer' >
         <div className='bg-zinc-600 text-white rounded-full px-2' >
@@ -22,7 +24,7 @@ const FirstFold = () => {
     <div className='px-36' >
     <p className='text-[100px] text-center font-sans text-[#1C1D1F] tracking-[-3.6px]' >Automate</p>
     <p className='text-[100px] text-center font-sans text-[#1C1D1F] -mt-14 tracking-[-3.6px]' >your workflows</p>
-    <p className='text-[22px] font-medium font-mono  text-zinc-700 text-center' >No more late-night commits or missed PR deadlines! Our platform <br />lets you schedule GitHub commits, pull requests 
+    <p className='text-[22px]  font-Poppins  text-zinc-700 text-center ' >No more late-night commits or missed PR deadlines! Our platform <br />lets you schedule GitHub commits, pull requests 
     </p>
 
     <div className=' flex gap-2 w-full items-center justify-center mt-8' >
@@ -36,6 +38,8 @@ const FirstFold = () => {
     </div>
     </div>
     </div>
+    <GlobeDemo/>
+    </>
   )
 }
 
