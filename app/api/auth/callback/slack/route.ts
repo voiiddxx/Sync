@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     }
 
     const params = new URLSearchParams({
-      client_id: '8b981ce94203e8ae75d15c1d27a359ff',
+    //   client_id: '8b981ce94203e8ae75d15c1d27a359ff',  "Update it later"
       client_secret: '6474fa8edde0ec6ae8608008473f0657', // Use the corrected variable
       code: code as string,
       redirect_uri: 'https://welsh-operators-tragedy-landing.trycloudflare.com/api/auth/callback/slack',
