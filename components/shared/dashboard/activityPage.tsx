@@ -19,34 +19,8 @@ const ActivitySection = ({ activities }: any) => {
   return (
     <div className=" w-full h-full">
       <div className="flex flex-col mt-2 px-6 py-2">
-        {/* pr card start  */}
-        {/* <div className=" h-28 w-full bg-zinc-50 border rounded-md flex flex-col justify-between ">
-          <div>
-            <div className="flex items-center gap-2 px-2 mt-1">
-              <div>
-                <div className="h-8 w-8 rounded-full bg-orange-300"></div>
-              </div>
-              <p className="text-[14px] font-Poppins mt-1 text-black">
-                {" "}
-                <span className="font-semibold">astro.tsx</span> is requesting
-                to merge pull req into{" "}
-                <span className=" underline text-indigo-500">master</span>{" "}
-                branch
-              </p>
-            </div>
-          </div>
-          <div className="w-full flex gap-1 px-10 mb-4">
-            <div className="px-2 py-1 border border-gray-300 bg-white rounded-md">
-              <p className="text-[12px] font-Poppins text-blue-600">Schedule</p>
-            </div>
-            <div className="px-2 py-1 border bg-white rounded-md">
-              <p className="text-[12px]  font-Poppins text-red-600">Decline</p>
-            </div>
-          </div>
-        </div> */}
-
+   
         {/* pr card end */}
-
         <div className="mt-1">
           <div className="w-full  flex justify-between">
             <div className="flex w-full pb-2  items-center gap-2 border-b">
@@ -62,7 +36,7 @@ const ActivitySection = ({ activities }: any) => {
               msOverflowStyle: "none",
               WebkitOverflowScrolling: "touch",
             }}
-            className="  h-[75vh] overflow-y-scroll"
+            className=" h-[75vh] overflow-y-scroll"
           >
             {activities.map((curr: any) => {
               return <ActivityCard data={curr} />;

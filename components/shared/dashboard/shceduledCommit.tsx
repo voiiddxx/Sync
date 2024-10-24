@@ -5,7 +5,6 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import {
-  DotFilledIcon,
   DotsHorizontalIcon,
   GitHubLogoIcon,
 } from "@radix-ui/react-icons";
@@ -70,6 +69,9 @@ const ScheduledCommit = ({ data }: any) => {
     }
   };
 
+
+  console.log("this is data" , data);
+  
   return (
     <div className="w-full h-full  px-4 font-Poppins">
       <p className="text-sm text-gray-500">Sheduled Requests</p>
@@ -102,35 +104,43 @@ const ScheduledCommit = ({ data }: any) => {
                 <div className="flex items-center gap-1 cursor-pointer ">
                   <GitHubLogoIcon className="size-4" />
                   <p className="text-xs tracking-tight font-medium px-1 py-1 text-gray-600 hover:text-purple-800 rounded-sm">
-                    github/voiiddxx/FacebookScrapper
+                    github/voiiddxx/{curr.repo}
                   </p>
                 </div>
                 <div className="flex items-center  cursor-pointer ">
                   <GitBranch className="size-3.5 text-gray-600" />
                   <p className="text-xs tracking-tight px-1 py-1  font-medium text-gray-600">
-                    Sandbox
+                    {curr?.branch}
                   </p>
                 </div>
                 <div className="flex items-center bg-purple-50 border rounded-md px-2   cursor-pointer gap-1">
                   <FolderIcon className="size-3.5 text-purple-600" />
                   <p className="text-xs tracking-tight px-1 py-1  font-medium text-purple-600">
-                    5 File changes
+                    {curr?.files?.length} File changes
                   </p>
                 </div>
                 <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
                   <div className="h-5 w-5 rounded-md flex items-center justify-center">
                     <SlackSVGIcon />
                   </div>
-                  <p className="text-xs tracking-tight px-1 py-1 text-gray-500  font-medium ">
-                    Slack Enabled
+                  <p className="text-xs tracking-tight px-1 py-1 text-gray-600  font-medium ">
+                    Slack <span>
+                      {
+                        curr.isSlack ? 'Enabled'  : 'Disabled'
+                      }
+                    </span>
                   </p>
                 </div>
                 <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
                   <div className="h-5 w-5 rounded-md flex items-center justify-center">
-                    <RocketLaunchIcon className="size-4 text-gray-500" />
+                    <RocketLaunchIcon className="size-4 text-gray-600" />
                   </div>
-                  <p className="text-xs tracking-tight text-gray-500  font-medium ">
-                    Force Push
+                  <p className="text-xs tracking-tight text-gray-600  font-medium ">
+                    Force Push <span>
+                    {
+                        curr.isForce ? 'Enabled'  : 'Disabled'
+                      }
+                    </span>
                   </p>
                 </div>
               </div>

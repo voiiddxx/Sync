@@ -16,28 +16,42 @@ import axios from "axios";
 
 const DashBoardTabSection = () => {
 
-  const repo = useSelector((state:any)=>state.repo.value);
-  const user = useSelector((state:any)=>state.user.value);
-  const [activities, setactivities] = useState<any>([])
+  const repo = useSelector((state: any) => state.repo.value);
+  const user = useSelector((state: any) => state.user.value);
+  const [activities, setActivities] = useState<any>([]);
+  const [showActivity, setShowActivity] = useState<boolean>(false);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  const fetchRecentActivity = async ()=>{
+  const fetchRecentActivity = async () => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/github/activity?username=${user.username}`);
       console.log(res.data);
-      setactivities(res.data.data);
+      setActivities(res.data.data);
     } catch (error) {
       console.log(error);
-      
     }
   }
 
-  useEffect(()=>{
+  const handleActivity = () => {
+    if (showActivity) {
+      setIsAnimating(true);
+      // Don't immediately hide the content - keep showing it during animation
+      setTimeout(() => {
+        setShowActivity(false);
+        setIsAnimating(false);
+      }, 700);
+    } else {
+      setShowActivity(true);
+    }
+  };
+
+  useEffect(() => {
     fetchRecentActivity();
-  } , []) 
+  }, []);
 
   return (
     <div className="w-full h-full flex gap-2 py-2 px-2 ">
-      <div className="bg-white w-2/3 rounded-md py-2  ">
+      <div className="bg-white h-[84vh] w-full rounded-md py-2  ">
         <Tabs defaultValue="commit" className="w-full">
           <TabsList>
             <TabsTrigger value="request">
@@ -83,8 +97,15 @@ const DashBoardTabSection = () => {
         </Tabs>
       </div>
 
-      <div className=" w-1/3 bg-white rounded-md">
-        <ActivitySection activities={activities} />
+      <div className={`min-w-1/3 max-w-1/3 relative bg-white rounded-md transition-transform duration-700 ease-in-out
+        ${!showActivity || isAnimating ? 'translate-x-full' : 'translate-x-0'}`}
+      >
+        <div onClick={handleActivity} className="absolute right-4 h-6 w-6 top-4 rounded-full bg-purple-700" />
+        
+        {/* Show content while either showActivity is true OR animation is in progress */}
+        {(showActivity || isAnimating) && (
+          <ActivitySection activities={activities} />
+        )}
       </div>
     </div>
   );

@@ -51,6 +51,9 @@ export async function POST(req: NextRequest) {
                     username: username
                 },
             },
+            include:{
+                files:true
+            }
         });
 
         const scheduledCommit = await prisma.commit.findMany({
@@ -59,7 +62,10 @@ export async function POST(req: NextRequest) {
                 repo:repo,
                 user: {
                     username: username
-                }
+                },
+            },
+            include:{
+                files:true
             }
         });
 
