@@ -1,11 +1,31 @@
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
+
+const prisma = new PrismaClient();
+
 export async function GET(req: NextRequest) {
   try {
-    const code = req.nextUrl.searchParams.get("code");
 
-    console.log("This is the code we have:", code);
+    const code = req.nextUrl.searchParams.get("code");
+    const username = req.nextUrl.searchParams.get("state");
+
+
+    const user = await prisma.user.findFirst({
+      where: {
+        username: username!,
+      }
+    });
+
+    if (!user) {
+      return NextResponse.json({
+        status: 404,
+        message: 'No user found'
+      });
+    }
+
+
 
     if (!code) {
       return NextResponse.json({
@@ -15,10 +35,10 @@ export async function GET(req: NextRequest) {
     }
 
     const params = new URLSearchParams({
-    //   client_id: '8b981ce94203e8ae75d15c1d27a359ff',  "Update it later"
-      client_secret: '6474fa8edde0ec6ae8608008473f0657', // Use the corrected variable
+      client_id: process.env.NEXT_PUBLIC_SLACK_CLIENT_ID!,
+      client_secret: process.env.NEXT_PUBLIC_SLACK_CLIENT_SECRET!,
       code: code as string,
-      redirect_uri: 'https://welsh-operators-tragedy-landing.trycloudflare.com/api/auth/callback/slack',
+      redirect_uri: process.env.NEXT_PUBLIC_SLACK_REDIRECT_URI!,
     });
 
     const res = await axios.post(
@@ -39,7 +59,16 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    console.log("Slack OAuth Response:", res.data);
+    const updateUser = await prisma.user.update({
+      where: {
+        id: user.id!
+      },
+      data: {
+        slack_access_token: res.data.access_token
+      }
+    });
+
+    console.log(updateUser);
 
     return NextResponse.redirect("http://localhost:3000/dashboard");
   } catch (error) {

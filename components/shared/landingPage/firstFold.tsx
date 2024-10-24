@@ -27,7 +27,7 @@ const FirstFold = () => {
     <p className='text-[22px]  font-Poppins  text-zinc-700 text-center ' >No more late-night commits or missed PR deadlines! Our platform <br />lets you schedule GitHub commits, pull requests 
     </p>
 
-    <div className=' flex gap-2 w-full items-center justify-center mt-8' >
+    <div className=' flex gap-2 z-50 w-full items-center justify-center mt-8' >
      <Link href={GITHUB_AUTH_URL}>
      <div className='px-6 py-3 rounded-xl flex items-center justify-center bg-zinc-800 text-white cursor-pointer' >
       <p className='font-mono font-medium' >Sign in with github</p>
@@ -38,7 +38,9 @@ const FirstFold = () => {
     </div>
     </div>
     </div>
+    <div className='z-20 mt-52' >
     <GlobeDemo/>
+    </div>
     </>
   )
 }
