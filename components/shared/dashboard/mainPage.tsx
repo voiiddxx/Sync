@@ -61,6 +61,9 @@ const MainPage = () => {
         console.log("Some error occured");
         return;
       }
+
+      console.log(res.data);
+      
       dispatch(updateUserRepo(res.data.repo));
 
       const repoBranches = res.data.repo.branches.map((curr: any) => ({
@@ -126,7 +129,7 @@ const MainPage = () => {
       </div>
 
       {/* bottom sectiom */}
-      <div className="h-[84vh] w-full bg-zinc-100">
+      <div className="max-h-[84vh] overflow-hidden  w-full bg-zinc-100 ">
         <DashBoardTabSection />
       </div>
     </div>

@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
         const commits = await prisma.commit.findMany({
             where: {
                 repo: repo,
+                status:'Requested',
                 user: {
                     username: username
                 },
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
         const scheduledCommit = await prisma.commit.findMany({
             where: {
                 status: 'Scheduled',
+                repo:repo,
                 user: {
                     username: username
                 }

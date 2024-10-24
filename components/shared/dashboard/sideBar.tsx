@@ -1,10 +1,5 @@
 "use client";
-import {
-  Dot,
-  PanelRightOpen,
-  Rabbit,
-  Search,
-} from "lucide-react";
+import { Dot, PanelRightOpen, Rabbit, Search } from "lucide-react";
 import React from "react";
 import {
   BeakerIcon,
@@ -54,8 +49,7 @@ const sideBarOptions = [
 const SideBar = () => {
   const user = useSelector((state: any) => state.user.value);
 
-const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://chronic-jokes-torture-away.trycloudflare.com/api/auth/callback/slack&state=${user.username}`;
-
+  const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://flip-gym-saying-theme.trycloudflare.com/api/auth/callback/slack&state=${user.username}`;
 
   return (
     <div className="h-screen px-4 w-72 border-r py-4">
@@ -108,21 +102,23 @@ const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7
         Your Apps
       </p>
 
-      <Link href={slackUrl} ><div className="flex gap-2 mt-4 items-center justify-between">
-        <div className=" flex items-center gap-2">
-          <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
-            <SlackSVGIcon />
+      <Link href={slackUrl}>
+        <div className="flex gap-2 mt-4 items-center justify-between">
+          <div className=" flex items-center gap-2">
+            <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
+              <SlackSVGIcon />
+            </div>
+            <p className=" text-sm font-medium text-gray-700">Slack</p>
           </div>
-          <p className=" text-sm font-medium text-gray-700">Slack</p>
+          <div>
+            {user?.slack_access_token ? (
+              <Dot className="text-green-500" size={35} />
+            ) : (
+              <Dot className="text-red-500" size={35} />
+            )}
+          </div>
         </div>
-        <div>
-          {user?.slack_access_token ? (
-            <Dot className="text-green-500" size={35} />
-          ) : (
-            <Dot className="text-red-500" size={35} />
-          )}
-        </div>
-      </div></Link>
+      </Link>
       <div className="flex gap-2 mt-4 items-center justify-between">
         <div className=" flex items-center gap-2">
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">

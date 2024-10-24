@@ -33,8 +33,13 @@ export async function POST(req: NextRequest) {
             content: file.content,
           })),
         },
+        status:'Requested'
       },
     });
+
+    console.log(commitRes);
+    
+
     return NextResponse.json({ commitRes });
   } catch (err) {
     console.log(err);

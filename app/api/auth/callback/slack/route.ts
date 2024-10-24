@@ -59,16 +59,19 @@ export async function GET(req: NextRequest) {
       });
     }
 
+
+    console.log("slack res" , res.data);
+    
     const updateUser = await prisma.user.update({
       where: {
         id: user.id!
       },
       data: {
-        slack_access_token: res.data.access_token
+        slack_access_token: res.data.access_token,
+        slack_channel_id: res.data.incoming_webhook.channel_id!
       }
     });
 
-    console.log(updateUser);
 
     return NextResponse.redirect("http://localhost:3000/dashboard");
   } catch (error) {

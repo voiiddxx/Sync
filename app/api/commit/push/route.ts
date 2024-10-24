@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-
+import { WebClient } from '@slack/web-api';
 
 
 const prisma = new PrismaClient();
@@ -34,10 +34,29 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: 400, message: 'No Commit Found' })
         }
 
-        const push = await postCommit(username, commit.repo, commit.files, 'main', user.github_access_token!);
+        const push = await postCommit(username, commit.repo, commit.files, 'main', user.github_access_token! , commit.isForce!);
 
         if (!push) {
             return NextResponse.json({ status: 400, message: 'Failed To commit , try again later!' });
+        }
+
+        const updatedcommit = await prisma.commit.update({
+            where:{
+                id:commitId,
+            },
+            data:{
+                status:'Pushed'
+            }
+        });
+
+        if(!updatedcommit){
+            return NextResponse.json({status:400 , message : 'Failed To Commit , try again later'});
+        }
+
+        const message = 'New Commit Created by voiiddxx'
+
+        if(commit.isSlack){
+            const res = await pushMessageToSlack(`${user.slack_channel_id}` , message , user.slack_access_token!);
         }
 
         return NextResponse.json({ status: 200, message: 'Commit pushed successfully!' })
@@ -53,7 +72,7 @@ export async function POST(req: NextRequest) {
 
 // creating all the function for posting the commit
 
-const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string) => {
+const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string , forced:boolean) => {
     try {
         const newPushedTreeSha = await createTree(username, branch, repo, accessToken, files);
 
@@ -61,7 +80,8 @@ const postCommit = async (username: string, repo: string, files: any, branch: st
         const commitResponse = await axios.post(`https://api.github.com/repos/${username}/${repo}/git/commits`, {
             message: 'Commit Created from Flow',
             tree: newPushedTreeSha,
-            parents: [await getLatestShaforCommit(accessToken, repo, username, branch)]
+            parents: [await getLatestShaforCommit(accessToken, repo, username, branch)],
+            force: forced
         },
             {
                 headers: {
@@ -159,7 +179,6 @@ const createTree = async (username: string, branch: string, repo: string, access
     try {
         const latestCommitSHA = await getLatestShaforCommit(accessToken, repo, username, branch);
 
-        console.log("Latest commit SHA: " + latestCommitSHA);
 
 
         const latestCommitData = await getCommitResBasedOnSHA(latestCommitSHA, accessToken, username, repo);
@@ -169,14 +188,9 @@ const createTree = async (username: string, branch: string, repo: string, access
 
 
 
-
-        console.log("latest tree sha: " + latestTreeSha);
-
-
         const latestTreeData = await getLatestTreeDatabasedonLatestTreeSHA(accessToken, latestTreeSha, username, repo);
 
 
-        console.log("latest tree data: " + latestTreeData);
 
         const existingFile = latestTreeData.tree;
 
@@ -209,7 +223,6 @@ const createTree = async (username: string, branch: string, repo: string, access
             }
             );
 
-            console.log("file added in blobs ", res.data);
             if (!res) {
                 throw new Error('Error occured while uploading file')
             }
@@ -244,3 +257,31 @@ const createTree = async (username: string, branch: string, repo: string, access
 
 
 
+
+
+
+export const pushMessageToSlack =async (channelId : string , message: string , accessTokn: string)=>{
+        try {
+            const slack = new WebClient(process.env.SLACK_BOT_TOKEN);
+            
+            const result = await slack.chat.postMessage({
+                channel: channelId,
+                text: message,
+                username: 'Floww',
+            });
+
+            if(!result.ok){
+                return false;
+            }
+
+            console.log(result);
+            console.log("Message Pushed to slack");
+            
+            
+            return true;
+        } catch (error) {
+            console.log(error);
+            throw new Error('Some Error occured while sending message to slack');
+            
+        }
+}

@@ -9,10 +9,10 @@ import {
   DotsHorizontalIcon,
   GitHubLogoIcon,
 } from "@radix-ui/react-icons";
-import { Clock1, FileChartColumn, GitBranch, GitCommit } from "lucide-react";
+import { Clock1, FileChartColumn, GitBranch, GitCommit, Loader } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { SlackSVGIcon } from "./sideBar";
 import {
@@ -45,7 +45,10 @@ const ScheduledCommit = ({ data }: any) => {
 
   const user = useSelector((state: any) => state.user.value);
 
+  const [isLoading, setisLoading] = useState<boolean>(false);
+
   const postCommit = async (commitId: any) => {
+    setisLoading(true);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/api/commit/push`,
@@ -55,21 +58,27 @@ const ScheduledCommit = ({ data }: any) => {
         }
       );
       if (res.status !== 200) {
+        setisLoading(false);
         console.log("Some error occured");
         return;
       }
-
+      setisLoading(false);
       console.log("Commit scheduled successfully", res.data);
     } catch (error) {
+      setisLoading(false);
       console.log(error);
     }
   };
 
   return (
-    <div className="w-full h-full px-4 font-Poppins">
+    <div className="w-full h-full  px-4 font-Poppins">
       <p className="text-sm text-gray-500">Sheduled Requests</p>
 
-      <div className=" flex  flex-col mt-4  rounded-md gap-2">
+      <div  style={{
+      scrollbarWidth: "none",
+      msOverflowStyle: "none",
+      WebkitOverflowScrolling: "touch",
+    }} className=" flex pb-20  flex-col mt-4 h-screen overflow-scroll  rounded-md gap-2 ">
         {data?.map((curr: any, index: Number) => {
           return (
             <div className="min-h-40 pb-3 w-full rounded-xl border px-6 py-6 ">
@@ -173,7 +182,10 @@ const ScheduledCommit = ({ data }: any) => {
                           postCommit(curr.id);
                         }}
                       >
-                        <p className="text-sm text-white">Push Now</p>
+
+                        {
+                          !isLoading ? <p className="text-sm text-white">Push Now</p> :  <div><Loader className="text-white animate-spin" /></div>
+                        }
                       </div>
                     </PopoverContent>
                   </Popover>

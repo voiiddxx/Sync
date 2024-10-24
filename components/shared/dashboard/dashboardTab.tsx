@@ -71,7 +71,7 @@ const DashBoardTabSection = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="commit">
-            <div className=" h-full w-full px-2 py-1">
+            <div className="  w-full px-2 py-1 ">
               <ScheduledCommit data={repo?.scheduledCommit} />
             </div>
           </TabsContent>

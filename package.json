@@ -21,6 +21,7 @@
     "@react-three/drei": "^9.114.6",
     "@react-three/fiber": "^8.17.10",
     "@reduxjs/toolkit": "^2.3.0",
+    "@slack/web-api": "^7.7.0",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
