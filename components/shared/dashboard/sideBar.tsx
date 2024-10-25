@@ -18,79 +18,112 @@ const sideBarOptions = [
     label: "Dashboard",
     icon: <HomeIcon className="size-5 " />,
     href: "/",
+    popup: "Home",
   },
   {
     label: "Profile",
     icon: <BoltIcon className="size-5" />,
     href: "/",
+    popup: "Profile",
   },
   {
     label: "Commits",
     icon: <FireIcon className="size-5" />,
     href: "/",
+    popup: "Commits",
   },
   {
     label: "Pull Requests",
     icon: <InboxArrowDownIcon className="size-5" />,
     href: "/",
+    popup: "PullRequests",
   },
   {
     label: "Repositories",
     icon: <CircleStackIcon className="size-5" />,
     href: "/",
+    popup: "Repositories",
   },
   {
     label: "Settings",
     icon: <CogIcon className="size-5" />,
     href: "/",
+    popup: "Settings",
   },
 ];
 
 const SideBar = () => {
   const user = useSelector((state: any) => state.user.value);
+  const window = useSelector((state: any) => state.window.value);
 
   const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://flip-gym-saying-theme.trycloudflare.com/api/auth/callback/slack&state=${user.username}`;
 
   return (
-    <div className="h-screen px-4 w-72 border-r py-4">
+    <div className="h-screen px-4  border-r py-4 w-full">
       <div className=" flex items-center justify-between gap-2">
         <div className=" flex gap-1 items-center">
           <Rabbit className="text-blue-700" size={24} strokeWidth={1.5} />
-          <p className="font-mono font-bold text-blue-700">Floww</p>
+          {window && <p className="font-mono font-bold text-blue-700">Floww</p>}
         </div>
 
-        <div>
-          <PanelRightOpen size={20} strokeWidth={1.5} />
-        </div>
+        <div>{/* <PanelRightOpen size={20} strokeWidth={1.5} /> */}</div>
       </div>
 
       {/* search tab */}
       <div className="mt-8">
-        <div className="h-10 w-full flex justify-between items-center px-2 border rounded-md">
+        <div
+          className={`h-10 transition-all duration-500 ${
+            window
+              ? "w-full flex justify-between items-center px-2 border rounded-md"
+              : "w-10 bg-purple-700 shadow-2xl flex items-center justify-center rounded-full"
+          } `}
+        >
           <div className=" flex gap-1 items-center text-zinc-500">
-            <Search size={20} className="" />
-            <p className="font-mono font-medium text-sm ">Search</p>
+            <Search size={20} className={`${!window && "text-white"}`} />
+            {window && <p className="font-mono font-medium text-sm ">Search</p>}
           </div>
 
-          <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center">
-            <p className="font-mono font-bold text-sm">/</p>
-          </div>
+          {window && (
+            <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center">
+              <p className="font-mono font-bold text-sm">/</p>
+            </div>
+          )}
         </div>
       </div>
 
       {/* navigateion section */}
       <div className="w-full flex flex-col">
-        <p className="text-xs font-mono mt-4 text-zinc-500 font-semibold">
-          Navigation
-        </p>
+        {window && (
+          <p className="text-xs font-mono mt-4 text-zinc-500 font-semibold">
+            Navigation
+          </p>
+        )}
         <div className="mt-3"></div>
 
         <div className=" flex flex-col gap-3">
           {sideBarOptions.map((curr: any, index: number) => {
             return (
-              <div className="w-full cursor-pointer h-10 flex items-center gap-2 -md text-gray-600 hover:text-zinc-950 hover:bg-zinc-100 px-2 rounded-lg">
+              <div className="w-full group cursor-pointer relative h-10 flex items-center gap-2 -md text-gray-600 hover:text-zinc-950 hover:bg-zinc-100 px-2 rounded-lg">
                 <div>{curr.icon}</div>
-                <p className="font-medium text-sm  ">{curr.label}</p>
+                <p
+                  className={`font-medium text-sm transition-all duration-500 ${
+                    window ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  {curr.label}
+                </p>
+
+                {!window && (
+                  <div
+                    className={`absolute left-14 px-2 py-1 bg-white border shadow-2xl shadow-slate-800 rounded-lg 
+                items-center justify-center 
+                transition-all duration-100 transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100`}
+                  >
+                    <p className="font-Poppins text-xs tracking-tight">
+                      {curr.popup}
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}
@@ -98,9 +131,11 @@ const SideBar = () => {
       </div>
 
       <div className="h-[1px] w-full bg-zinc-300 mt-8"></div>
-      <p className="text-xs font-mono mt-4 text-gray-500 font-semibold">
-        Your Apps
-      </p>
+      {window && (
+        <p className="text-xs font-mono mt-4 text-gray-500 font-semibold">
+          Your Apps
+        </p>
+      )}
 
       <Link href={slackUrl}>
         <div className="flex gap-2 mt-4 items-center justify-between">
@@ -108,7 +143,14 @@ const SideBar = () => {
             <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
               <SlackSVGIcon />
             </div>
-            <p className=" text-sm font-medium text-gray-700">Slack</p>
+
+            <p
+              className={`text-sm font-medium text-gray-700 transition-all duration-500 ${
+                window ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              Slack
+            </p>
           </div>
           <div>
             {user?.slack_access_token ? (
@@ -124,7 +166,13 @@ const SideBar = () => {
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
             <GithubIcon />
           </div>
-          <p className=" text-sm font-medium text-gray-700">Github</p>
+          <p
+            className={`text-sm font-medium text-gray-700 transition-all duration-500 ${
+              window ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Github
+          </p>
         </div>
         <div>
           <Dot className="text-green-500" size={35} />
@@ -135,7 +183,13 @@ const SideBar = () => {
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
             <LinedInIcon />
           </div>
-          <p className="text-sm font-medium text-gray-700">LinkedIn</p>
+          <p
+            className={`text-sm font-medium text-gray-700 transition-all duration-500 ${
+              window ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Linkedin
+          </p>
         </div>
         <div>
           <Dot className="text-red-500" size={35} />
@@ -146,7 +200,13 @@ const SideBar = () => {
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
             <TwitterIcon />
           </div>
-          <p className=" text-sm font-medium text-gray-700">Twitter</p>
+          <p
+            className={`text-sm font-medium text-gray-700 transition-all duration-500 ${
+              window ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Twitter
+          </p>
         </div>
         <div>
           <Dot className="text-green-500" size={35} />

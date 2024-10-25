@@ -4,6 +4,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from './slices/user';
 import repoReducer from './slices/repoSlice';
+import windorReducer from './slices/windowSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // LocalStorage engine
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
@@ -11,7 +12,8 @@ import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist
 // Combine reducers
 const rootReducer = combineReducers({
   user: userReducer,
-  repo: repoReducer
+  repo: repoReducer,
+  window:windorReducer 
 });
 
 // Configure redux-persist

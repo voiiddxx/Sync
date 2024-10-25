@@ -1,18 +1,26 @@
 "use client";
 
+import { updateSidebar } from "@/store/slices/windowSlice";
 import { InboxArrowDownIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import { Dot, PlusCircle } from "lucide-react";
+import { Dot, PanelLeft, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const TopBar = () => {
   const user = useSelector((state: any) => state.user.value);
-  console.log("this is user", user);
+  const window = useSelector((state: any) => state.window.value);
+  const diapatch = useDispatch();
+
+  console.log(window);
+  
 
   return (
     <div className=" w-full h-full flex items-center px-4 justify-between">
       <div className=" flex items-center gap-2 px-2">
+        <PanelLeft onClick={()=>{
+          diapatch(updateSidebar(!window));
+        }} size={20} className="text-zinc-700 mr-4"/>
         <div className="h-8 w-8 rounded-full bg-slate-300 ">
           <Image
             className="rounded-full"
