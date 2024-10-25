@@ -12,7 +12,6 @@ const TopBar = () => {
   const window = useSelector((state: any) => state.window.value);
   const diapatch = useDispatch();
 
-  console.log(window);
   
 
   return (

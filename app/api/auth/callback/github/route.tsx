@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
   try {
-    const code = req.nextUrl.searchParams.get("code");
+    const url = new URL(req.url);
+    const code = url.searchParams.get('code');
 
     if (!code) {
       throw new Error("No code provided");

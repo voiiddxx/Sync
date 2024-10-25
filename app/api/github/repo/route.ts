@@ -44,7 +44,8 @@ async function fetchAllRepos(token: string) {
 // API route handler to fetch and return formatted repositories
 export async function GET(req: NextRequest) {
   try {
-    const username = req.nextUrl.searchParams.get("username");
+    const url = new URL(req.url);
+    const username = url.searchParams.get("username");
     if (!username) {
       return NextResponse.json({
         status: 400,
