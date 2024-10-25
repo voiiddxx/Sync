@@ -7,7 +7,7 @@ import {
   FireIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/solid";
-import { GitPullRequestArrow } from "lucide-react";
+import { GitPullRequestArrow, PanelLeft } from "lucide-react";
 import ScheduledCommit from "./shceduledCommit";
 import RequestedCommits from "./requestedCommit";
 import ActivitySection from "./activityPage";
@@ -19,7 +19,7 @@ const DashBoardTabSection = () => {
   const repo = useSelector((state: any) => state.repo.value);
   const user = useSelector((state: any) => state.user.value);
   const [activities, setActivities] = useState<any>([]);
-  const [showActivity, setShowActivity] = useState<boolean>(false);
+  const [showActivity, setShowActivity] = useState<boolean>(true);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const fetchRecentActivity = async () => {
@@ -39,7 +39,7 @@ const DashBoardTabSection = () => {
       setTimeout(() => {
         setShowActivity(false);
         setIsAnimating(false);
-      }, 700);
+      }, 400);
     } else {
       setShowActivity(true);
     }
@@ -97,11 +97,15 @@ const DashBoardTabSection = () => {
         </Tabs>
       </div>
 
-      <div className={`min-w-1/3 max-w-1/3 relative bg-white rounded-md transition-transform duration-700 ease-in-out
+      <div className={`min-w-1/3 max-w-1/3 relative bg-white rounded-md transition-transform duration-500 ease-in-out
         ${!showActivity || isAnimating ? 'translate-x-full' : 'translate-x-0'}`}
-      >
-        <div onClick={handleActivity} className="absolute right-4 h-6 w-6 top-4 rounded-full bg-purple-700" />
-        
+      > 
+
+    
+        {/* <div onClick={handleActivity} className="absolute right-4 h-6 w-6 top-4 rounded-full bg-purple-700" /> */}
+        <div onClick={handleActivity} className="p-1 cursor-pointer hover:bg-zinc-50 rounded-md flex items-center justify-center absolute right-4 top-4" >
+          <PanelLeft size={16} />
+        </div>
         {/* Show content while either showActivity is true OR animation is in progress */}
         {(showActivity || isAnimating) && (
           <ActivitySection activities={activities} />
