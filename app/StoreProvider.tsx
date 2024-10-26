@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-
+import { Toaster } from "@/components/ui/toaster"
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -13,6 +13,7 @@ const StoreProvider = ({children}:any) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {children}
+        <Toaster />
       </PersistGate>
     </Provider>
   )

@@ -72,10 +72,10 @@ const SideBar = () => {
       {/* search tab */}
       <div className="mt-8">
         <div
-          className={`h-10 transition-all duration-500 ${
+          className={`h-10 shadow-sm transition-all duration-500 ${
             window
               ? "w-full flex justify-between items-center px-2 border rounded-md"
-              : "w-10 bg-purple-700 shadow-2xl flex items-center justify-center rounded-full"
+              : "w-10 bg-black shadow-lg flex items-center justify-center rounded-full"
           } `}
         >
           <div className=" flex gap-1 items-center text-zinc-500">
@@ -115,7 +115,7 @@ const SideBar = () => {
 
                 {!window && (
                   <div
-                    className={`absolute left-14 px-2 py-1 bg-white border shadow-2xl shadow-slate-800 rounded-lg 
+                    className={`absolute left-14 px-2 py-2 bg-zinc-800 text-white border shadow-2xl shadow-slate-800 rounded-lg 
                 items-center justify-center 
                 transition-all duration-100 transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100`}
                   >
