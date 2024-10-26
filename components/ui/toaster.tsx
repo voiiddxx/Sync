@@ -10,6 +10,7 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 import { InfoCircledIcon } from "@radix-ui/react-icons"
+import { BadgeCheckIcon } from "lucide-react"
 
 export function Toaster() {
   const { toasts } = useToast()
@@ -20,7 +21,7 @@ export function Toaster() {
         return (
           <Toast key={id} {...props}>
             <div className="flex gap-2 ml-2 items-center text-zinc-300">
-              <InfoCircledIcon className="size-5 " />
+              <BadgeCheckIcon className="size-5 text-green-500 shadow-xl" />
               {description && (
                 <ToastDescription >{description}</ToastDescription>
               )}

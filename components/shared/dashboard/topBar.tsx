@@ -3,27 +3,32 @@
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { updateSidebar } from "@/store/slices/windowSlice";
-import { InboxArrowDownIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import { Dot, PanelLeft, PlusCircle } from "lucide-react";
+import { BellAlertIcon, InboxArrowDownIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { Dot, GitBranch, Github, PanelLeft, PlusCircle, Rabbit } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { SlackSVGIcon } from "./sideBar";
 
 const TopBar = () => {
   const user = useSelector((state: any) => state.user.value);
   const window = useSelector((state: any) => state.window.value);
   const diapatch = useDispatch();
-  const { toast } = useToast()
-  
-  
+  const { toast } = useToast();
+  const [showDynamic, setshowDynamic] = useState<number>(1);
 
   return (
     <div className=" w-full h-full flex items-center px-4 justify-between">
       <div className=" flex items-center  gap-2 px-2">
-        <div className="px-2 py-2 transition-all duration-200  cursor-pointer hover:bg-zinc-100 flex items-center rounded-lg justify-center" >
-        <PanelLeft onClick={()=>{
-          diapatch(updateSidebar(!window));
-        }} size={20} className="text-zinc-700 "/>
+        <div className="px-2 py-2 transition-all duration-200  cursor-pointer hover:bg-zinc-100 flex items-center rounded-lg justify-center">
+          <PanelLeft
+            onClick={() => {
+              diapatch(updateSidebar(!window));
+            }}
+            size={20}
+            className="text-zinc-700 "
+          />
         </div>
         <div className="h-8 w-8 rounded-full bg-slate-300 ">
           <Image
@@ -40,15 +45,76 @@ const TopBar = () => {
         </p>
       </div>
 
+      {/* dynamic island section  */}
 
-      <div onClick={()=>{
+      <div
+        onClick={() => {
+          setshowDynamic(showDynamic === 0 ? 1 : showDynamic === 1 ? 2 : 0);
+        }}
+        className={` h-10 transition-all ease-in-out duration-300 ${
+          showDynamic === 0 ? "w-14" : showDynamic === 1 ? "w-40" : "w-[450px]"
+        } cursor-pointer bg-zinc-900 rounded-full shadow-lg `}
+      >
+
+          {
+            showDynamic === 0 && (
+              <div className="w-full h-full flex items-center justify-center" >
+                <Rabbit size={20} strokeWidth={1.25} className="text-white" />
+              </div>
+            )
+          }
+
+        {showDynamic === 1 && (
+          <div className=" w-full h-full  flex items-center justify-between px-4">
+            <div>
+              <Github size={15} className="text-white" />
+            </div>
+            <p className="text-white text-xs">{user.username}</p>
+          </div>
+        )}
+
+        {showDynamic === 2 && (
+          <div className=" w-full h-full px-4 flex  justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className=" h-4 w-4 rounded-full bg-white">
+                <Image
+                  className="rounded-full shadow-xl"
+                  src={`${user.github_avatar_url}`}
+                  height={1500}
+                  width={1500}
+                  alt="image"
+                />
+              </div>
+              <p className="text-white text-xs font-Poppins tracking-tight" >voiiddxx/floww</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <GitBranch className="text-white" size={15} strokeWidth={1.25} />
+              <p className="text-white text-xs font-Poppins tracking-tight" >main</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <BellAlertIcon className="text-white size-4"  />
+              <p className="text-white text-xs font-Poppins tracking-tight" >2 New</p>
+            </div>
+            <div className="flex items-center gap-2">
+            <div className="h-7 w-7 shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
+              <SlackSVGIcon />
+            </div>
+              <p className="text-white text-xs font-Poppins tracking-tight" >Connected</p>
+            </div>
+      
+         
+          </div>
+        )}
+      </div>
+
+      {/* <div onClick={()=>{
           toast({
             description:'Your Commit Has been Scheduled',
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
+            action: <ToastAction altText="Try again">View Here</ToastAction>,
           })
       }} >
         <p>tap me</p>
-      </div>
+      </div> */}
 
       <div className="flex  gap-3 items-center">
         <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center">
