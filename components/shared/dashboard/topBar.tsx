@@ -17,6 +17,7 @@ const TopBar = () => {
   const diapatch = useDispatch();
   const { toast } = useToast();
   const [showDynamic, setshowDynamic] = useState<number>(1);
+  const [isAnimating, setisAnimating] = useState<boolean>(false)
 
   return (
     <div className=" w-full h-full flex items-center px-4 justify-between">
@@ -50,6 +51,10 @@ const TopBar = () => {
       <div
         onClick={() => {
           setshowDynamic(showDynamic === 0 ? 1 : showDynamic === 1 ? 2 : 0);
+          setisAnimating(true)
+          setTimeout(() => {
+              setisAnimating(false);
+          }, 500);
         }}
         className={` h-10 transition-all ease-in-out duration-300 ${
           showDynamic === 0 ? "w-14" : showDynamic === 1 ? "w-40" : "w-[450px]"
@@ -67,7 +72,7 @@ const TopBar = () => {
         {showDynamic === 1 && (
           <div className=" w-full h-full  flex items-center justify-between px-4">
             <div>
-              <Github size={15} className="text-white" />
+              <Github size={15} className={`text-white transition-all  ${isAnimating && 'animate-bounce duration-200'}`} />
             </div>
             <p className="text-white text-xs">{user.username}</p>
           </div>
