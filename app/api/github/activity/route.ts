@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+
+
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
@@ -6,7 +9,8 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
     try {
-        const username = req.nextUrl.searchParams.get('username');
+        const url = new URL(req.url);
+        const username = url.searchParams.get('username');
 
         if (!username) {
             return NextResponse.json({ status: 400, message: 'No username found' });
