@@ -17,21 +17,28 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useToast } from "@/hooks/use-toast";
+import { updateUserRepo } from "@/store/slices/repoSlice";
 
 const ScheduleModalContent = ({ data }: any) => {
   const user = useSelector((state: any) => state.user.value);
+  const { toast } = useToast();
 
   const [date, setDate] = useState<Date>();
   const [commit_message, setcommit_message] = useState<string>("");
   const [isForcePush, setisForcePush] = useState<boolean>(false);
   const [isSlackReminder, setisSlackReminder] = useState<boolean>(false);
   const [isLoading, setisLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   const handleCommitSubmission = async () => {
     try {
       if (commit_message == "") {
-        // show alert and return back
-        alert("Commit message is required");
+        toast({
+          description: "Commit message is required",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -51,14 +58,19 @@ const ScheduleModalContent = ({ data }: any) => {
       if (res.status !== 200) {
         setisLoading(false);
         console.log("Some error occured");
-        // show popup
+        toast({
+          description: "Some Error Occured!",
+        });
       }
-      console.log(res.data);
+      dispatch(updateUserRepo(res.data.data));
+      console.log(res.data.data , "sorted or updated");
+      toast({
+        description: "Commit has been successfully scheduled!",
+      });
       setisLoading(false);
     } catch (error) {
       setisLoading(false);
       console.log(error);
-      // show popup of error
     }
   };
 

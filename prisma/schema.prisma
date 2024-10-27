@@ -17,12 +17,12 @@ model User {
   id        Int      @id @default(autoincrement())
   username  String
   email     String
-  google_access_token String?
-  github_access_token String?
-  github_avatar_url  String?
-  slack_access_token String?
-  slack_channel_id String?
-  bio       String? 
+  google_access_token String? @default("")
+  github_access_token String? @default("")
+  github_avatar_url  String? @default("")
+  slack_access_token String? @default("")
+  slack_channel_id String? @default("")
+  bio       String?  @default("")
   commits   Commit[] 
 }
 
@@ -30,9 +30,9 @@ model Commit {
   id              Int           @id @default(autoincrement())
   repo            String
   branch          String
-  status          String? 
-  commit_message  String?
-  commit_desc     String?
+  status          String? @default("")
+  commit_message  String? @default("")
+  commit_desc     String? @default("")
   scheduled_time  DateTime @default(now())
   isSlack         Boolean @default(false)
   isForce         Boolean @default(false)

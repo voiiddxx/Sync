@@ -1,3 +1,4 @@
+import { getUserRepos } from "@/modules/repoModule";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { log } from "node:console";
@@ -142,8 +143,10 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ status: 500, message: "Some error occured" });
     }
 
+    const data = await getUserRepos(user , commit.repo);
     return NextResponse.json({
       status: 200,
+      data:data,
       message: "Commit Updated Successfully!",
     });
   } catch (error) {

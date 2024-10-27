@@ -71,8 +71,8 @@ const RequestedCommits = ({ data }: any) => {
                 <div className=" flex items-center gap-1 mb-1">
                   <CustomModal
                     prevItem={
-                      <div className="px-2 py-1 border bg-white rounded-md">
-                        <p className="text-[10px]  font-Poppins text-blue-500">
+                      <div className="px-2 py-1 border bg-white rounded-md shadow-sm">
+                        <p className="text-[10px]  font-Poppins text-blue-700 ">
                           Schedule
                         </p>
                       </div>

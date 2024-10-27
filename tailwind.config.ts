@@ -11,6 +11,16 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		keyframes:{
+			stretch: {
+				'0%': { transform: 'scaleX(1)' }, // No stretch
+				'50%': { transform: 'scaleX(1.1)' }, // Slight stretch
+				'100%': { transform: 'scaleX(1)' }, // Back to original size
+			  },
+		},
+		animation:{
+			stretch: 'stretch 2s cubic-bezier(0.4, 0, 0.2, 1)',
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

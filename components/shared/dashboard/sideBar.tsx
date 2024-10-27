@@ -115,11 +115,11 @@ const SideBar = () => {
 
                 {!window && (
                   <div
-                    className={`absolute left-14 px-2 py-2 bg-zinc-800 text-white border shadow-2xl shadow-slate-800 rounded-lg 
+                    className={`absolute left-14 px-2 py-2 bg-zinc-800 z-50 text-white border shadow-2xl shadow-slate-800 rounded-lg 
                 items-center justify-center 
                 transition-all duration-100 transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100`}
                   >
-                    <p className="font-Poppins text-xs tracking-tight">
+                    <p className="font-Poppins text-xs tracking-tight ">
                       {curr.popup}
                     </p>
                   </div>

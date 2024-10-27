@@ -1,6 +1,7 @@
 "use client";
 import LandingPage from "@/components/shared/landingPage/landingPage";
-import { updateUser } from "@/store/slices/user";
+import { updateUserValue } from "@/store/slices/user";
+
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -20,19 +21,28 @@ export default function Home() {
         const res = await axios.get(
           `http://localhost:3000/api/user?username=${username}`
         );
-        if (res.status != 200) {
-          // show popup for nu user found
+  
+        if (res.status !== 200 || !res.data.data) {
+          console.log("No user found");
           return;
         }
-        console.log(res.data.data , "this is");
-        
-        dispatch(updateUser(res.data.data));
+  
+        console.log("Data received:", res.data.data);
+        // Ensure that the response data is an object
+        if (typeof res.data.data !== 'object' || res.data.data === null) {
+          throw new Error("Invalid user data received");
+        }
+
+
+        // Dispatch the user data
+        dispatch(updateUserValue(res.data.data));
+        console.log("User stored");
       }
     } catch (error) {
-      console.log("No Data found");
-      // show popup
+      console.log("No Data found", error);
     }
   };
+  
 
   useEffect(() => {
     if (username) {
