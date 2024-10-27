@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  ArrowPathIcon,
-  ChevronUpDownIcon,
   PlusCircleIcon,
   ServerStackIcon,
 } from "@heroicons/react/24/solid";

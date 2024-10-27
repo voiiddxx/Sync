@@ -1,6 +1,5 @@
 import { getUserRepos } from "@/modules/repoModule";
 import { PrismaClient } from "@prisma/client";
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
             repo: data,
             status: 200
         });
-        
+
     } catch (error) {
         console.log(error);
         return NextResponse.json({ status: 500, message: 'Some issue occured' });

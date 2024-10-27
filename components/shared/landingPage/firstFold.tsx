@@ -1,5 +1,6 @@
 import { GlobeDemo } from '@/components/ui/GitGlobe';
 import { ChevronRight } from 'lucide-react'
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
@@ -29,18 +30,20 @@ const FirstFold = () => {
 
     <div className=' flex gap-2 z-50 w-full items-center justify-center mt-8' >
      <Link href={GITHUB_AUTH_URL}>
-     <div className='px-6 py-3 rounded-xl flex items-center justify-center bg-zinc-800 text-white cursor-pointer' >
+     <div className='px-6 py-3 rounded-xl flex items-center justify-center bg-gradient-to-b from-zinc-800 shadow-lg to-zinc-700 text-white cursor-pointer' >
       <p className='font-mono font-medium' >Sign in with github</p>
       </div></Link>
       <div className='px-6 py-3 rounded-xl flex items-center justify-center border border-zinc-400 text-zinc-800 cursor-pointer' >
       <p className='font-mono font-semibold' >Star on github</p>
       </div>
     </div>
+    <Image className='' src={`/nodata.png`} height={1500} width={1500} alt='image'/>
     </div>
     </div>
     <div className='z-20 mt-52' >
     <GlobeDemo/>
     </div>
+
     </>
   )
 }
