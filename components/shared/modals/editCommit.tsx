@@ -15,15 +15,24 @@ import {
   GitBranchIcon,
   GitCommit,
   GithubIcon,
+  Loader,
   LucideLink2,
 } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const EditCommit = ({ data, closeModal }: any) => {
+  const [isLoading, setisLoading] = useState<boolean>(false);
 
-    const user = useSelector((state:any)=>state.user.value);
+  const hanldeUpdation = () => {
+    setisLoading(true);
+    setTimeout(() => {
+      setisLoading(false);
+    }, 4000);
+  };
+
+  const user = useSelector((state: any) => state.user.value);
   const filePath = [
     {
       path: "/src/index.js",
@@ -136,18 +145,41 @@ const EditCommit = ({ data, closeModal }: any) => {
         </div>
       </div>
 
-      <div className=" w-full flex items-center justify-between  mt-14" >
-          <div className=" flex gap-2 items-center" >
-            <div className="h-6 w-6 bg-black rounded-full flex items-center justify-center" >
-            <Image className=" h-full w-full object-cover rounded-full" src={user.github_avatar_url} height={1500} width={1500} alt="logo" />
-            </div>
-            <p className=" text-xs tracking-tight font-medium" >created by voiddxx <span className="text-gray-600 font-normal" >4 days ago</span></p>
+      <div className=" w-full flex items-center justify-between  mt-14">
+        <div className=" flex gap-2 items-center">
+          <div className="h-6 w-6 bg-black rounded-full flex items-center justify-center">
+            <Image
+              className=" h-full w-full object-cover rounded-full"
+              src={user.github_avatar_url}
+              height={1500}
+              width={1500}
+              alt="logo"
+            />
           </div>
+          <p className=" text-xs tracking-tight font-medium">
+            created by voiddxx{" "}
+            <span className="text-gray-600 font-normal">4 days ago</span>
+          </p>
+        </div>
 
-          <div className=" px-4 rounded-lg py-2 bg-gradient-to-b from-purple-700 to-purple-500 flex items-center justify-center" >
-            <p className="text-xs  text-white" >Update commit
-            </p>
-          </div>
+        <div
+          onClick={hanldeUpdation}
+          className="relative px-4 py-2 rounded-lg bg-gradient-to-b from-purple-700 to-purple-500 flex items-center justify-center 
+    transition-transform duration-300 ease-in-out cursor-pointer hover:scale-105 hover:from-purple-600 hover:to-purple-400"
+        >
+          <p
+            className={`text-xs text-white transition-opacity duration-500 ${
+              isLoading ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            Update commit
+          </p>
+          <Loader
+            className={`absolute animate-spin text-white w-5 h-5 transition-opacity duration-1000 ${
+              isLoading ? "opacity-100 " : "opacity-0"
+            }`}
+          />
+        </div>
       </div>
     </div>
   );
