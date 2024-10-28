@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const CustomModal = ({ prevItem, modalContent }: any) => {
+const CustomModal = ({ prevItem, modalContent  }: any) => {
+
+  const [open, setOpen] = useState<any>(false);
+
+  const closeModal = () => setOpen(false);
   return (
-    <Dialog>
-      <DialogTrigger>{prevItem}</DialogTrigger>
-      <DialogContent>
-        {modalContent}
-      </DialogContent>
+    <Dialog open={open} onOpenChange={setOpen} >
+      <DialogTrigger>
+      <div onClick={() => setOpen(true)}>{prevItem}</div></DialogTrigger>
+      <DialogContent>{modalContent(closeModal)}</DialogContent>
     </Dialog>
   );
 };

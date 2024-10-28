@@ -1,14 +1,18 @@
 "use client";
 import {
   ClockIcon,
+  FireIcon,
   FolderIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
+import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
-  DotsHorizontalIcon,
-  GitHubLogoIcon,
-} from "@radix-ui/react-icons";
-import { Clock1, FileChartColumn, GitBranch, GitCommit, Loader } from "lucide-react";
+  Clock1,
+  FileChartColumn,
+  GitBranch,
+  GitCommit,
+  Loader,
+} from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -69,18 +73,57 @@ const ScheduledCommit = ({ data }: any) => {
     }
   };
 
+  if (data?.length < 1) {
+    return (
+      <div className=" h-full w-full flex items-center justify-center overflow-hidden">
+        <div className="relative">
+          <div className=" h-[350px] w-[450px] flex items-center  justify-center">
+            <Image
+              className="h-full w-full object-cover  animate-stretch "
+              src={`/nodata.png`}
+              height={1500}
+              width={1500}
+              alt="image"
+            />
+          </div>
+          <div className=" w-full flex flex-col items-center justify-center">
+            <p className=" text-[15px] font-Poppins text-center font-semibold">
+              Requested commit will show here!
+            </p>
+            <p className="text-[12px] text-center mt-2 font-medium text-zinc-700 font-Poppins">
+              Hold tight! , we are looking for your requests, <br /> please
+              check back in few minutes.
+            </p>
 
-  console.log("this is data" , data);
-  
+            <div className=" w-full flex items-center justify-center gap-2 mt-4">
+              <div className=" px-2 py-2 border border-zinc-400 rounded-md flex items-center justify-center gap-1">
+                <Loader size={15} />
+                <p className="text-xs font-Poppins font-medium">Refresh now </p>
+              </div>
+              <div className=" px-2 py-2 shadow-md bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-700 rounded-md flex items-center justify-center gap-1">
+                <FireIcon className="size-4 text-white" />
+                <p className="text-xs text-white font-Poppins font-medium">
+                  Create commit{" "}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full  px-4 font-Poppins">
       <p className="text-sm text-gray-500">Sheduled Requests</p>
-
-      <div  style={{
-      scrollbarWidth: "none",
-      msOverflowStyle: "none",
-      WebkitOverflowScrolling: "touch",
-    }} className=" flex pb-20  flex-col mt-4 h-screen overflow-scroll  rounded-md gap-2 ">
+      <div
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
+        className=" flex pb-20  flex-col mt-4 h-screen overflow-scroll  rounded-md gap-2 "
+      >
         {data?.map((curr: any, index: Number) => {
           return (
             <div className="min-h-40 pb-3 w-full rounded-xl border px-6 py-6 ">
@@ -124,11 +167,7 @@ const ScheduledCommit = ({ data }: any) => {
                     <SlackSVGIcon />
                   </div>
                   <p className="text-xs tracking-tight px-1 py-1 text-gray-600  font-medium ">
-                    Slack <span>
-                      {
-                        curr.isSlack ? 'Enabled'  : 'Disabled'
-                      }
-                    </span>
+                    Slack <span>{curr.isSlack ? "Enabled" : "Disabled"}</span>
                   </p>
                 </div>
                 <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
@@ -136,11 +175,8 @@ const ScheduledCommit = ({ data }: any) => {
                     <RocketLaunchIcon className="size-4 text-gray-600" />
                   </div>
                   <p className="text-xs tracking-tight text-gray-600  font-medium ">
-                    Force Push <span>
-                    {
-                        curr.isForce ? 'Enabled'  : 'Disabled'
-                      }
-                    </span>
+                    Force Push{" "}
+                    <span>{curr.isForce ? "Enabled" : "Disabled"}</span>
                   </p>
                 </div>
               </div>
@@ -192,10 +228,13 @@ const ScheduledCommit = ({ data }: any) => {
                           postCommit(curr.id);
                         }}
                       >
-
-                        {
-                          !isLoading ? <p className="text-sm text-white">Push Now</p> :  <div><Loader className="text-white animate-spin" /></div>
-                        }
+                        {!isLoading ? (
+                          <p className="text-sm text-white">Push Now</p>
+                        ) : (
+                          <div>
+                            <Loader className="text-white animate-spin" />
+                          </div>
+                        )}
                       </div>
                     </PopoverContent>
                   </Popover>

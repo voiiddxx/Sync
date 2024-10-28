@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { updateUserRepo } from "@/store/slices/repoSlice";
 
-const ScheduleModalContent = ({ data }: any) => {
+const ScheduleModalContent = ({ data , closeModal }: any) => {
   const user = useSelector((state: any) => state.user.value);
   const { toast } = useToast();
 
@@ -39,6 +39,7 @@ const ScheduleModalContent = ({ data }: any) => {
           description: "Commit message is required",
           variant: "destructive",
         });
+        closeModal();
         return;
       }
 
@@ -54,23 +55,25 @@ const ScheduleModalContent = ({ data }: any) => {
           commitId: data.id,
         }
       );
-
       if (res.status !== 200) {
         setisLoading(false);
         console.log("Some error occured");
         toast({
           description: "Some Error Occured!",
         });
+        closeModal();
       }
       dispatch(updateUserRepo(res.data.data));
       console.log(res.data.data , "sorted or updated");
       toast({
         description: "Commit has been successfully scheduled!",
       });
+      closeModal();
       setisLoading(false);
     } catch (error) {
       setisLoading(false);
       console.log(error);
+      closeModal();
     }
   };
 
@@ -200,7 +203,7 @@ const ScheduleModalContent = ({ data }: any) => {
           {/* slack end */}
 
           <div className=" mt-6 w-full flex items-center gap-2 justify-end">
-            <Button variant={"outline"}>
+            <Button className="transition-all duration-300" variant={"outline"}>
               <p className="text-xs font-normal text-gray-800 font-Poppins">
                 Cancel
               </p>
