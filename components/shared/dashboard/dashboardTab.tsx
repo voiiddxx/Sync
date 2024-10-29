@@ -85,12 +85,12 @@ const DashBoardTabSection = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="commit">
-            <div className="  w-full px-2 py-1 ">
+            <div className="w-full px-2 py-1 ">
               <ScheduledCommit data={repo?.scheduledCommit} />
             </div>
           </TabsContent>
           <TabsContent value="request">
-            <div className=" h-full w-full px-2 py-1">
+            <div className="h-[75vh] overflow-hidden w-full px-2 py-1">
               <RequestedCommits data={repo?.reqCommit} />
             </div>
           </TabsContent>
