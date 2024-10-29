@@ -16,7 +16,7 @@ const FirstFold = () => {
         <div className='bg-zinc-600 text-white rounded-full px-2' >
           <p className='text-sm' >New</p>
         </div>
-      <p className='text-sm text-zinc-700 font-medium ml-2' > Our AI Powered Code Reviewer comming soon 🎉</p>
+      <p className='text-sm text-zinc-700 font-medium ml-2' > PR Scheduler on the way of launch 🎉</p>
       <div>
         <ChevronRight className='group-hover:scale-125 transition-all'  strokeWidth={1.25} size={16} />
       </div>
