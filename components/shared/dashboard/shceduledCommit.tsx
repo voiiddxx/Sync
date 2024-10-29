@@ -1,12 +1,16 @@
 "use client";
 import {
+  CalendarDateRangeIcon,
   ClockIcon,
   FireIcon,
   FolderIcon,
+  PencilSquareIcon,
+  RectangleStackIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
+  ChevronRight,
   Clock1,
   FileChartColumn,
   GitBranch,
@@ -24,25 +28,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import axios from "axios";
+import CustomModal from "../modal";
+import EditScheduleModal from "../commits/editSchedulemodal";
 
 const ScheduledCommit = ({ data }: any) => {
   const dataforpopOver = [
     {
       label: "Edit commit",
-      icon: <GitCommit size={20} />,
+      icon: <GitHubLogoIcon className="size-4" />,
     },
-    {
-      label: "Change Branch",
-      icon: <GitBranch size={16} />,
-    },
-
     {
       label: "Reschedule commit",
-      icon: <Clock1 size={16} />,
-    },
-    {
-      label: "View File Changes",
-      icon: <FileChartColumn size={16} />,
+      icon: <CalendarDateRangeIcon className="size-4" />,
     },
   ];
 
@@ -208,33 +205,87 @@ const ScheduledCommit = ({ data }: any) => {
                         <DotsHorizontalIcon />
                       </div>
                     </PopoverTrigger>
-                    <PopoverContent className="flex  flex-col  px-4 w-60 py-2 ">
-                      {dataforpopOver.map((item: any) => (
+                    <PopoverContent className="flex  flex-col   w-60  ">
+                      <div className=" h-12 flex items-center pl-4 gap-2 justify-start px-2 w-full bg-zinc-50 border-b rounded-t-xl">
+                        <RectangleStackIcon className="size-5 text-gray-800" />
+                        <p className="text-sm font-medium">Manage</p>
+                      </div>
+                      <div className=" flex flex-col  ">
+                        <CustomModal
+                          prevItem={
+                            <div
+                              key={""}
+                              className="h-12 w-full hover:bg-zinc-100  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                            >
+                              <div className=" flex items-center gap-2">
+                                <div className="flex items-center gap-1 text-gray-700">
+                                  {/* {item.icon} */}
+                                  <GitHubLogoIcon className="size-4" />
+                                </div>
+                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-800">
+                                  Edit commit
+                                </p>
+                              </div>
+                              <div>
+                                <ChevronRight className="size-3" />
+                              </div>
+                            </div>
+                          }
+                          modalContent={(closeModal: any) => (
+                            <EditScheduleModal
+                              data={data}
+                              closeModal={closeModal}
+                            />
+                          )}
+                        />
+                        <CustomModal
+                          prevItem={
+                            <div
+                              key={""}
+                              className="h-12 w-full hover:bg-zinc-100  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                            >
+                              <div className=" flex items-center gap-2">
+                                <div className="flex items-center gap-1 text-gray-700">
+                                  {/* {item.icon} */}
+                                  <GitHubLogoIcon className="size-4" />
+                                </div>
+                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-800">
+                                  Reschedule commit
+                                </p>
+                              </div>
+                              <div>
+                                <ChevronRight className="size-3" />
+                              </div>
+                            </div>
+                          }
+                          modalContent={(closeModal: any) => (
+                            <EditScheduleModal
+                              data={data}
+                              closeModal={closeModal}
+                            />
+                          )}
+                        />
+                      </div>
+                      <div className=" pb-2 px-2">
                         <div
-                          key={item.label}
-                          className="flex items-center gap-2 font-Poppins hover:bg-zinc-50 px-2 py-3 rounded-xl w-full cursor-pointer"
+                          className="h-8 w-full flex items-center justify-center bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-700  rounded-lg mt-3 cursor-pointer"
+                          onClick={() => {
+                            postCommit(curr.id);
+                          }}
                         >
-                          <div className="flex items-center gap-1 text-gray-700">
-                            {item.icon}
-                          </div>
-                          <p className="text-sm font-normal tracking-tight  text-black">
-                            {item.label}
+                          <p
+                            className={`text-xs font-Poppins  text-white transition-opacity duration-500 ${
+                              isLoading ? "opacity-0" : "opacity-100"
+                            }`}
+                          >
+                            Push anyway
                           </p>
+                          <Loader
+                            className={`absolute animate-spin text-white w-5 h-5 transition-opacity duration-1000 ${
+                              isLoading ? "opacity-100 " : "opacity-0"
+                            }`}
+                          />
                         </div>
-                      ))}
-                      <div
-                        className="h-10 w-full flex items-center justify-center bg-gradient-to-b from-purple-600 to-purple-700  rounded-lg mt-3 cursor-pointer"
-                        onClick={() => {
-                          postCommit(curr.id);
-                        }}
-                      >
-                        {!isLoading ? (
-                          <p className="text-sm text-white">Push Now</p>
-                        ) : (
-                          <div>
-                            <Loader className="text-white animate-spin" />
-                          </div>
-                        )}
                       </div>
                     </PopoverContent>
                   </Popover>

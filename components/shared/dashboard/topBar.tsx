@@ -3,7 +3,7 @@
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { updateSidebar } from "@/store/slices/windowSlice";
-import { BellAlertIcon, InboxArrowDownIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
+import { BellAlertIcon, InboxArrowDownIcon, PlusCircleIcon, QrCodeIcon } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Dot, GitBranch, Github, PanelLeft, PlusCircle, Rabbit } from "lucide-react";
 import Image from "next/image";
@@ -60,7 +60,7 @@ const TopBar = () => {
       }, 300);
     }}
     className={` h-10 transition-all shadow-sm ease-in-out duration-500 ${
-      showDynamic === 0 ? "w-36" : showDynamic === 1 ? "w-40" : "w-[450px]"
+      showDynamic === 0 ? "w-36" : showDynamic === 1 ? "w-40 " : "w-[450px]"
     } cursor-pointer bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-700 rounded-full  ${isAnimating ? 'animate-stretch' : ''} `}
   >
 
@@ -75,9 +75,9 @@ const TopBar = () => {
     {showDynamic === 1 && (
       <div className={` w-full h-full  flex items-center justify-between px-4 transition-opacity duration-300 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
         <div>
-          <Github size={15} className={`text-white transition-all  ${isAnimating && 'animate-bounce duration-200'}`} />
+          <QrCodeIcon  className={`text-white size-4 transition-all  ${isAnimating && 'animate-bounce duration-200'}`} />
         </div>
-        <p className={`text-white text-xs  `}>{user?.username || 'voiiddxx'}</p>
+        <p className={`text-white text-xs font-Poppins `}>{user?.username || 'voiiddxx'}</p>
       </div>
     )}
 
