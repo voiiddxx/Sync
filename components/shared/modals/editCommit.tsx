@@ -1,5 +1,6 @@
+import { useToast } from "@/hooks/use-toast";
+import { updateUserRepo } from "@/store/slices/repoSlice";
 import {
-  ChevronDoubleDownIcon,
   ChevronDownIcon,
   ClockIcon,
   CubeIcon,
@@ -9,41 +10,69 @@ import {
   ShareIcon,
   SparklesIcon,
 } from "@heroicons/react/24/solid";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import axios from "axios";
 
 import {
   GitBranchIcon,
-  GitCommit,
   GithubIcon,
   Loader,
   LucideLink2,
 } from "lucide-react";
+import moment from "moment";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditCommit = ({ data, closeModal }: any) => {
   const [isLoading, setisLoading] = useState<boolean>(false);
+  const [commitMessage, setcommitMessage] = useState<string>("");
+  const { toast } = useToast();
+  const dispatch = useDispatch();
 
-  const hanldeUpdation = () => {
+  const hanldeUpdation = async () => {
+    if (commitMessage === "") {
+      toast({
+        description: "Commit message is required",
+        variant: "destructive",
+      });
+      return;
+    }
     setisLoading(true);
-    setTimeout(() => {
-      setisLoading(false);
-    }, 4000);
+
+    const jsondata = {
+      commitId:data.id,
+      data:{
+        commit_message: commitMessage,
+      }
+    };
+
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_URL}/api/commit/`,
+      jsondata
+    );
+
+    if (response.status !== 200) {
+      toast({
+        description: "Failed to update commit",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setcommitMessage("");
+    dispatch(updateUserRepo(response.data?.data));
+    setisLoading(false);
+    toast({
+      description: "Commit updated successfully",
+    });
+    closeModal();
+
+    
+
   };
 
   const user = useSelector((state: any) => state.user.value);
-  const filePath = [
-    {
-      path: "/src/index.js",
-    },
-    {
-      path: "/src/utlis.js",
-    },
-    {
-      path: "/src/dashboard.tsx",
-    },
-  ];
+
   return (
     <div className=" min-h-[500px]  w-full px-4 py-4 font-Poppins pb-4">
       <div className=" w-full flex justify-between">
@@ -95,6 +124,9 @@ const EditCommit = ({ data, closeModal }: any) => {
             strokeWidth={2.25}
           />
           <input
+            onChange={(event) => {
+              setcommitMessage(event.target.value)
+            }}
             className="outline-none border-none text-xs w-full h-full"
             placeholder="Write or generate commit message"
             type="text"
@@ -112,7 +144,7 @@ const EditCommit = ({ data, closeModal }: any) => {
           Files Changes
         </p>
         <div className="flex flex-col gap-2 mt-3">
-          {filePath.map((curr: any) => {
+          {data?.files.map((curr: any) => {
             return (
               <div className=" w-full flex items-center justify-between">
                 <div className=" flex gap-1 items-center">
@@ -133,15 +165,15 @@ const EditCommit = ({ data, closeModal }: any) => {
       <div className=" w-full flex items-center justify-start mt-3 gap-4">
         <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-green-50 rounded-full border border-green-200">
           <ServerIcon className="text-green-500 size-3" />
-          <p className="text-xs font-medium text-green-500">Echo</p>
+          <p className="text-xs font-medium text-green-500">{data.repo}</p>
         </div>
         <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-orange-50 rounded-full border border-orange-200">
           <GitBranchIcon size={15} className="text-orange-600" />
-          <p className="text-xs font-medium text-orange-500">sandbox-master</p>
+          <p className="text-xs font-medium text-orange-500">{data?.branch}</p>
         </div>
         <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-pink-100 rounded-full border border-pink-300">
           <ClockIcon className="size-3 text-pink-500" />
-          <p className="text-xs font-medium text-pink-500">Requested</p>
+          <p className="text-xs font-medium text-pink-500">{data?.status}</p>
         </div>
       </div>
 
@@ -158,7 +190,9 @@ const EditCommit = ({ data, closeModal }: any) => {
           </div>
           <p className=" text-xs tracking-tight font-medium">
             created by voiddxx{" "}
-            <span className="text-gray-600 font-normal">4 days ago</span>
+            <span className="text-gray-600 font-normal">
+              {moment(data?.updatedAt).startOf("date").fromNow()}
+            </span>
           </p>
         </div>
 

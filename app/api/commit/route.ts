@@ -1,3 +1,4 @@
+import { getUserRepos } from "@/modules/repoModule";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,6 +13,9 @@ export async function PUT (req : NextRequest){
         const existingCommit = await prisma.commit.findFirst({
             where:{
                 id:commitId
+            },
+            include:{
+                user:true
             }
         });
 
@@ -30,11 +34,14 @@ export async function PUT (req : NextRequest){
             }
         });
 
+       
         if(!updatedCommit){
             return NextResponse.json({status:500 , message: 'Failed to update commit'})
         }
         
-        return NextResponse.json({status:200 , message: 'Commit updated successfully'})
+        const usersRepo = await getUserRepos(existingCommit.user , existingCommit.repo);
+
+        return NextResponse.json({status:200 , data:usersRepo , message: 'Commit updated successfully'})
 
     } catch (error) {
         console.log("Some error occured" , error);
