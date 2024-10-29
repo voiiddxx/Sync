@@ -10,8 +10,9 @@ import {
   HomeIcon,
   InboxArrowDownIcon,
 } from "@heroicons/react/24/solid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { updateCurrentTab } from "@/store/slices/windowSlice";
 
 const sideBarOptions = [
   {
@@ -55,6 +56,8 @@ const sideBarOptions = [
 const SideBar = () => {
   const user = useSelector((state: any) => state.user.value);
   const window = useSelector((state: any) => state.window.value);
+  const activeTab = useSelector((state:any)=>state.window.currentTab);
+  const dispatch = useDispatch();
 
   const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://flip-gym-saying-theme.trycloudflare.com/api/auth/callback/slack&state=${user.username}`;
 
@@ -103,10 +106,12 @@ const SideBar = () => {
         <div className=" flex flex-col gap-3">
           {sideBarOptions.map((curr: any, index: number) => {
             return (
-              <div className="w-full group cursor-pointer relative h-10 flex items-center gap-2 -md text-gray-600 hover:text-zinc-950 hover:bg-zinc-100 px-2 rounded-lg">
-                <div>{curr.icon}</div>
+              <div key={index} onClick={()=>{
+                dispatch(updateCurrentTab(curr.popup))
+              }} className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 px-2 rounded-lg ${activeTab === curr.popup ? 'bg-zinc-100 text-black ' :'text-gray-600'}`}>
+                <div className="ml-1" >{curr.icon}</div>
                 <p
-                  className={`font-medium text-sm transition-all duration-500 ${
+                  className={`font-normal font-Poppins tracking-tight text-sm transition-all duration-500 ${
                     window ? "opacity-100" : "opacity-0"
                   }`}
                 >

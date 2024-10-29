@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { MoreHorizontal, GitCommit, GitBranch, FileText, FilePlus, FileEdit, Check, ChevronRight } from "lucide-react"
 import CustomModal from "../modal"
-import { AdjustmentsHorizontalIcon, CalendarDateRangeIcon, PencilSquareIcon } from "@heroicons/react/24/solid"
+import { AdjustmentsHorizontalIcon, CalendarDateRangeIcon, DocumentArrowDownIcon, PencilSquareIcon } from "@heroicons/react/24/solid"
 import ScheduleModalContent from "../dashboard/schedule-modal"
 import EditCommit from "../modals/editCommit"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -86,7 +86,7 @@ export default function CommitCard({data , user} : any) {
         </Avatar>
         <div className="space-y-1">
           <p className="text-sm font-medium text-gray-900">{user?.username}</p>
-          <p className="text-sm text-gray-700">{data.commit_message || 'No Message'} </p>
+          <p className="text-sm text-gray-700 line-clamp-1">{data.commit_message || 'No Message'} </p>
           <div className="flex items-center space-x-2 text-xs text-gray-500">
             <span>2 minutes ago</span>
             <span>•</span>
@@ -97,16 +97,10 @@ export default function CommitCard({data , user} : any) {
             <span>•</span>
             <div className="flex items-center space-x-1">
               <div className="flex items-center">
-                <FileEdit className="h-3 w-3 mr-1 text-yellow-500" />
-                <span>2</span>
-              </div>
-              <div className="flex items-center">
-                <FilePlus className="h-3 w-3 mr-1 text-green-500" />
-                <span>1</span>
-              </div>
-              <div className="flex items-center">
-                <FileText className="h-3 w-3 mr-1 text-blue-500" />
-                <span>3</span>
+                <DocumentArrowDownIcon className="h-3 w-3 mr-1 text-gray-500" />
+                <span>
+                  {data.files.length} file changes
+                </span>
               </div>
             </div>
           </div>
@@ -114,7 +108,7 @@ export default function CommitCard({data , user} : any) {
       </div>
     </CardContent>
    </div>
-    <CardFooter className="flex justify-between items-center pt-2 pb-2 px-6 bg-gray-50 border-t rounded-b-xl">
+    <CardFooter className="flex justify-between mt-6 items-center pt-2 pb-2 px-6 bg-gray-50 border-t rounded-b-xl">
       <div className="flex items-center space-x-2">
         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
         <span className="text-xs font-medium text-gray-600">Status: {data.status}</span>

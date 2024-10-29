@@ -35,7 +35,6 @@ const DashBoardTabSection = () => {
   const handleActivity = () => {
     if (showActivity) {
       setIsAnimating(true);
-      // Don't immediately hide the content - keep showing it during animation
       setTimeout(() => {
         setShowActivity(false);
         setIsAnimating(false);
@@ -52,7 +51,7 @@ const DashBoardTabSection = () => {
   return (
     <div className="w-full h-full flex gap-2 py-2 px-2 ">
       <div className="bg-white h-[84vh] w-full rounded-md py-2  ">
-        <Tabs defaultValue="commit" className="w-full">
+        <Tabs defaultValue="request" className="w-full">
           <TabsList>
             <TabsTrigger value="request">
               <FireIcon className="size-4 ml-1 mr-1" />

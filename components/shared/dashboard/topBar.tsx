@@ -59,15 +59,15 @@ const TopBar = () => {
           setisAnimating(false);
       }, 300);
     }}
-    className={` h-10 transition-all shadow-xl ease-in-out duration-500 ${
-      showDynamic === 0 ? "w-14" : showDynamic === 1 ? "w-40" : "w-[450px]"
-    } cursor-pointer bg-zinc-900 rounded-full shadow-lg ${isAnimating ? 'animate-stretch' : ''} `}
+    className={` h-10 transition-all shadow-sm ease-in-out duration-500 ${
+      showDynamic === 0 ? "w-36" : showDynamic === 1 ? "w-40" : "w-[450px]"
+    } cursor-pointer bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-700 rounded-full  ${isAnimating ? 'animate-stretch' : ''} `}
   >
 
       {
         showDynamic === 0 && (
           <div className="w-full h-full flex items-center justify-center" >
-            <Rabbit size={20} strokeWidth={1.25} className="text-white" />
+            {/* <Rabbit size={20} strokeWidth={1.25} className="text-black" /> */}
           </div>
         )
       }
