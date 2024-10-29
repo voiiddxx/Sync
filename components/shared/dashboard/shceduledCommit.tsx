@@ -114,7 +114,7 @@ const ScheduledCommit = ({ data }: any) => {
   }
 
   return (
-    <div className="w-full h-full  px-4 font-Poppins">
+    <div className="w-full h-[76vh] overflow-hidden  px-4 font-Poppins">
       <p className="text-sm text-gray-500">Sheduled Requests</p>
       <div
         style={{
@@ -122,7 +122,7 @@ const ScheduledCommit = ({ data }: any) => {
           msOverflowStyle: "none",
           WebkitOverflowScrolling: "touch",
         }}
-        className=" flex pb-20  flex-col mt-4 h-screen overflow-scroll  rounded-md gap-2 "
+        className=" flex pb-20  flex-col mt-4 h-[70vh] overflow-scroll rounded-md gap-2 "
       >
         {data?.map((curr: any, index: Number) => {
           return (

@@ -1,14 +1,16 @@
 import {
   AdjustmentsHorizontalIcon,
+  CalendarDateRangeIcon,
   DocumentDuplicateIcon,
   FireIcon,
   HashtagIcon,
   PencilIcon,
+  PencilSquareIcon,
   PlusCircleIcon,
   QueueListIcon,
 } from "@heroicons/react/24/solid";
 import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { GitPullRequest, Loader } from "lucide-react";
+import { ChevronRight, GitPullRequest, Loader } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
@@ -111,28 +113,7 @@ const RequestedCommits = ({ data }: any) => {
                     </div>
                   </div>
                 </div>
-                <div className=" flex items-center gap-1 mb-1">
-                  <CustomModal
-                    prevItem={
-                      <div className="px-2 py-1 border bg-white rounded-md">
-                        <p className="text-[10px]  font-Poppins text-indigo-700">
-                          Schedule
-                        </p>
-                      </div>
-                    }
-                    modalContent={(closeModal: any) => (
-                      <ScheduleModalContent
-                        data={curr}
-                        closeModal={closeModal}
-                      />
-                    )}
-                  />
-                  <div className="px-2 py-1 border bg-white rounded-md">
-                    <p className="text-[10px]  font-Poppins text-red-400">
-                      Remove
-                    </p>
-                  </div>
-                </div>
+               
               </div>
               <div className="h-full flex flex-col mr-1 items-end justify-between">
                 <div className="bg-white border flex items-center  h-6  w-[100px] rounded-md justify-center gap-1">
@@ -147,46 +128,48 @@ const RequestedCommits = ({ data }: any) => {
                     <PopoverTrigger>
                       <DotsHorizontalIcon />
                     </PopoverTrigger>
-                    <PopoverContent className="w-52">
+                    <PopoverContent className="w-60">
                       <div className=" flex flex-col w-full h-full">
-                        <div className=" h-10 bg-zinc-50 w-full flex items-center justify-start border-b ">
-                          <AdjustmentsHorizontalIcon className="size-4 ml-2" />
+                        <div className=" h-10 rounded-t-xl px-4 bg-zinc-50 w-full flex items-center justify-start border-b ">
+                          <AdjustmentsHorizontalIcon className="size-4" />
                           <p className="text-sm font-Poppins px-2">Manage</p>
                         </div>
 
-                        <div className="pt-2 flex flex-col gap-2 mt-2 pb-3 text-gray-950">
-                          <div className=" w-full items-center flex gap-2 hover:bg-zinc-50 py-2 px-2 cursor-pointer hover:rounded-md">
-                            <QueueListIcon className="size-5" />
-                            <p className="text-[13px] font-Poppins ">
-                              Overiview
-                            </p>
-                          </div>
+                        <div className="pt-2 flex flex-col gap-2 mt-2 pb-3 text-gray-950 px-2">
+                          
                           <CustomModal
                             prevItem={
-                              <div className="w-full items-center flex gap-2 hover:bg-zinc-50 py-2 px-2 cursor-pointer hover:rounded-md">
-                                <PencilIcon className="size-4" />
-                                <p className="text-[13px] font-Poppins ">
-                                  Edit commit
-                                </p>
-                              </div>
+                             <div className=" w-full transition-all duration-300 ease-in-out flex justify-between items-center hover:bg-purple-100 rounded-lg px-2 text-gray-700  hover:text-purple-700 " > <div className="w-full  flex items-center gap-2  py-2  cursor-pointer hover:rounded-md">
+                             <CalendarDateRangeIcon className="size-5 " />
+                             <p className="text-[13px] font-Poppins tracking-tight">
+                               Schedule Commit
+                             </p>
+                           </div>
+                           <ChevronRight size={20} strokeWidth={1.5}/>
+                           </div>
                             }
                             modalContent={(closeModal: any) => (
                               <EditCommit data={curr} closeModal={closeModal} />
                             )}
                           />
 
-                          <div className=" w-full items-center flex gap-2 hover:bg-zinc-50 py-2 px-2 cursor-pointer hover:rounded-md">
-                            <DocumentDuplicateIcon className="size-4" />
-                            <p className="text-[13px] font-Poppins ">
-                              2 file changes
-                            </p>
-                          </div>
-                          <div className=" w-full items-center flex gap-2 hover:bg-zinc-50 py-2 px-2 cursor-pointer hover:rounded-md">
-                            <PlusCircleIcon className="size-4" />
-                            <p className="text-[13px] font-Poppins ">
-                              Add message
-                            </p>
-                          </div>
+                          <CustomModal
+                            prevItem={
+                              <div className=" w-full flex items-center text-gray-700 hover:text-purple-700 justify-between px-2 hover:bg-purple-100 rounded-lg transition-all duration-300 ease-in-out" ><div className=" w-full items flex items-center gap-2  py-2  cursor-pointer hover:rounded-md">
+                              <PencilSquareIcon className="size-5 " />
+                              <p className="text-[13px] font-Poppins ">
+                                Update commit
+                              </p>
+                            </div>
+                            <ChevronRight size={20} strokeWidth={1.5} className="text-gray-700" /></div>
+                            }
+                            modalContent={(closeModal: any) => (
+                              <ScheduleModalContent
+                                data={curr}
+                                closeModal={closeModal}
+                              />
+                            )}
+                          />
                         </div>
                       </div>
                     </PopoverContent>
