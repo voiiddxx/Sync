@@ -259,7 +259,7 @@ const ScheduledCommit = ({ data }: any) => {
                           }
                           modalContent={(closeModal: any) => (
                             <EditScheduleModal
-                              data={data}
+                              data={curr}
                               closeModal={closeModal}
                             />
                           )}
