@@ -5,7 +5,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const CustomModal = ({ prevItem, modalContent  }: any) => {
+const CustomModal = ({ prevItem, modalContent , width  }: any) => {
 
   const [open, setOpen] = useState<any>(false);
 
@@ -14,7 +14,7 @@ const CustomModal = ({ prevItem, modalContent  }: any) => {
     <Dialog open={open} onOpenChange={setOpen} >
       <DialogTrigger>
       <div onClick={() => setOpen(true)}>{prevItem}</div></DialogTrigger>
-      <DialogContent>{modalContent(closeModal)}</DialogContent>
+      <DialogContent width={width} >{modalContent(closeModal)}</DialogContent>
     </Dialog>
   );
 };

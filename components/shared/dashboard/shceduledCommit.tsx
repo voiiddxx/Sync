@@ -30,6 +30,7 @@ import {
 import axios from "axios";
 import CustomModal from "../modal";
 import EditScheduleModal from "../commits/editSchedulemodal";
+import DeleteModalComponent from "../commits/delete-modal";
 
 const ScheduledCommit = ({ data }: any) => {
   const dataforpopOver = [
@@ -212,6 +213,7 @@ const ScheduledCommit = ({ data }: any) => {
                       </div>
                       <div className=" flex flex-col  ">
                         <CustomModal
+                        width={'500px'}
                           prevItem={
                             <div
                               key={""}
@@ -232,9 +234,10 @@ const ScheduledCommit = ({ data }: any) => {
                             </div>
                           }
                           modalContent={(closeModal: any) => (
-                            <EditScheduleModal
-                              data={data}
-                              closeModal={closeModal}
+                            <DeleteModalComponent
+                            
+                              // data={data}
+                              // closeModal={closeModal}
                             />
                           )}
                         />
