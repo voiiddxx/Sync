@@ -40,7 +40,7 @@ model Commit {
   files           changeFiles[] 
 
   userId          Int  
-  user            User    @relation(fields: [userId], references: [id])
+  user            User    @relation(fields: [userId], references: [id] )
 
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -51,5 +51,5 @@ model changeFiles {
   path      String?
   content   String?
   commitId  Int     
-  commit    Commit  @relation(fields: [commitId], references: [id])
+  commit    Commit  @relation(fields: [commitId], references: [id] , onDelete: Cascade)
 }

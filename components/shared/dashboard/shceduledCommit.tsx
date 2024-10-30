@@ -4,18 +4,15 @@ import {
   ClockIcon,
   FireIcon,
   FolderIcon,
-  PencilSquareIcon,
   RectangleStackIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
   ChevronRight,
-  Clock1,
-  FileChartColumn,
   GitBranch,
-  GitCommit,
   Loader,
+  Trash2,
 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
@@ -213,7 +210,7 @@ const ScheduledCommit = ({ data }: any) => {
                       </div>
                       <div className=" flex flex-col  ">
                         <CustomModal
-                        width={'500px'}
+                          width={"500px"}
                           prevItem={
                             <div
                               key={""}
@@ -222,10 +219,10 @@ const ScheduledCommit = ({ data }: any) => {
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
                                   {/* {item.icon} */}
-                                  <GitHubLogoIcon className="size-4" />
+                                  <Trash2 className="size-4 text-red-500" />
                                 </div>
-                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-800">
-                                  Edit commit
+                                <p className="text-xs font-Poppins font-medium tracking-tight  text-red-500">
+                                  Delete commit
                                 </p>
                               </div>
                               <div>
@@ -235,9 +232,8 @@ const ScheduledCommit = ({ data }: any) => {
                           }
                           modalContent={(closeModal: any) => (
                             <DeleteModalComponent
-                            
-                              // data={data}
-                              // closeModal={closeModal}
+                              data={curr}
+                              closeModal={closeModal}
                             />
                           )}
                         />
