@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { updateCurrentTab } from "@/store/slices/windowSlice";
+import Image from "next/image";
 
 const sideBarOptions = [
   {
@@ -65,8 +66,8 @@ const SideBar = () => {
     <div className="h-screen px-4  border-r py-4 w-full">
       <div className=" flex items-center justify-between gap-2">
         <div className=" flex gap-1 items-center">
-          <Rabbit className="text-blue-700" size={24} strokeWidth={1.5} />
-          {window && <p className="font-mono font-bold text-blue-700">Floww</p>}
+          <Image className="h-8 w-8" src={'/logo.png'} height={1500} width={1500} alt="logo" />
+          {window && <p className="font-Poppins text-lg font-bold text-black">Floww</p>}
         </div>
 
         <div>{/* <PanelRightOpen size={20} strokeWidth={1.5} /> */}</div>
