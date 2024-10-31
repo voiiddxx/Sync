@@ -12,10 +12,10 @@ import axios from 'axios';
 const StoreProvider = ({children}:any) => {
 
 
-  useEffect(()=>{
-    axios.get('/api/cron').then(()=>(console.log("Cron Jon called")
-    ))
-  } , [])
+  // useEffect(()=>{
+  //   axios.get('/api/cron').then(()=>(console.log("Cron Jon called")
+  //   ))
+  // } , [])
 
   return (
     <Provider store={store}>
