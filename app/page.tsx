@@ -19,7 +19,7 @@ export default function Home() {
     try {
       if (username) {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_UR}/api/user?username=${username}`
+          `${process.env.NEXT_PUBLIC_URL}/api/user?username=${username}`
         );
   
         if (res.status !== 200 || !res.data.data) {
