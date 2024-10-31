@@ -32,11 +32,19 @@ cron.schedule('* * * * *', async () => {
         if (res) {
           console.log(`Commit pushed successfully for user: ${commit.user.username}`);
 
-          // If Slack notification is enabled, push a message to Slack
           if (commit.isSlack && commit.user.slack_channel_id && commit.user.slack_access_token) {
             await pushMessageToSlack(commit.user.slack_channel_id, "Commit Created", commit.user.slack_access_token);
-            console.log(`Slack message sent for user: ${commit.user.username}`);
           }
+          const updateCommitData = await prisma.commit.update({
+            where: {
+              id: commit.id,
+            },
+            data: {
+              status: 'Pushed'
+            }
+          });
+
+
         } else {
           console.error(`Failed to push commit for user: ${commit.user.username}`);
         }
@@ -54,13 +62,13 @@ export async function GET() {
 }
 
 // Fetches all pending commits scheduled for the current minute
- const getAllPendingCommit = async () => {
+const getAllPendingCommit = async () => {
   // Get current time in IST
   const currentTimeIST = moment.tz('Asia/Kolkata');
 
   // Set seconds and milliseconds to zero to focus on the current minute
   const currentMinuteIST = currentTimeIST.clone().set({ seconds: 0, milliseconds: 0 });
-  
+
   // Convert to UTC for database query
   const currentMinuteUTC = currentMinuteIST.clone().tz('UTC');
 
