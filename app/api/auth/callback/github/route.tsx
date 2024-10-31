@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
       });
 
       if (existingUser) {
-        const redirectUrl = new URL("http://localhost:3000");
+        const redirectUrl = new URL("https://floww-one.vercel.app/");
         redirectUrl.searchParams.append("username", data.login);
         return NextResponse.redirect(redirectUrl);
       }
@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
         throw new Error("Some Error occured");
       }
 
-      const redirectUrl = new URL("http://localhost:3000");
+      const redirectUrl = new URL("https://floww-one.vercel.app/");
       redirectUrl.searchParams.append("username", userResponse.username);
       return NextResponse.redirect(redirectUrl);
     }
