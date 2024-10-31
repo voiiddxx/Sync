@@ -54,7 +54,7 @@ export async function GET() {
 }
 
 // Fetches all pending commits scheduled for the current minute
-export const getAllPendingCommit = async () => {
+ const getAllPendingCommit = async () => {
   // Get current time in IST
   const currentTimeIST = moment.tz('Asia/Kolkata');
 

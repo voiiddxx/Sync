@@ -6,7 +6,6 @@ import { pushMessageToSlack } from "@/utils";
 
 const prisma = new PrismaClient();
 
-
 export async function POST(req: NextRequest) {
     try {
         const { username, commitId } = await req.json();
@@ -72,7 +71,7 @@ export async function POST(req: NextRequest) {
 
 // creating all the function for posting the commit
 
-const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string , forced:boolean) => {
+ const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string , forced:boolean) => {
     try {
         const newPushedTreeSha = await createTree(username, branch, repo, accessToken, files);
 
