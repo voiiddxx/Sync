@@ -1,27 +1,23 @@
 import {
   BoltIcon,
   CalendarDateRangeIcon,
+  ClockIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { GitBranch, LoaderIcon } from "lucide-react";
+import {  GitBranch, LoaderIcon } from "lucide-react";
 import React, { useState } from "react";
 
 import { SlackSVGIcon } from "./sideBar";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { updateUserRepo } from "@/store/slices/repoSlice";
 
-const ScheduleModalContent = ({ data , closeModal }: any) => {
+const ScheduleModalContent = ({ data, closeModal }: any) => {
   const user = useSelector((state: any) => state.user.value);
   const { toast } = useToast();
 
@@ -30,6 +26,7 @@ const ScheduleModalContent = ({ data , closeModal }: any) => {
   const [isForcePush, setisForcePush] = useState<boolean>(false);
   const [isSlackReminder, setisSlackReminder] = useState<boolean>(false);
   const [isLoading, setisLoading] = useState<boolean>(false);
+  const [isScheduling, setisScheduling] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const handleCommitSubmission = async () => {
@@ -64,7 +61,7 @@ const ScheduleModalContent = ({ data , closeModal }: any) => {
         closeModal();
       }
       dispatch(updateUserRepo(res.data.data));
-      console.log(res.data.data , "sorted or updated");
+      console.log(res.data.data, "sorted or updated");
       toast({
         description: "Commit has been successfully scheduled!",
       });
@@ -183,25 +180,44 @@ const ScheduleModalContent = ({ data , closeModal }: any) => {
               </div>
             </div>
             <div>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <div className="">
-                    <Switch />
-                  </div>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0  mr-[500px] shadow-xl">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <div
+                onClick={() => {
+                  setisScheduling(!isScheduling);
+                }}
+                className=""
+              >
+                <Switch />
+              </div>
             </div>
           </div>
           {/* slack end */}
 
+          {isScheduling && (
+            <div className="py-2 w-full   flex items-center justify-between mt-2">
+              <div className="flex items-center gap-2">
+                <div className="h-10 px-2 w-10 border rounded-md flex items-center justify-center">
+                  <ClockIcon className="size-5" />
+                </div>
+                <div>
+                  <p className="text-sm tracking-tight font-medium">
+                    Date & Time
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Select date and time for commit{" "}
+                  </p>
+                </div>
+              </div>
+              <input
+                onChange={(event) => {
+                  const newData = new Date(event.target.value);
+                  setDate(newData);
+                }}
+                className="p-2 text-xs text-black  border rounded-lg bg-white focus:outline-none  focus:bg-blue-50 transition duration-300 accent-blue-500"
+                type="datetime-local"
+                defaultValue="2024-06-01T09:00"
+              />
+            </div>
+          )}
           <div className=" mt-6 w-full flex items-center gap-2 justify-end">
             <Button className="transition-all duration-300" variant={"outline"}>
               <p className="text-xs font-normal text-gray-800 font-Poppins">
