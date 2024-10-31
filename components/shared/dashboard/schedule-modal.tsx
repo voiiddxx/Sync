@@ -16,6 +16,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { updateUserRepo } from "@/store/slices/repoSlice";
+import moment from 'moment-timezone';
 
 const ScheduleModalContent = ({ data, closeModal }: any) => {
   const user = useSelector((state: any) => state.user.value);
@@ -30,6 +31,10 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
   const dispatch = useDispatch();
 
   const handleCommitSubmission = async () => {
+
+    const istTime = moment.tz(date, "Asia/Kolkata");
+    const utcTime = istTime.utc(); // Convert to UTC
+  
     try {
       if (commit_message == "") {
         toast({
@@ -46,7 +51,7 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
         {
           username: user.username,
           message: commit_message,
-          time: date,
+          time: utcTime.toISOString(),
           isSlack: isSlackReminder,
           isForce: isForcePush,
           commitId: data.id,
