@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return NextResponse.redirect("http://localhost:3000/dashboard");
+    return NextResponse.redirect("https://floww-one.vercel.app/dashboard");
   } catch (error) {
     console.error("Internal Server Error:", error);
     return NextResponse.json({
