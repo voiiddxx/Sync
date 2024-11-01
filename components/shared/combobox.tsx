@@ -27,7 +27,7 @@ const ComboBox = ({ data, onChange, icon }: any) => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[250px] flex justify-between"
+          className="w-[250px] flex justify-between dark:text-white/70 dark:bg-white/10"
         >
           <div className="flex items-center gap-2">
             {icon}
@@ -36,10 +36,10 @@ const ComboBox = ({ data, onChange, icon }: any) => {
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[400px] p-0">
-        <Command>
+      <PopoverContent className="w-[400px] p-0 bg-stone-800">
+        <Command className="dark:bg-stone-900" >
           <CommandInput placeholder="Search..." />
-          <CommandList>
+          <CommandList className="dark:bg-stone-800" >
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
               {data.map((framework: any) => (

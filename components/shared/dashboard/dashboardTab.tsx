@@ -50,8 +50,8 @@ const DashBoardTabSection = () => {
 
   return (
     <div className="w-full h-full flex gap-2 py-2 px-2 ">
-      <div className="bg-white h-[84vh] w-full rounded-md py-2  ">
-        <Tabs defaultValue="request" className="w-full">
+      <div className="bg-white dark:bg-stone-800 h-[84vh] w-full rounded-md py-2  ">
+        <Tabs defaultValue="request" className="w-full dark:bg-stone-700">
           <TabsList>
             <TabsTrigger value="request">
               <FireIcon className="size-4 ml-1 mr-1" />
@@ -89,14 +89,14 @@ const DashBoardTabSection = () => {
             </div>
           </TabsContent>
           <TabsContent value="request">
-            <div className="h-[75vh] overflow-hidden w-full px-2 py-1">
+            <div className="h-[75vh] overflow-hidden w-full px-2 py-1 ">
               <RequestedCommits data={repo?.reqCommit} />
             </div>
           </TabsContent>
         </Tabs>
       </div>
 
-      <div className={`min-w-1/3 max-w-1/3 relative bg-white rounded-md transition-transform duration-500 ease-in-out
+      <div className={`min-w-1/3 max-w-1/3 relative bg-white dark:bg-stone-800 bg-opacity-50 rounded-md transition-transform duration-500 ease-in-out
         ${!showActivity || isAnimating ? 'translate-x-full' : 'translate-x-0'}`}
       > 
 

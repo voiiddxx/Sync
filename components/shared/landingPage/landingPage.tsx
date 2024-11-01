@@ -1,10 +1,16 @@
+'use client'
+
 import React from "react";
 import NavBar from "./navbar";
 import FirstFold from "./firstFold";
+import { useSelector } from "react-redux";
 
 const LandingPage = () => {
-  return (
-    <div className=" w-full min-h-screen bg-white">
+
+  const darkmode = useSelector((state:any)=>state.window.darkMode);
+   return (<div className={`${darkmode ? "dark" : ""}`} >
+      
+    <div className=" w-full min-h-screen bg-white dark:bg-zinc-800">
       <div className=" w-full sticky top-0">
         <NavBar />
       </div>
@@ -13,6 +19,7 @@ const LandingPage = () => {
     <FirstFold/>
       </div>
     </div>
+  </div>
   );
 };
 

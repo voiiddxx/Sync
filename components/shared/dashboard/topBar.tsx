@@ -31,7 +31,7 @@ const TopBar = () => {
               diapatch(updateSidebar(!window));
             }}
             size={20}
-            className="text-zinc-700 "
+            className="text-zinc-700 dark:text-white/70 "
           />
         </div>
         <div className="h-8 w-8 rounded-full bg-slate-300 ">
@@ -43,7 +43,7 @@ const TopBar = () => {
             alt="user avatar"
           />
         </div>
-        <p className="text-[15px] font-normal">{user?.username}'s</p>
+        <p className="text-[15px] font-normal dark:text-white/70">{user?.username}'s</p>
         <p className=" text-sm bg-zinc-100 px-2 py-1 rounded-md font-medium text-gray-700">
           codespace
         </p>
@@ -115,8 +115,8 @@ const TopBar = () => {
     )}
   </div>
       <div className="flex  gap-3 items-center">
-        <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center">
-          <InboxArrowDownIcon className="size-5 text-zinc-800" />
+        <div className=" h-10 w-10 rounded-md border dark:border-white/10 flex items-center shadow-sm justify-center">
+          <InboxArrowDownIcon className="size-5 text-zinc-800 dark:text-white/70" />
         </div>
 
         <div className="flex px-4 items-center justify-center gap-2 h-10  border rounded-lg shadow-sm bg-white">

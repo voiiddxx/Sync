@@ -63,11 +63,11 @@ const SideBar = () => {
   const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://floww-one.vercel.app/api/auth/callback/slack&state=${user.username}`;
 
   return (
-    <div className="h-screen px-4  border-r py-4 w-full">
+    <div className="h-screen px-4  border-r py-4 w-full dark:bg-stone-900 dark:text-white">
       <div className=" flex items-center justify-between gap-2">
         <div className=" flex gap-1 items-center">
           <Image className="h-8 w-8" src={'/logo.png'} height={1500} width={1500} alt="logo" />
-          {window && <p className="font-Poppins text-lg font-bold text-black">Floww</p>}
+          {window && <p className="font-Poppins text-lg font-bold text-black dark:text-white">Floww</p>}
         </div>
 
         <div>{/* <PanelRightOpen size={20} strokeWidth={1.5} /> */}</div>
@@ -78,17 +78,17 @@ const SideBar = () => {
         <div
           className={`h-10 shadow-sm transition-all duration-500 ${
             window
-              ? "w-full flex justify-between items-center px-2 border rounded-md"
-              : "w-10 bg-black shadow-lg flex items-center justify-center rounded-full"
+              ? "w-full flex justify-between items-center px-2 border dark:bg-stone-800 shadow-sm rounded-md"
+              : "w-10 bg-black dark:bg-stone-700 shadow-lg flex items-center justify-center rounded-full"
           } `}
         >
-          <div className=" flex gap-1 items-center text-zinc-500">
-            <Search size={20} className={`${!window && "text-white"}`} />
-            {window && <p className="font-mono font-medium text-sm ">Search</p>}
+          <div className=" flex gap-1 items-center text-zinc-500 dark:text-white font-Poppins">
+            <Search size={20} className={`${!window && "text-white "}`} />
+            {window && <p className="font-normal text-sm ">Search</p>}
           </div>
 
           {window && (
-            <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center">
+            <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center dark:bg-stone-700">
               <p className="font-mono font-bold text-sm">/</p>
             </div>
           )}
@@ -109,7 +109,7 @@ const SideBar = () => {
             return (
               <div key={index} onClick={()=>{
                 dispatch(updateCurrentTab(curr.popup))
-              }} className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 px-2 rounded-lg ${activeTab === curr.popup ? 'bg-zinc-100 text-black ' :'text-gray-600'}`}>
+              }} className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 hover:dark:bg-stone-800 hover:dark:text-white hover:dark:bg-opacity-65 px-2 rounded-lg ${activeTab === curr.popup ? 'bg-zinc-100 dark:bg-stone-700 dark:bg-opacity-40 text-black dark:text-white ' :'text-gray-600 dark:text-white dark:text-opacity-50'}`}>
                 <div className="ml-1" >{curr.icon}</div>
                 <p
                   className={`font-normal font-Poppins tracking-tight text-sm transition-all duration-500 ${

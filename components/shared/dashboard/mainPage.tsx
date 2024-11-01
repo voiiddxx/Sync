@@ -82,7 +82,7 @@ const MainPage = () => {
   }, []);
 
   return (
-    <div className=" w-full h-full">
+    <div className=" w-full h-full dark:bg-stone-900">
       {/* upper */}
       <div className="h-16 w-full flex justify-between px-6 border-b">
         {/* left div */}
@@ -103,17 +103,17 @@ const MainPage = () => {
           />
         </div>
         <div className=" flex items-center gap-2">
-          <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center">
-            <PlusCircleIcon className="size-5 text-zinc-700" />
+          <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center dark:border-white/10">
+            <PlusCircleIcon className="size-5 text-zinc-700 dark:text-white/60" />
           </div>
           <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center">
-            <ServerStackIcon className="size-4 text-zinc-700" />
+            <ServerStackIcon className="size-4 text-zinc-700 dark:text-white/60" />
           </div>
           <div className=" h-10 w-10 rounded-md border flex items-center shadow-sm justify-center">
-            <GitPullRequestArrowIcon className="size-4 text-zinc-700" />
+            <GitPullRequestArrowIcon className="size-4 text-zinc-700 dark:text-white/60" />
           </div>
 
-          <div className="h-10 w-[250px] flex justify-between items-center px-2 border rounded-md">
+          <div className="h-10 w-[250px] flex justify-between items-center px-2 border rounded-md dark:bg-white/10 dark:bg-opacity-10">
             <div className=" flex gap-1 items-center text-zinc-500">
               <Search size={18} className="" />
               <p className="font-medium text-sm ">Type / to search</p>
@@ -127,7 +127,7 @@ const MainPage = () => {
       </div>
 
       {/* bottom sectiom */}
-      <div className="max-h-[84vh] overflow-hidden  w-full bg-zinc-100 ">
+      <div className="max-h-[84vh] overflow-hidden  w-full bg-zinc-100  dark:bg-stone-900">
         <DashBoardTabSection />
       </div>
     </div>
