@@ -27,9 +27,9 @@ export const getUserRepos = async (user: any, repo: string) => {
                     username: user.username
                 },
             },
-            include: {
-                files: true
-            }
+            // include: {
+            //     files: true
+            // }
         });
 
         const scheduledCommit = await prisma.commit.findMany({
@@ -41,7 +41,7 @@ export const getUserRepos = async (user: any, repo: string) => {
                 },
             },
             include: {
-                files: true
+                // files: true
             }
         });
 

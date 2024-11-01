@@ -2,13 +2,14 @@ import { getUserRepos } from "@/modules/repoModule";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { log } from "node:console";
+import path from "node:path";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
-  const { username, repo, branch, files } = body;
+  const { username, repo, branch, createdFile , deleteFile , modifiedFile , diffFile } = body;
 
   const existingUser = await prisma.user.findFirst({
     where: { username: username },
@@ -21,23 +22,34 @@ export async function POST(req: NextRequest) {
   try {
     const commitRes = await prisma.commit.create({
       data: {
-        branch: branch,
-        repo: repo,
-        user: {
-          connect: {
-            id: existingUser.id,
+          branch: branch,
+          repo: repo,
+          user: {
+              connect: {
+                  id: existingUser.id,
+              },
           },
-        },
-        files: {
-          create: files.map((file: { path: string; content: string }) => ({
-            path: file.path,
-            content: file.content,
-          })),
-        },
-        status:'Requested'
+          additionFiles: {
+              create: createdFile.length > 0 ? createdFile.map((file: { path: string; content: string }) => ({
+                  path: file.path,
+                  content: file.content,
+              })) : [],
+          },
+          modifiedFiles: {
+              create: modifiedFile.length > 0 ? modifiedFile.map((file: { path: string; content: string }) => ({
+                  path: file.path,
+                  content: file.content,
+              })) : [],
+          },
+          deletionFiles: {
+              create: deleteFile.length > 0 ? deleteFile.map((file: { path: string }) => ({
+                  path: file.path,
+              })) : [],
+          },
+          status: 'Requested',
       },
-    });
-
+  });
+  
     console.log(commitRes);
     
 
@@ -67,7 +79,10 @@ export async function GET(req: NextRequest) {
         },
       },
       include: {
-        files: true,
+        additionFiles:true,
+        deletionFiles:true,
+        modifiedFiles:true,
+        user:true
       },
     });
 
@@ -116,7 +131,9 @@ export async function PATCH(req: NextRequest) {
         },
       },
       include: {
-        files: true,
+        additionFiles:true,
+        deletionFiles:true,
+        modifiedFiles:true
       },
     });
 
