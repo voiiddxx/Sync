@@ -99,7 +99,7 @@ export default function CommitCard({data , user} : any) {
               <div className="flex items-center">
                 <DocumentArrowDownIcon className="h-3 w-3 mr-1 text-gray-500" />
                 <span>
-                  {data.files.length} file changes
+                   file changes
                 </span>
               </div>
             </div>

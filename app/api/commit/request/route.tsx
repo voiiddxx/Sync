@@ -1,8 +1,6 @@
 import { getUserRepos } from "@/modules/repoModule";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { log } from "node:console";
-import path from "node:path";
 
 const prisma = new PrismaClient();
 
@@ -10,7 +8,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
 
   const { username, repo, branch, createdFile , deleteFile , modifiedFile , diffFile } = body;
-
+  
   const existingUser = await prisma.user.findFirst({
     where: { username: username },
   });
@@ -19,6 +17,54 @@ export async function POST(req: NextRequest) {
     throw new Error("User not found");
   }
 
+
+  let created = [];
+  let modified = [];
+  let deleted = [];
+  let diffData = [];
+
+  if(createdFile.length > 0){
+    created = createdFile.map((curr:any)=>{
+      return { path: curr.path, content: curr?.content };
+    })
+  }
+
+  if(modifiedFile.length > 0){
+    modified = modifiedFile.map((curr:any)=>{
+      return { path: curr.path, content: curr?.content };
+    })
+  }
+
+  if(deleteFile.length > 0){
+    deleted = deleteFile.map((curr:any)=>{
+          return { path: curr.path };
+        })
+  }
+
+  if(diffFile.length > 0){
+    diffData = diffFile.map((curr:any)=>{
+          return { path: curr.path, content: curr.content };
+        })
+  }
+
+  
+
+  
+console.log("Created file" , created);
+console.log("Modified file" , modified);
+console.log("deleted file" , deleted);
+console.log("Diff file" , diffData);
+
+
+
+  console.log("Created file: " + createdFile.length);
+  console.log("Modified file" + modifiedFile.length);
+  console.log("Deleted file: " + deleteFile.length);
+  console.log("Diff file: " + diffFile.length);
+
+
+  
+  
   try {
     const commitRes = await prisma.commit.create({
       data: {
@@ -29,22 +75,17 @@ export async function POST(req: NextRequest) {
                   id: existingUser.id,
               },
           },
-          additionFiles: {
-              create: createdFile.length > 0 ? createdFile.map((file: { path: string; content: string }) => ({
-                  path: file.path,
-                  content: file.content,
-              })) : [],
+          additionFile: {
+              create: created,
           },
-          modifiedFiles: {
-              create: modifiedFile.length > 0 ? modifiedFile.map((file: { path: string; content: string }) => ({
-                  path: file.path,
-                  content: file.content,
-              })) : [],
+          modifiedFile: {
+              create: modified,
           },
-          deletionFiles: {
-              create: deleteFile.length > 0 ? deleteFile.map((file: { path: string }) => ({
-                  path: file.path,
-              })) : [],
+          diffFile: {
+              create: diffData,
+          },
+          deleteFile: {
+              create: deleted,
           },
           status: 'Requested',
       },
@@ -79,9 +120,9 @@ export async function GET(req: NextRequest) {
         },
       },
       include: {
-        additionFiles:true,
-        deletionFiles:true,
-        modifiedFiles:true,
+        additionFile:true,
+        deleteFile:true,
+        diffFile:true,
         user:true
       },
     });
@@ -131,9 +172,9 @@ export async function PATCH(req: NextRequest) {
         },
       },
       include: {
-        additionFiles:true,
-        deletionFiles:true,
-        modifiedFiles:true
+        additionFile:true,
+        deleteFile:true,
+        diffFile:true
       },
     });
 

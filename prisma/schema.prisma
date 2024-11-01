@@ -41,10 +41,10 @@ model Commit {
   isSlack         Boolean           @default(false)
   isForce         Boolean           @default(false)
 
-  modifiedFiles   ChangeFile[]     @relation("ModifiedFiles")
-  modifiledFileDiff ChangeFile[]    @relation("ModifiledFileDiff")
-  deletionFiles   ChangeFile[]     @relation("DeletionFiles")
-  additionFiles   ChangeFile[]     @relation("AdditionFiles")
+  additionFile additionFIle[]
+  deleteFile deleteFile[]
+  modifiedFile modifiedFile[]
+  diffFile diffFile[]
 
   userId          Int  
   user            User              @relation(fields: [userId], references: [id])
@@ -53,26 +53,36 @@ model Commit {
   updatedAt       DateTime         @updatedAt
 }
 
-model ChangeFile {
-  id          Int       @id @default(autoincrement())
-  path        String?
-  content     String?
-  commitId    Int
 
-  commit      Commit     @relation("ModifiedFiles", fields: [commitId], references: [id], onDelete: Cascade, map: "ChangeFile_commit_modified_fkey")
-
-  commitDeletion Commit? @relation("DeletionFiles", fields: [commitId], references: [id], onDelete: Cascade, map: "ChangeFile_commit_deletion_fkey")
-
-  commitAddition Commit? @relation("AdditionFiles", fields: [commitId], references: [id], onDelete: Cascade, map: "ChangeFile_commit_addition_fkey")
-
-  commitModifiedDiff Commit? @relation("ModifiledFileDiff" , fields: [commitId] , references: [id] , onDelete: Cascade , map: "ChangeFile_commit_modifiedFileDiff_fkey")
-
-  type        FileType?   
+model additionFIle {
+  id Int @id @default(autoincrement())
+  path String?
+  content String
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
+}
+model deleteFile {
+  id Int @id @default(autoincrement())
+  path String?
+  content String?
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
 }
 
-// Define an enum for file types
-enum FileType {
-  MODIFIED
-  DELETED
-  ADDED
+model modifiedFile {
+  id Int @id @default(autoincrement())
+  path String?
+  content String?
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
 }
+
+model diffFile {
+  id Int @id @default(autoincrement())
+  path String?
+  content String?
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
+}
+
+

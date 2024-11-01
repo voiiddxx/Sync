@@ -52,6 +52,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
+
     await prisma.user.update({
       where: { id: user.id! },
       data: {
