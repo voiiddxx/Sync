@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: any) {
       </div>
 
       {/* righr div */}
-      <div className=" h-screen w-full dark:bg-stone-900">
+      <div className=" h-screen w-full dark:bg-[#121212]">
         {/* upper bar */}
         <div className="h-[60px] w-full border-b">
           <TopBar />

@@ -25,11 +25,10 @@ const TopBar = () => {
   return (
     <div className=" w-full h-full flex items-center px-4 justify-between">
       <div className=" flex items-center  gap-2 px-2">
-        <div className="px-2 py-2 transition-all duration-200  cursor-pointer hover:bg-zinc-100 flex items-center rounded-lg justify-center">
-          <PanelLeft
-            onClick={() => {
+        <div onClick={() => {
               diapatch(updateSidebar(!window));
-            }}
+            }} className="px-2 py-2 transition-all duration-200 dark:hover:bg-white/10  cursor-pointer hover:bg-zinc-100 flex items-center rounded-lg justify-center">
+          <PanelLeft
             size={20}
             className="text-zinc-700 dark:text-white/70 "
           />

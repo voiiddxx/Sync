@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 
 import CommitCard from "../commits/commit-card";
+import CommitPannel from "../commits/commitPannel";
 
 const RequestedCommits = ({ data }: any) => {
   
@@ -13,7 +14,7 @@ const RequestedCommits = ({ data }: any) => {
 
   if (data?.length < 1) {
     return (
-      <div className=" h-[75vh] w-full flex items-center justify-center overflow-hidden">
+      <div className=" h-[75vh] w-full flex items-center justify-center overflow-hidden dark:opacity-0">
         <div className="relative">
           <div className=" h-[350px] w-[450px] flex items-center  justify-center">
             <Image
@@ -51,38 +52,14 @@ const RequestedCommits = ({ data }: any) => {
     );
   }
 
+
   return (
-    <div className="w-full h-[75vh] overflow-hidden px-4 ">
-      <p className="text-sm font-Poppins text-gray-500">Requested Requests</p>
+    <CommitPannel data={data[0]} user={user}/>
+  )
 
-      {/* all requested commit will be here */}
-      <div className=" w-full h-full flex gap-2  flex-wrap mt-2 border rounded-md py-3 px-2">
-        <div className="w-full flex justify-between items-center px-2">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 border rounded-full bg-gray-50 border-gray-200 flex items-center justify-center">
-              <HashtagIcon className="size-3 text-black" />
-            </div>
-            <p className="text-[12px] font-Poppins text-gray-600">
-              Commits Synced on 4 days ago
-            </p>
-          </div>
-
-          <div className="h-6 w-6  shadow-sm cursor-pointer border mr-1 rounded-sm flex items-center justify-center ">
-            <DotsHorizontalIcon className="text-black" strokeWidth={1.25} />
-          </div>
-        </div>
-        <div style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-            WebkitOverflowScrolling: "touch",
-        }} className="w-full h-[63vh] flex flex-wrap flex-row gap-4 mt-4 overflow-scroll pb-20">
-        {data?.map((curr: any, index: number) => {
-          return <CommitCard data={curr} user={user} />;
-        })}
-        </div>
-      </div>
-    </div>
-  );
+  
 };
 
 export default RequestedCommits;
+
+

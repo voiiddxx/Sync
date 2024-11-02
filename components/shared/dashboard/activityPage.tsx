@@ -17,7 +17,7 @@ import React from "react";
 
 const ActivitySection = ({ activities }: any) => {
   return (
-    <div className=" w-full h-full dark:bg-stone-800 bg-opacity-50">
+    <div className=" w-full h-full dark:bg-[#161616] bg-opacity-50">
       <div className="flex flex-col mt-2 px-6 py-2">
    
         {/* pr card end */}
@@ -103,14 +103,14 @@ export const ActivityCard = (data: any) => {
             <div className="min-h-16 pb-3 border-b">
               <div className=" flex items-center justify-between">
                 <div className="flex items-center">
-                  <BellAlertIcon className="size-4 text-gray-600" />
+                  <BellAlertIcon className="size-4 text-gray-600 dark:text-white/50" />
                   <p className="text-gray-600 text-sm font-Poppins tracking-tight ml-2">
                     {" "}
-                    <span className="text-black">{repo?.name}</span>
+                    <span className="text-black dark:text-white/70">{repo?.name}</span>
                   </p>
                 </div>
 
-                <div className=" flex items-center gap-1 px-2 py-[2px] text-purple-500 bg-purple-100 border border-purple-300 rounded-full">
+                <div className=" flex items-center gap-1 dark:border-none dark:bg-white/10 dark:text-purple-300 px-2 py-[2px] text-purple-500 bg-purple-100 border border-purple-300 rounded-full">
                   <GitBranchIcon className="size-3" />
                   <p className="text-[10px] font-medium font-Poppins">Branch</p>
                 </div>
@@ -125,7 +125,7 @@ export const ActivityCard = (data: any) => {
                     alt="avatar"
                   />
                 </div>
-                <p className="text-[12px] font-Poppins tracking-tight mt-2 text-gray-600  hover:text-indigo-600">
+                <p className="text-[12px] font-Poppins tracking-tight mt-2 text-gray-600  hover:text-indigo-600 dark:text-white/50">
                   {actor?.login} created a new branch {payload?.ref} in the
                   repository {repo?.name}
                 </p>

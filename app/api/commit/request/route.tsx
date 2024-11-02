@@ -48,23 +48,48 @@ export async function POST(req: NextRequest) {
   }
 
   
-
   
-console.log("Created file" , created);
-console.log("Modified file" , modified);
-console.log("deleted file" , deleted);
-console.log("Diff file" , diffData);
+  const isCommitExist = await prisma.commit.findFirst({
+    where:{
+      branch: branch,
+      repo: repo,
+      status:'Requested',
+      user:{
+        username: existingUser.username
+      }
+    }
+  });
 
 
+  if(isCommitExist){
+    const updateCommitData = await prisma.commit.update({
+      where:{
+        id:isCommitExist.id!
+      },
+      data:{
+        additionFile: {
+          create: created,
+      },
+      modifiedFile: {
+          create: modified,
+      },
+      diffFile: {
+          create: diffData,
+      },
+      deleteFile: {
+          create: deleted,
+      },
+      status: 'Requested',
+      }
+    });
 
-  console.log("Created file: " + createdFile.length);
-  console.log("Modified file" + modifiedFile.length);
-  console.log("Deleted file: " + deleteFile.length);
-  console.log("Diff file: " + diffFile.length);
 
-
-  
-  
+    if(updateCommitData){
+      return NextResponse.json({ commitRes: updateCommitData });
+    }else{
+      return NextResponse.json({ status: 500, message: "Failed to update commit" });
+    }
+  }
   try {
     const commitRes = await prisma.commit.create({
       data: {

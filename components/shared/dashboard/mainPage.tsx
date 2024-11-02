@@ -82,7 +82,7 @@ const MainPage = () => {
   }, []);
 
   return (
-    <div className=" w-full h-full dark:bg-stone-900">
+    <div className=" w-full h-full dark:bg-[#121212]">
       {/* upper */}
       <div className="h-16 w-full flex justify-between px-6 border-b">
         {/* left div */}
@@ -127,7 +127,7 @@ const MainPage = () => {
       </div>
 
       {/* bottom sectiom */}
-      <div className="max-h-[84vh] overflow-hidden  w-full bg-zinc-100  dark:bg-stone-900">
+      <div className="max-h-[84vh] overflow-hidden  w-full bg-zinc-100  dark:bg-[#121212]">
         <DashBoardTabSection />
       </div>
     </div>
