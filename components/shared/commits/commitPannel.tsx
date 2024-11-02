@@ -10,14 +10,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Calendar,
   ChevronDown,
+  ChevronRight,
   FileText,
   FolderPlus,
   GitBranch,
   GitCommit,
   GitPullRequest,
+  Loader,
   Plus,
   Slack,
   Trash,
+  Trash2,
   Upload,
   User,
 } from "lucide-react";
@@ -38,6 +41,17 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import EditScheduleModal from "./editSchedulemodal";
+import CustomModal from "../modal";
+import DeleteModalComponent from "./delete-modal";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { RectangleStackIcon } from "@heroicons/react/24/solid";
 
 export default function CommitPannel({ data, user }: any) {
   const formatTime = (time: number) => {
@@ -52,7 +66,7 @@ export default function CommitPannel({ data, user }: any) {
   const [currentDiffFile, setcurrentDiffFile] = React.useState<any>(null);
   const [diffFileData, setdiffFileData] = React.useState<any>(null);
 
-
+  const [isLoading, setisLoading] = React.useState<boolean>(false);
   React.useEffect(() => {
     diffFileChangeComp();
   }, [currentDiffFile]);
@@ -161,22 +175,100 @@ export default function CommitPannel({ data, user }: any) {
                 >
                   {data?.diffFile.map((curr: any, index: number) => {
                     return (
-                      <DropdownMenuItem onClick={()=>{
-                        setcurrentDiffFile(curr);
-                      }} className="" key={index}>
-                   <p className="text-xs font-normal font-Poppins" >{curr.path}</p>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setcurrentDiffFile(curr);
+                        }}
+                        className=""
+                        key={index}
+                      >
+                        <p className="text-xs font-normal font-Poppins">
+                          {curr.path}
+                        </p>
                       </DropdownMenuItem>
                     );
                   })}
-                
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            <div className="flex z-10">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <DotsHorizontalIcon className="dark:text-white size-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="start"
+                  className="w-[200px] bg-[#262626]  border-zinc-700 text-zinc-300 z-0"
+                >
+                  <div className=" h-12 flex items-center pl-4 gap-2 justify-start px-2 w-full  border-b border-zinc-700 rounded-t-xl ">
+                    <RectangleStackIcon className="size-5 text-white/20" />
+                    <p className="text-sm text-white/50 font-normal">Manage</p>
+                  </div>
+                  <div className=" flex flex-col  ">
+                    <CustomModal
+                      width={"500px"}
+                      prevItem={
+                        <div
+                          key={""}
+                          className="h-12 w-full hover:bg-white/10  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                        >
+                          <div className=" flex items-center gap-2">
+                            <div className="flex items-center gap-1 text-gray-700">
+                              {/* {item.icon} */}
+                              <Trash2 className="size-4 text-red-500" />
+                            </div>
+                            <p className="text-xs font-Poppins font-medium tracking-tight  text-red-500">
+                              Delete commit
+                            </p>
+                          </div>
+                          <div>
+                            <ChevronRight className="size-3" />
+                          </div>
+                        </div>
+                      }
+                      modalContent={(closeModal: any) => (
+                        <DeleteModalComponent
+                          data={data}
+                          closeModal={closeModal}
+                        />
+                      )}
+                    />
+                    <CustomModal
+                      prevItem={
+                        <div
+                          key={""}
+                          className="h-12 w-full hover:bg-white/10  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                        >
+                          <div className=" flex items-center gap-2">
+                            <div className="flex items-center gap-1 text-gray-700">
+                              {/* {item.icon} */}
+                              <GitHubLogoIcon className="size-4 text-white" />
+                            </div>
+                            <p className="text-xs font-Poppins font-medium tracking-tight  text-white/50">
+                              Reschedule commit
+                            </p>
+                          </div>
+                          <div>
+                            <ChevronRight className="size-3" />
+                          </div>
+                        </div>
+                      }
+                      modalContent={(closeModal: any) => (
+                        <EditScheduleModal
+                          data={data}
+                          closeModal={closeModal}
+                        />
+                      )}
+                    />
+                  </div>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
           <ScrollArea className="flex-1">
-           {
-            diffFileData && (
-                <div className="p-4 space-y-1 font-mono text-[11px]">
+            {diffFileData && (
+              <div className="p-4 space-y-1 font-mono text-[11px]">
                 {diffFileData.map((line: any, index: number) => {
                   let lineClass = "text-gray-600";
                   if (line.startsWith("+") && !line.startsWith("+++")) {
@@ -191,7 +283,7 @@ export default function CommitPannel({ data, user }: any) {
                   ) {
                     lineClass = "font-bold text-indigo-500";
                   }
-  
+
                   return (
                     <div key={index} className="flex">
                       {/* Line number display */}
@@ -204,8 +296,7 @@ export default function CommitPannel({ data, user }: any) {
                   );
                 })}
               </div>
-            )
-           }
+            )}
           </ScrollArea>
         </div>
       </div>

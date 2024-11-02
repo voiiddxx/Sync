@@ -45,7 +45,7 @@ const DialogContent = React.forwardRef<
       ref={ref}
       style={{ width }} // Use the width prop here
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 gap-4 border bg-background shadow-lg duration-200 sm:rounded-lg",
+        "fixed left-1/2 top-1/2 z-50 bg-[#272727] border border-black -translate-x-1/2 -translate-y-1/2 gap-4   shadow-lg duration-200 sm:rounded-lg",
         className
       )}
       {...props}
