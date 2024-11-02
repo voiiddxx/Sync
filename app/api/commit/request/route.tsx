@@ -62,8 +62,6 @@ export async function POST(req: NextRequest) {
 
 
   if(isCommitExist){
-
-
     await prisma.additionFIle.deleteMany({
       where: {
         commitId: isCommitExist.id,
@@ -86,7 +84,6 @@ export async function POST(req: NextRequest) {
         commitId: isCommitExist.id,
       },
     });
-
 
 
     const updateCommitData = await prisma.commit.update({
@@ -118,6 +115,9 @@ export async function POST(req: NextRequest) {
     }
   }
   try {
+
+    console.log(created , modified , diffData , deleted);
+    
     const commitRes = await prisma.commit.create({
       data: {
           branch: branch,

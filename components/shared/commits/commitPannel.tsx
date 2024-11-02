@@ -117,13 +117,33 @@ export default function CommitPannel({ data, user }: any) {
               <Collapsible>
                 <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
                   <ChevronDown className="w-3 h-3 mr-1" />
-                  Stashed Changes
+                  Newly created files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-                  <div className="text-[11px] pl-4">feature/new-component</div>
-                  <div className="text-[11px] pl-4">
-                    bugfix/typescript-error
-                  </div>
+
+                {
+                  data?.additionFile && data?.additionFile.map((curr:any , index :any)=>{
+                    return <div onClick={()=>{
+                      setcurrentDiffFile(curr);
+                    }} className="text-[11px] pl-4">{curr.path}</div>
+                  }) 
+                }
+                </CollapsibleContent>
+              </Collapsible>
+              <Separator className="bg-zinc-800" />
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Deleted Files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+
+                {
+                  data?.deleteFile && data?.deleteFile.map((curr:any , index :any)=>{
+                    return <div onClick={()=>{
+                    }} className="text-[11px] pl-4">{curr.path}</div>
+                  }) 
+                }
                 </CollapsibleContent>
               </Collapsible>
             </div>

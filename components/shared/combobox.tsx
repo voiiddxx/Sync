@@ -36,12 +36,12 @@ const ComboBox = ({ data, onChange, icon }: any) => {
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[400px] p-0 bg-stone-800">
-        <Command className="dark:bg-stone-900" >
-          <CommandInput placeholder="Search..." />
-          <CommandList className="dark:bg-stone-800" >
+      <PopoverContent className="w-[400px] p-0 ">
+        <Command className="bg-[#262626] border-none" >
+          <CommandInput className="" placeholder="Search..." />
+          <CommandList className="" >
             <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="bg-[#272727] text-white/40 font-Poppins font-light" >
               {data.map((framework: any) => (
                 <CommandItem
                   key={framework.value}
