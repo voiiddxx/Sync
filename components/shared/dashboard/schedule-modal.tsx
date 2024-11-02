@@ -5,7 +5,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import {  GitBranch, LoaderIcon } from "lucide-react";
+import { GitBranch, LoaderIcon } from "lucide-react";
 import React, { useState } from "react";
 
 import { SlackSVGIcon } from "./sideBar";
@@ -16,7 +16,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { updateUserRepo } from "@/store/slices/repoSlice";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 const ScheduleModalContent = ({ data, closeModal }: any) => {
   const user = useSelector((state: any) => state.user.value);
@@ -31,10 +31,9 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
   const dispatch = useDispatch();
 
   const handleCommitSubmission = async () => {
-
     const istTime = moment.tz(date, "Asia/Kolkata");
     const utcTime = istTime.utc(); // Convert to UTC
-  
+
     try {
       if (commit_message == "") {
         toast({
@@ -66,7 +65,6 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
         closeModal();
       }
       dispatch(updateUserRepo(res.data.data));
-      console.log(res.data.data, "sorted or updated");
       toast({
         description: "Commit has been successfully scheduled!",
       });
@@ -82,7 +80,7 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
   return (
     <div className=" w-full font-Poppins min-h-48 relative">
       <div className="">
-        <div className=" w-full border-b px-4 py-4 bg-zinc-50 rounded-t-lg flex items-center gap-2">
+        <div className=" w-full border-b border-zinc-700 px-4 py-4 bg-[#4a4a4a] rounded-t-lg flex items-center gap-2">
           <GitHubLogoIcon className="size-9" />
           <div>
             <p className=" tracking-tight">Schedule commit</p>

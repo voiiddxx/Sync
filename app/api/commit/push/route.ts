@@ -35,29 +35,43 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: 400, message: 'No Commit Found' })
         }
 
-        const push = await postCommit(username, commit.repo, commit.files, 'main', user.github_access_token! , commit.isForce!);
+        const additionFiles = commit.additionFile.map((curr: any) => ({
+            path: curr.path,
+            content: curr.content,
+        }));
+
+        const modifiedFiles = commit.modifiedFile.map((curr: any) => ({
+            path: curr.path,
+            content: curr.content,
+        }));
+
+        const commitFiles = [...additionFiles, ...modifiedFiles];
+
+
+
+        const push = await postCommit(username, commit.repo, commitFiles, 'main', user.github_access_token!, commit.isForce!);
 
         if (!push) {
             return NextResponse.json({ status: 400, message: 'Failed To commit , try again later!' });
         }
 
         const updatedcommit = await prisma.commit.update({
-            where:{
-                id:commitId,
+            where: {
+                id: commitId,
             },
-            data:{
-                status:'Pushed'
+            data: {
+                status: 'Pushed'
             }
         });
 
-        if(!updatedcommit){
-            return NextResponse.json({status:400 , message : 'Failed To Commit , try again later'});
+        if (!updatedcommit) {
+            return NextResponse.json({ status: 400, message: 'Failed To Commit , try again later' });
         }
 
         const message = 'New Commit Created by voiiddxx'
 
-        if(commit.isSlack){
-            const res = await pushMessageToSlack(`${user.slack_channel_id}` , message , user.slack_access_token!);
+        if (commit.isSlack) {
+            const res = await pushMessageToSlack(`${user.slack_channel_id}`, message, user.slack_access_token!);
         }
 
         return NextResponse.json({ status: 200, message: 'Commit pushed successfully!' })
@@ -73,7 +87,7 @@ export async function POST(req: NextRequest) {
 
 // creating all the function for posting the commit
 
- const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string , forced:boolean) => {
+const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string, forced: boolean) => {
     try {
         const newPushedTreeSha = await createTree(username, branch, repo, accessToken, files);
 
@@ -195,7 +209,7 @@ const createTree = async (username: string, branch: string, repo: string, access
 
         const existingFile = latestTreeData.tree;
 
-       
+
 
 
         const newTreeData = existingFile.map((file: any) => {
