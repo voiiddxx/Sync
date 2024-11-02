@@ -57,7 +57,7 @@ const sideBarOptions = [
 const SideBar = () => {
   const user = useSelector((state: any) => state.user.value);
   const window = useSelector((state: any) => state.window.value);
-  const activeTab = useSelector((state:any)=>state.window.currentTab);
+  const activeTab = useSelector((state: any) => state.window.currentTab);
   const dispatch = useDispatch();
 
   const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://floww-one.vercel.app/api/auth/callback/slack&state=${user.username}`;
@@ -66,8 +66,18 @@ const SideBar = () => {
     <div className="h-screen px-4  border-r py-4 w-full dark:bg-[#121212] dark:text-white">
       <div className=" flex items-center justify-between gap-2">
         <div className=" flex gap-1 items-center">
-          <Image className="h-8 w-8" src={'/logo.png'} height={1500} width={1500} alt="logo" />
-          {window && <p className="font-Poppins text-lg font-bold text-black dark:text-white">Floww</p>}
+          <Image
+            className="h-8 w-8"
+            src={"/logo.png"}
+            height={1500}
+            width={1500}
+            alt="logo"
+          />
+          {window && (
+            <p className="font-Poppins text-lg font-bold text-black dark:text-white">
+              Floww
+            </p>
+          )}
         </div>
 
         <div>{/* <PanelRightOpen size={20} strokeWidth={1.5} /> */}</div>
@@ -107,10 +117,18 @@ const SideBar = () => {
         <div className=" flex flex-col gap-3">
           {sideBarOptions.map((curr: any, index: number) => {
             return (
-              <div key={index} onClick={()=>{
-                dispatch(updateCurrentTab(curr.popup))
-              }} className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 hover:dark:bg-[#181818] hover:dark:text-white hover:dark:bg-opacity-65 px-2 rounded-lg ${activeTab === curr.popup ? 'bg-zinc-100 dark:bg-stone-700 dark:bg-opacity-40 text-black dark:text-white ' :'text-gray-600 dark:text-white dark:text-opacity-50'}`}>
-                <div className="ml-1" >{curr.icon}</div>
+              <div
+                key={index}
+                onClick={() => {
+                  dispatch(updateCurrentTab(curr.popup));
+                }}
+                className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 hover:dark:bg-[#181818] hover:dark:text-white hover:dark:bg-opacity-65 px-2 rounded-lg ${
+                  activeTab === curr.popup
+                    ? "bg-zinc-100 dark:bg-[#262626] dark:bg-opacity-40 text-black dark:text-white "
+                    : "text-gray-600 dark:text-white dark:text-opacity-50"
+                }`}
+              >
+                <div className="ml-1">{curr.icon}</div>
                 <p
                   className={`font-normal font-Poppins tracking-tight text-sm transition-all duration-500 ${
                     window ? "opacity-100" : "opacity-0"
@@ -170,7 +188,7 @@ const SideBar = () => {
       <div className="flex gap-2 mt-4 items-center justify-between">
         <div className=" flex items-center gap-2">
           <div className="h-8 w-8 border shadow-md rounded-md flex items-center justify-center overflow-hidden p-1">
-            <GithubIcon  />
+            <GithubIcon />
           </div>
           <p
             className={`text-sm font-medium text-gray-700 transition-all duration-500 ${

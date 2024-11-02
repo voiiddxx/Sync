@@ -93,7 +93,7 @@ export default function CommitPannel({ data, user }: any) {
     >
       <div className="flex flex-1 ">
         {/* Changes Panel (Left Sidebar) */}
-        <div className="w-64 h-[60vh]  dark:bg-[#161616] border-r rounded-l-xl border-zinc-800 flex flex-col">
+        <div className="w-64 h-[70vh]  dark:bg-[#161616] border-r rounded-l-xl border-zinc-800 flex flex-col">
           <ScrollArea className="flex-1">
             <div className="p-4 space-y-4">
               <div className="space-y-2">
@@ -107,7 +107,7 @@ export default function CommitPannel({ data, user }: any) {
                   >
                     <FileText className="w-3 h-3 text-blue-400" />
                     <span>{file?.path}</span>
-                    <span className="px-1 py-0.5 bg-zinc-700 text-zinc-400 rounded text-[10px]">
+                    <span className="px-1 py-0.5 bg-[#1d1d1d] text-zinc-400 rounded text-[10px]">
                       Modified
                     </span>
                   </div>
@@ -176,7 +176,7 @@ export default function CommitPannel({ data, user }: any) {
         </div>
 
         {/* File Diff Viewer (Main Section) */}
-        <div className="flex-1 h-[60vh] overflow-hidden flex flex-col dark:bg-[#1f1f1f87] rounded-r-xl">
+        <div className="flex-1 h-[70vh] overflow-hidden flex flex-col dark:bg-[#1f1f1f87] rounded-r-xl">
           <div className="flex items-center justify-between p-2 border-b border-zinc-800">
             <div className="flex items-center space-x-2">
               <span className="text-blue-400 font-semibold">TypeScript</span>
