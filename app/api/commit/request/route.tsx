@@ -62,6 +62,33 @@ export async function POST(req: NextRequest) {
 
 
   if(isCommitExist){
+
+
+    await prisma.additionFIle.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+
+    await prisma.modifiedFile.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+
+    await prisma.diffFile.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+    await prisma.deleteFile.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+
+
+
     const updateCommitData = await prisma.commit.update({
       where:{
         id:isCommitExist.id!
@@ -207,6 +234,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ status: 404, message: "No Commit Found!" });
     }
 
+
     const updateCommitRes = await prisma.commit.update({
       where: {
         id: commit.id,
@@ -240,3 +268,7 @@ export async function PATCH(req: NextRequest) {
     });
   }
 }
+
+
+
+
