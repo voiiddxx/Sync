@@ -17,17 +17,17 @@ import React from "react";
 
 const ActivitySection = ({ activities }: any) => {
   return (
-    <div className=" w-full h-full">
+    <div className=" w-full h-full dark:bg-[#161616] bg-opacity-50">
       <div className="flex flex-col mt-2 px-6 py-2">
    
         {/* pr card end */}
         <div className="mt-1">
           <div className="w-full  flex justify-between">
             <div className="flex w-full pb-2  items-center gap-2 border-b">
-              <div className="h-6 w-6 bg-zinc-50  rounded-md border flex items-center justify-center">
+              <div className="h-6 w-6 bg-zinc-50  dark:bg-white/10 dark:text-white/60 rounded-md border flex items-center justify-center">
                 <RectangleStackIcon className="size-4" />
               </div>
-              <p className="text-sm text-gray-800">Recent Activities</p>
+              <p className="text-sm text-gray-800 dark:text-white/60">Recent Activities</p>
             </div>
           </div>
           <div
@@ -65,10 +65,10 @@ export const ActivityCard = (data: any) => {
           <div className="min-h-16 pb-3 border-b">
             <div className=" flex items-center justify-between">
               <div className="flex items-center">
-                <BellAlertIcon className="size-4 text-gray-600" />
+                <BellAlertIcon className="size-4 text-gray-600 dark:text-white/70" />
                 <p className="text-gray-600 text-sm font-Poppins tracking-tight ml-2">
                   {" "}
-                  <span className="text-black">{repo?.name}</span>
+                  <span className="text-black dark:text-white/70">{repo?.name}</span>
                 </p>
               </div>
 
@@ -103,14 +103,14 @@ export const ActivityCard = (data: any) => {
             <div className="min-h-16 pb-3 border-b">
               <div className=" flex items-center justify-between">
                 <div className="flex items-center">
-                  <BellAlertIcon className="size-4 text-gray-600" />
+                  <BellAlertIcon className="size-4 text-gray-600 dark:text-white/50" />
                   <p className="text-gray-600 text-sm font-Poppins tracking-tight ml-2">
                     {" "}
-                    <span className="text-black">{repo?.name}</span>
+                    <span className="text-black dark:text-white/70">{repo?.name}</span>
                   </p>
                 </div>
 
-                <div className=" flex items-center gap-1 px-2 py-[2px] text-purple-500 bg-purple-100 border border-purple-300 rounded-full">
+                <div className=" flex items-center gap-1 dark:border-none dark:bg-white/10 dark:text-purple-300 px-2 py-[2px] text-purple-500 bg-purple-100 border border-purple-300 rounded-full">
                   <GitBranchIcon className="size-3" />
                   <p className="text-[10px] font-medium font-Poppins">Branch</p>
                 </div>
@@ -125,7 +125,7 @@ export const ActivityCard = (data: any) => {
                     alt="avatar"
                   />
                 </div>
-                <p className="text-[12px] font-Poppins tracking-tight mt-2 text-gray-600  hover:text-indigo-600">
+                <p className="text-[12px] font-Poppins tracking-tight mt-2 text-gray-600  hover:text-indigo-600 dark:text-white/50">
                   {actor?.login} created a new branch {payload?.ref} in the
                   repository {repo?.name}
                 </p>
@@ -161,14 +161,14 @@ export const ActivityCard = (data: any) => {
           <div className="min-h-16 pb-3 border-b">
             <div className=" flex items-center justify-between">
               <div className="flex items-center">
-                <BellAlertIcon className="size-4 text-gray-600" />
+                <BellAlertIcon className="size-4 text-gray-600 dark:text-white/60" />
                 <p className="text-gray-600 text-sm font-Poppins tracking-tight ml-2">
                   {" "}
-                  <span className="text-black">{repo?.name}</span>
+                  <span className="text-black dark:text-white/80">{repo?.name}</span>
                 </p>
               </div>
 
-              <div className=" flex items-center gap-1 px-2 py-[2px] text-green-500 bg-green-50 border border-green-300 rounded-full">
+              <div className=" flex items-center gap-1 px-2 py-[2px] dark:bg-white/10 dark:border-none dark:text-green-300 text-green-500 bg-green-50 border border-green-300 rounded-full">
                 <GitCommitHorizontalIcon className="size-3" />
                 <p className="text-[10px] font-medium font-Poppins line-clamp-1">
                   Commit
@@ -176,7 +176,7 @@ export const ActivityCard = (data: any) => {
               </div>
             </div>
             <div className=" w-full flex items-center gap-2 mt-2 cursor-pointer">
-              <div className="h-8 w-8 rounded-full bg-white mt-1 cursor-pointer ">
+              <div className="h-8 w-8 rounded-full mt-1 cursor-pointer ">
                 <Image
                   className="rounded-full"
                   src={actor?.avatar_url}
@@ -185,7 +185,7 @@ export const ActivityCard = (data: any) => {
                   alt="avatar"
                 />
               </div>
-              <p className="text-[12px] font-Poppins tracking-tight mt-2 text-gray-600  hover:text-indigo-600">
+              <p className="text-[12px] font-Poppins tracking-tight mt-2 dark:text-white/60 text-gray-600  hover:text-indigo-600">
                 {actor?.login} have created a commit{" "}
                 <span className="font-medium text-purple-600">
                   {

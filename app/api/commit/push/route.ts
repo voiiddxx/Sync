@@ -25,7 +25,9 @@ export async function POST(req: NextRequest) {
 
         const commit = await prisma.commit.findFirst({
             where: { id: commitId }, include: {
-                files: true
+                additionFile: true,
+                deleteFile: true,
+                modifiedFile: true,
             }
         });
 

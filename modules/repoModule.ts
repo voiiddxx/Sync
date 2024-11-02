@@ -28,7 +28,11 @@ export const getUserRepos = async (user: any, repo: string) => {
                 },
             },
             include: {
-                files: true
+                additionFile:true,
+                deleteFile:true,
+                modifiedFile:true,
+                diffFile:true,
+                user:true
             }
         });
 
@@ -41,7 +45,7 @@ export const getUserRepos = async (user: any, repo: string) => {
                 },
             },
             include: {
-                files: true
+                // files: true
             }
         });
 

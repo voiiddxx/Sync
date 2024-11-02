@@ -1,15 +1,14 @@
 import { getUserRepos } from "@/modules/repoModule";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { log } from "node:console";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
-  const { username, repo, branch, files } = body;
-
+  const { username, repo, branch, createdFile , deleteFile , modifiedFile , diffFile } = body;
+  
   const existingUser = await prisma.user.findFirst({
     where: { username: username },
   });
@@ -18,26 +17,132 @@ export async function POST(req: NextRequest) {
     throw new Error("User not found");
   }
 
-  try {
-    const commitRes = await prisma.commit.create({
-      data: {
-        branch: branch,
-        repo: repo,
-        user: {
-          connect: {
-            id: existingUser.id,
-          },
-        },
-        files: {
-          create: files.map((file: { path: string; content: string }) => ({
-            path: file.path,
-            content: file.content,
-          })),
-        },
-        status:'Requested'
+
+  let created = [];
+  let modified = [];
+  let deleted = [];
+  let diffData = [];
+
+  if(createdFile.length > 0){
+    created = createdFile.map((curr:any)=>{
+      return { path: curr.path, content: curr?.content };
+    })
+  }
+
+  if(modifiedFile.length > 0){
+    modified = modifiedFile.map((curr:any)=>{
+      return { path: curr.path, content: curr?.content };
+    })
+  }
+
+  if(deleteFile.length > 0){
+    deleted = deleteFile.map((curr:any)=>{
+          return { path: curr.path };
+        })
+  }
+
+  if(diffFile.length > 0){
+    diffData = diffFile.map((curr:any)=>{
+          return { path: curr.path, content: curr.content };
+        })
+  }
+
+  
+  
+  const isCommitExist = await prisma.commit.findFirst({
+    where:{
+      branch: branch,
+      repo: repo,
+      status:'Requested',
+      user:{
+        username: existingUser.username
+      }
+    }
+  });
+
+
+  if(isCommitExist){
+    await prisma.additionFIle.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
       },
     });
 
+    await prisma.modifiedFile.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+
+    await prisma.diffFile.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+    await prisma.deleteFile.deleteMany({
+      where: {
+        commitId: isCommitExist.id,
+      },
+    });
+
+
+    const updateCommitData = await prisma.commit.update({
+      where:{
+        id:isCommitExist.id!
+      },
+      data:{
+        additionFile: {
+          create: created,
+      },
+      modifiedFile: {
+          create: modified,
+      },
+      diffFile: {
+          create: diffData,
+      },
+      deleteFile: {
+          create: deleted,
+      },
+      status: 'Requested',
+      }
+    });
+
+
+    if(updateCommitData){
+      return NextResponse.json({ commitRes: updateCommitData });
+    }else{
+      return NextResponse.json({ status: 500, message: "Failed to update commit" });
+    }
+  }
+  try {
+
+    console.log(created , modified , diffData , deleted);
+    
+    const commitRes = await prisma.commit.create({
+      data: {
+          branch: branch,
+          repo: repo,
+          user: {
+              connect: {
+                  id: existingUser.id,
+              },
+          },
+          additionFile: {
+              create: created,
+          },
+          modifiedFile: {
+              create: modified,
+          },
+          diffFile: {
+              create: diffData,
+          },
+          deleteFile: {
+              create: deleted,
+          },
+          status: 'Requested',
+      },
+  });
+  
     console.log(commitRes);
     
 
@@ -67,7 +172,10 @@ export async function GET(req: NextRequest) {
         },
       },
       include: {
-        files: true,
+        additionFile:true,
+        deleteFile:true,
+        diffFile:true,
+        user:true
       },
     });
 
@@ -116,13 +224,16 @@ export async function PATCH(req: NextRequest) {
         },
       },
       include: {
-        files: true,
+        additionFile:true,
+        deleteFile:true,
+        diffFile:true
       },
     });
 
     if (!commit) {
       return NextResponse.json({ status: 404, message: "No Commit Found!" });
     }
+
 
     const updateCommitRes = await prisma.commit.update({
       where: {
@@ -157,3 +268,7 @@ export async function PATCH(req: NextRequest) {
     });
   }
 }
+
+
+
+
