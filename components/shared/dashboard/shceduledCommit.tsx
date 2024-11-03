@@ -121,17 +121,17 @@ const ScheduledCommit = ({ data }: any) => {
       >
         {data?.map((curr: any, index: Number) => {
           return (
-            <div className="min-h-40 pb-3 w-full rounded-xl border px-6 py-6 ">
+            <div className="min-h-40  pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
               <div className=" w-full flex items-center  pb-3">
-                <p className="text-zinc-600 text-sm font-medium ">
+                <p className="text-zinc-400 text-sm font-normal ">
                   #801254 -{" "}
-                  <span className="text-black tracking-tight">
+                  <span className="text-white tracking-tight">
                     {curr.commit_message}
                   </span>
                 </p>
-                <div className="flex items-center justify-between px-2 py-1 ml-2 bg-blue-50  rounded-lg border-[1.5px] border-blue-200">
-                  <ClockIcon className="size-4 text-blue-600" />
-                  <p className="text-xs ml-1 font-normal">
+                <div className="flex items-center justify-between px-2 py-1 ml-2 bg-gradient-to-r from-[#262626] to-[#131313]   rounded-lg border-[1.5px] border-zinc-700">
+                  <ClockIcon className="size-4 text-[#522fff]" />
+                  <p className="text-xs ml-1 font-normal text-white/60">
                     Commit on{" "}
                     {moment(curr.scheduled_time).format("MMMM Do, YYYY h:mm A")}
                   </p>
@@ -140,36 +140,36 @@ const ScheduledCommit = ({ data }: any) => {
 
               <div className=" w-full flex items-center gap-3 mt-3  border-b pb-4">
                 <div className="flex items-center gap-1 cursor-pointer ">
-                  <GitHubLogoIcon className="size-4" />
-                  <p className="text-xs tracking-tight font-medium px-1 py-1 text-gray-600 hover:text-purple-800 rounded-sm">
+                  <GitHubLogoIcon className="size-4 text-zinc-300" />
+                  <p className="text-xs tracking-tight font-medium px-1 py-1 text-white/70 hover:text-purple-800 rounded-sm">
                     github/voiiddxx/{curr.repo}
                   </p>
                 </div>
                 <div className="flex items-center  cursor-pointer ">
-                  <GitBranch className="size-3.5 text-gray-600" />
-                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-gray-600">
+                  <GitBranch className="size-3.5 text-red-400" />
+                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-red-400">
                     {curr?.branch}
                   </p>
                 </div>
-                <div className="flex items-center bg-purple-50 border rounded-md px-2   cursor-pointer gap-1">
-                  <FolderIcon className="size-3.5 text-purple-600" />
-                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-purple-600">
+                <div className="flex items-center  border rounded-md px-2   cursor-pointer gap-1">
+                  <FolderIcon className="size-3.5 text-purple-400" />
+                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-purple-400">
                     {curr?.files?.length} File changes
                   </p>
                 </div>
-                <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
+                <div className="flex items-center bg-[#262626]  rounded-md px-2   cursor-pointer gap-1">
                   <div className="h-5 w-5 rounded-md flex items-center justify-center">
                     <SlackSVGIcon />
                   </div>
-                  <p className="text-xs tracking-tight px-1 py-1 text-gray-600  font-medium ">
+                  <p className="text-xs tracking-tight px-1 py-1 text-gray-300  font-medium ">
                     Slack <span>{curr.isSlack ? "Enabled" : "Disabled"}</span>
                   </p>
                 </div>
-                <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
+                <div className="flex items-center bg-[#ff5e07] bg-opacity-5  rounded-md px-2   cursor-pointer gap-1">
                   <div className="h-5 w-5 rounded-md flex items-center justify-center">
-                    <RocketLaunchIcon className="size-4 text-gray-600" />
+                    <RocketLaunchIcon className="size-4 text-[#ff8341]" />
                   </div>
-                  <p className="text-xs tracking-tight text-gray-600  font-medium ">
+                  <p className="text-xs tracking-tight text-[#f67733]  font-medium ">
                     Force Push{" "}
                     <span>{curr.isForce ? "Enabled" : "Disabled"}</span>
                   </p>
@@ -187,8 +187,8 @@ const ScheduledCommit = ({ data }: any) => {
                       alt="user image"
                     />
                   </div>
-                  <p className="text-xs font-Poppins tracking-tight font-medium ml-2">
-                    Synced on <span className="text-purple-600">floww</span> by
+                  <p className="text-xs font-Poppins text-gray-400 tracking-tight font-medium ml-2">
+                    Synced on <span className="text-purple-400">floww</span> by
                     voiiddxx
                   </p>
                   <p className="text-xs ml-1 tracking-tight text-gray-600">
