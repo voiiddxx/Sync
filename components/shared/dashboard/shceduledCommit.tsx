@@ -2,18 +2,14 @@
 import {
   CalendarDateRangeIcon,
   ClockIcon,
+  DocumentArrowDownIcon,
   FireIcon,
   FolderIcon,
   RectangleStackIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import {
-  ChevronRight,
-  GitBranch,
-  Loader,
-  Trash2,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, FileText, GitBranch, Loader, Trash2 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -28,18 +24,15 @@ import axios from "axios";
 import CustomModal from "../modal";
 import EditScheduleModal from "../commits/editSchedulemodal";
 import DeleteModalComponent from "../commits/delete-modal";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 const ScheduledCommit = ({ data }: any) => {
-  const dataforpopOver = [
-    {
-      label: "Edit commit",
-      icon: <GitHubLogoIcon className="size-4" />,
-    },
-    {
-      label: "Reschedule commit",
-      icon: <CalendarDateRangeIcon className="size-4" />,
-    },
-  ];
+
+
 
   const user = useSelector((state: any) => state.user.value);
 
@@ -138,6 +131,11 @@ const ScheduledCommit = ({ data }: any) => {
                 </div>
               </div>
 
+
+              <div className=" w-full border-b pb-3" >
+              <p className="text-xs text-white/20" >Update the ui for the scheduling commit page and evolve the new uio desgin with figma</p>
+              </div>
+
               <div className=" w-full flex items-center gap-3 mt-3  border-b pb-4">
                 <div className="flex items-center gap-1 cursor-pointer ">
                   <GitHubLogoIcon className="size-4 text-zinc-300" />
@@ -176,6 +174,99 @@ const ScheduledCommit = ({ data }: any) => {
                 </div>
               </div>
 
+
+
+              <div className="border-b pb-3 w-full flex items-start mt-4 gap-8" >
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Newly created files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.additionFile &&
+                    curr?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Modiflied Files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.additionFile &&
+                    curr?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Deleted Files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.additionFile &&
+                    curr?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Renamed Files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.additionFile &&
+                    curr?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              </div>
+
               <div className=" w-full flex items-center mt-3 justify-between">
                 <div className="flex items-center">
                   <div className="h-6 w-6 rounded-full">
@@ -200,21 +291,17 @@ const ScheduledCommit = ({ data }: any) => {
                   <Popover>
                     <PopoverTrigger>
                       <div>
-                        <DotsHorizontalIcon />
+                        <DotsHorizontalIcon className="text-white/50" />
                       </div>
                     </PopoverTrigger>
-                    <PopoverContent className="flex  flex-col   w-60  ">
-                      <div className=" h-12 flex items-center pl-4 gap-2 justify-start px-2 w-full bg-zinc-50 border-b rounded-t-xl">
-                        <RectangleStackIcon className="size-5 text-gray-800" />
-                        <p className="text-sm font-medium">Manage</p>
-                      </div>
+                    <PopoverContent className="flex  flex-col   w-60 ">
                       <div className=" flex flex-col  ">
                         <CustomModal
                           width={"500px"}
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full hover:bg-zinc-100  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full hover:bg-zinc-100   transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
@@ -226,7 +313,7 @@ const ScheduledCommit = ({ data }: any) => {
                                 </p>
                               </div>
                               <div>
-                                <ChevronRight className="size-3" />
+                                <ChevronRight className="size-3 text-white/40" />
                               </div>
                             </div>
                           }
@@ -241,19 +328,19 @@ const ScheduledCommit = ({ data }: any) => {
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full hover:bg-zinc-100  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full hover:bg-zinc-100   transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
                                   {/* {item.icon} */}
-                                  <GitHubLogoIcon className="size-4" />
+                                  <GitHubLogoIcon className="size-4 text-white/80" />
                                 </div>
-                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-800">
+                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-400">
                                   Reschedule commit
                                 </p>
                               </div>
                               <div>
-                                <ChevronRight className="size-3" />
+                                <ChevronRight className="size-3 text-white/40" />
                               </div>
                             </div>
                           }
@@ -265,9 +352,9 @@ const ScheduledCommit = ({ data }: any) => {
                           )}
                         />
                       </div>
-                      <div className=" pb-2 px-2">
+                      <div className="">
                         <div
-                          className="h-8 w-full flex items-center justify-center bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-700  rounded-lg mt-3 cursor-pointer"
+                          className="h-8 w-full flex items-center justify-center bg-gradient-to-b from-[#262626] to-[#272727] border border-zinc-700  rounded-md mt-3 cursor-pointer"
                           onClick={() => {
                             postCommit(curr.id);
                           }}
