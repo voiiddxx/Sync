@@ -265,6 +265,10 @@ const createTree = async (username: string, branch: string, repo: string, access
 
         }
 
+
+        console.log(deletedFile , newTreeData);
+        
+
         // uploading tree
         try {
             const treeResponse = await axios.post(`https://api.github.com/repos/${username}/${repo}/git/trees`, {
