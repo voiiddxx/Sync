@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
 
 
-        const push = await postCommit(username, commit.repo, commitFiles, 'main', user.github_access_token!, commit.isForce!);
+        const push = await postCommit(username, commit.repo, commitFiles, 'main', user.github_access_token!, commit.isForce! , commit.deleteFile);
 
         if (!push) {
             return NextResponse.json({ status: 400, message: 'Failed To commit , try again later!' });
@@ -87,9 +87,9 @@ export async function POST(req: NextRequest) {
 
 // creating all the function for posting the commit
 
-const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string, forced: boolean) => {
+const postCommit = async (username: string, repo: string, files: any, branch: string, accessToken: string, forced: boolean , deletedFile:any) => {
     try {
-        const newPushedTreeSha = await createTree(username, branch, repo, accessToken, files);
+        const newPushedTreeSha = await createTree(username, branch, repo, accessToken, files , deletedFile);
 
         // creating new commit
         const commitResponse = await axios.post(`https://api.github.com/repos/${username}/${repo}/git/commits`, {
@@ -190,7 +190,7 @@ const getLatestTreeDatabasedonLatestTreeSHA = async (accessToken: string, latest
 }
 
 // func for creating new tree
-const createTree = async (username: string, branch: string, repo: string, accessToken: string, changeFiles: any) => {
+const createTree = async (username: string, branch: string, repo: string, accessToken: string, changeFiles: any  , deletedFile:any) => {
     try {
         const latestCommitSHA = await getLatestShaforCommit(accessToken, repo, username, branch);
 
@@ -247,6 +247,22 @@ const createTree = async (username: string, branch: string, repo: string, access
                 mode: '100644',
                 sha: res.data.sha,
             });
+        }
+
+
+
+        
+        if (deletedFile.length > 0) {
+
+            for (const file of deletedFile) {
+                newTreeData.push({
+                    path: file.path,
+                    mode: '100644',
+                    type: 'blob',
+                    sha: null,
+                });
+            }
+
         }
 
         // uploading tree

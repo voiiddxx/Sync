@@ -83,7 +83,7 @@ export default function CommitPannel({ data, user }: any) {
       setdiffFileData(lines);
     } else {
       if (data && data.diffFile) {
-        setdiffFileData(data?.diffFile[0].content.split("\n"));
+        setdiffFileData(data?.diffFile[0]?.content.split("\n"));
       }
     }
   }, [currentDiffFile]);

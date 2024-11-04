@@ -301,7 +301,7 @@ const ScheduledCommit = ({ data }: any) => {
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full hover:bg-zinc-100   transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full    transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
@@ -328,7 +328,7 @@ const ScheduledCommit = ({ data }: any) => {
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full hover:bg-zinc-100   transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full    transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
