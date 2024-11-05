@@ -29,7 +29,6 @@ const DialogOverlay = React.forwardRef<
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-
 interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   width?: string; // New prop for custom width
@@ -45,7 +44,7 @@ const DialogContent = React.forwardRef<
       ref={ref}
       style={{ width }} // Use the width prop here
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 bg-[#272727] border border-black -translate-x-1/2 -translate-y-1/2 gap-4   shadow-lg duration-200 sm:rounded-lg",
+        "fixed left-1/2 top-1/2 z-50 bg-[#121212] bg-opacity-90  border border-zinc-700 -translate-x-1/2 -translate-y-1/2 gap-4   shadow-lg duration-200 sm:rounded-lg",
         className
       )}
       {...props}
@@ -59,7 +58,6 @@ const DialogContent = React.forwardRef<
   </DialogPortal>
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
-
 
 const DialogHeader = ({
   className,

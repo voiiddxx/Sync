@@ -52,6 +52,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { RectangleStackIcon } from "@heroicons/react/24/solid";
+import GradientButton from "../gradient-button";
+import ScheduleModalContent from "../dashboard/schedule-modal";
 
 export default function CommitPannel({ data, user }: any) {
   const formatTime = (time: number) => {
@@ -65,8 +67,12 @@ export default function CommitPannel({ data, user }: any) {
 
   const [currentDiffFile, setcurrentDiffFile] = React.useState<any>(null);
   const [diffFileData, setdiffFileData] = React.useState<any>(null);
-
   const [isLoading, setisLoading] = React.useState<boolean>(false);
+  const [commitMessage, setcommitMessage] = React.useState<string>("");
+  const [commit_desc, setcommit_desc] = React.useState<string>("");
+  const [isSlack, setisSlack] = React.useState<boolean>(false);
+  const [isForce, setisForce] = React.useState<boolean>(false);
+
   React.useEffect(() => {
     diffFileChangeComp();
   }, [currentDiffFile]);
@@ -76,8 +82,8 @@ export default function CommitPannel({ data, user }: any) {
       const lines = currentDiffFile.content.split("\n");
       setdiffFileData(lines);
     } else {
-      if(data && data.diffFile){
-        setdiffFileData(data?.diffFile[0].content.split("\n"));
+      if (data && data.diffFile) {
+        setdiffFileData(data?.diffFile[0]?.content.split("\n"));
       }
     }
   }, [currentDiffFile]);
@@ -120,14 +126,19 @@ export default function CommitPannel({ data, user }: any) {
                   Newly created files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-
-                {
-                  data?.additionFile && data?.additionFile.map((curr:any , index :any)=>{
-                    return <div onClick={()=>{
-                      setcurrentDiffFile(curr);
-                    }} className="text-[11px] pl-4">{curr.path}</div>
-                  }) 
-                }
+                  {data?.additionFile &&
+                    data?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4"
+                        >
+                          {curr.path}
+                        </div>
+                      );
+                    })}
                 </CollapsibleContent>
               </Collapsible>
               <Separator className="bg-zinc-800" />
@@ -137,13 +148,14 @@ export default function CommitPannel({ data, user }: any) {
                   Deleted Files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-
-                {
-                  data?.deleteFile && data?.deleteFile.map((curr:any , index :any)=>{
-                    return <div onClick={()=>{
-                    }} className="text-[11px] pl-4">{curr.path}</div>
-                  }) 
-                }
+                  {data?.deleteFile &&
+                    data?.deleteFile.map((curr: any, index: any) => {
+                      return (
+                        <div onClick={() => {}} className="text-[11px] pl-4">
+                          {curr.path}
+                        </div>
+                      );
+                    })}
                 </CollapsibleContent>
               </Collapsible>
             </div>
@@ -367,9 +379,9 @@ export default function CommitPannel({ data, user }: any) {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-300"
+                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
                   >
-                    <Slack className="mr-2 h-3 w-3" />
+                    <Slack className=" h-3 w-3" />
                     Slack
                   </Button>
                 </TooltipTrigger>
@@ -384,9 +396,9 @@ export default function CommitPannel({ data, user }: any) {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-300"
+                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
                   >
-                    <Upload className="mr-2 h-3 w-3" />
+                    <Upload className=" h-3 w-3" />
                     Force Push
                   </Button>
                 </TooltipTrigger>
@@ -401,9 +413,9 @@ export default function CommitPannel({ data, user }: any) {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-300"
+                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
                   >
-                    <Calendar className="mr-2 h-3 w-3" />
+                    <Calendar className=" h-3 w-3" />
                     Schedule
                   </Button>
                 </TooltipTrigger>
@@ -413,10 +425,20 @@ export default function CommitPannel({ data, user }: any) {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <Button className="bg-blue-600 text-white hover:bg-blue-700">
-            <GitCommit className="mr-2 h-3 w-3" />
-            Commit to main
-          </Button>
+
+          <CustomModal
+            width={"500px"}
+            prevItem={
+              <GradientButton
+                title={"Schedule"}
+                onClick={() => {}}
+                isLoading={false}
+              />
+            }
+            modalContent={(closeModal: any) => (
+              <ScheduleModalContent data={data} closeModal={closeModal} />
+            )}
+          />
         </div>
       </div>
 
