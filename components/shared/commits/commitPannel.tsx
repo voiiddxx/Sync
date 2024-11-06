@@ -109,7 +109,7 @@ export default function CommitPannel({ data, user }: any) {
                 {data?.diffFile.map((file: any, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-2 text-[11px] "
+                    className="flex items-center space-x-2 text-[11px]"
                   >
                     <FileText className="w-3 h-3 text-blue-400" />
                     <span className="line-clamp-1" >{file?.path}</span>
