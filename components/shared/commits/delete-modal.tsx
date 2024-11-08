@@ -13,7 +13,7 @@ const DeleteModalComponent = ({ data, closeModal }: any) => {
   const dispatch = useDispatch();
 
 
-  console.log("this is the val of data" , data);
+
   
 
   const onChangeHandle = (event: any) => {

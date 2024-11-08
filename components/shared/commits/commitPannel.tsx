@@ -112,7 +112,7 @@ export default function CommitPannel({ data, user }: any) {
                     className="flex items-center space-x-2 text-[11px]"
                   >
                     <FileText className="w-3 h-3 text-blue-400" />
-                    <span>{file?.path}</span>
+                    <span className="line-clamp-1" >{file?.path}</span>
                     <span className="px-1 py-0.5 bg-[#1d1d1d] text-zinc-400 rounded text-[10px]">
                       Modified
                     </span>
