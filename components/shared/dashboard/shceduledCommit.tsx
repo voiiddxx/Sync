@@ -104,7 +104,7 @@ const ScheduledCommit = ({ data }: any) => {
 
   return (
     <div className="w-full h-[76vh] overflow-hidden  px-4 font-Poppins">
-      <p className="text-sm text-gray-500">Sheduled Requests</p>
+     
       <div
         style={{
           scrollbarWidth: "none",

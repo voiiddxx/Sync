@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusCircleIcon, ServerStackIcon } from "@heroicons/react/24/solid";
+import { ChevronUpDownIcon, PlusCircleIcon, ServerStackIcon } from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
   ChevronDownCircle,
@@ -98,7 +98,12 @@ const MainPage = () => {
         } transition-all overflow-hidden duration-500 w-full flex justify-between px-6 border-b`}
       >
         {/* left div */}
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 ">
+          <p className="text-[13px] text-white/80 font-Poppins" >{user.username} </p>
+          <p className="ml-2 text-white" >/</p>
+         
+       
+      
           <ComboBox
             data={userRepos}
             onChange={(data: any) => {
@@ -106,6 +111,7 @@ const MainPage = () => {
             }}
             icon={<GitHubLogoIcon />}
           />
+             <p className="text-white ml-2" >/</p>
           <ComboBox
             data={branches}
             onChange={(data: any) => {
