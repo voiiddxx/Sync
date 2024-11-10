@@ -18,17 +18,22 @@ import { useToast } from "@/hooks/use-toast";
 import { updateUserRepo } from "@/store/slices/repoSlice";
 import moment from "moment-timezone";
 
-const ScheduleModalContent = ({ data, closeModal }: any) => {
+const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeModal }: any) => {
   const user = useSelector((state: any) => state.user.value);
   const { toast } = useToast();
 
   const [date, setDate] = useState<Date>();
-  const [commit_message, setcommit_message] = useState<string>("");
-  const [isForcePush, setisForcePush] = useState<boolean>(false);
-  const [isSlackReminder, setisSlackReminder] = useState<boolean>(false);
+  const [commit_message, setcommit_message] = useState<string>(name);
+  const [isForcePush, setisForcePush] = useState<boolean>(isForce);
+  const [isSlackReminder, setisSlackReminder] = useState<boolean>(isSlack);
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [isScheduling, setisScheduling] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+
+
+  console.log(commit_message , isForcePush , isSlackReminder );
+  
 
   const handleCommitSubmission = async () => {
     const istTime = moment.tz(date, "Asia/Kolkata");
@@ -104,6 +109,7 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
               }}
               type="text"
               className="border-none mr-1 bg-transparent text-white outline-none w-full h-full text-xs focus:border-none focus:outline-none px-2"
+              value={commit_message}
               placeholder="Enter your commit message"
             />
           </div>
@@ -137,6 +143,7 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
             </div>
             <div>
               <Switch
+              checked={isForcePush}
                 onClick={() => {
                   setisForcePush(!isForcePush);
                 }}
@@ -160,6 +167,7 @@ const ScheduleModalContent = ({ data, closeModal }: any) => {
             </div>
             <div>
               <Switch
+                checked={isSlackReminder}
                 onClick={() => {
                   setisSlackReminder(!isSlackReminder);
                 }}

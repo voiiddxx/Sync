@@ -339,54 +339,39 @@ export default function CommitPannel({ data, user }: any) {
       <div className="border-t border-zinc-800 p-4 space-y-4 dark:bg-[#1e1e1e]">
         <div className="flex space-x-4">
           <div className="flex-1 space-y-2">
-            <Input
+            <Input onChange={(event)=>{
+              setcommitMessage(event.target.value)
+            }}
               placeholder="Add TypeScript interface for Props"
               className="text-[11px] bg-[#292929] border-zinc-700 text-zinc-300"
             />
-            <Textarea
+            <Textarea onChange={(event)=>{
+              setcommit_desc(event.target.value)
+            }}
               placeholder="Detailed description (optional)"
               className="text-[11px] h-20 resize-none bg-[#292929] border-zinc-700 text-zinc-300"
             />
           </div>
-          <div className="w-48 space-y-2">
-            <div className="text-[11px] font-semibold text-zinc-500">
-              Co-authors
-            </div>
-            <div className="flex space-x-2">
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="/placeholder-avatar.jpg" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="/placeholder-avatar-2.jpg" />
-                <AvatarFallback>AS</AvatarFallback>
-              </Avatar>
-              <Button
-                size="icon"
-                variant="outline"
-                className="w-6 h-6 bg-zinc-800 border-zinc-700 text-zinc-300"
-              >
-                <Plus className="h-3 w-3" />
-              </Button>
-            </div>
-          </div>
+         
         </div>
         <div className="flex justify-between items-center">
           <div className="flex space-x-2">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button
+                  <Button onClick={()=>{
+                    setisSlack(!isSlack)
+                  }}
                     size="sm"
                     variant="outline"
-                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
+                    className={`bg-[#272727] text-zinc-300 border border-[#585858] ${!isSlack ? 'border-[#585858]' : 'border-orange-400'}`}
                   >
                     <Slack className=" h-3 w-3" />
                     Slack
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className="bg-zinc-800 border-zinc-700 text-zinc-300">
-                  <p className="text-[10px]">Enable commit notifications</p>
+                  <p className="text-[10px] font-Poppins">Enable commit notifications</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -394,10 +379,12 @@ export default function CommitPannel({ data, user }: any) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                   onClick={()=>{
+                    setisForce(!isForce)
+                   }}
                     size="sm"
                     variant="outline"
-                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
-                  >
+                    className={`bg-[#272727] text-zinc-300 border border-[#585858] ${!isForce ? 'border-[#585858]' : 'border-orange-400'}`} >
                     <Upload className=" h-3 w-3" />
                     Force Push
                   </Button>
@@ -407,23 +394,7 @@ export default function CommitPannel({ data, user }: any) {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
-                  >
-                    <Calendar className=" h-3 w-3" />
-                    Schedule
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className="bg-zinc-800 border-zinc-700 text-zinc-300">
-                  <p className="text-[10px]">Schedule this commit</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+           
           </div>
 
           <CustomModal
@@ -436,7 +407,10 @@ export default function CommitPannel({ data, user }: any) {
               />
             }
             modalContent={(closeModal: any) => (
-              <ScheduleModalContent data={data} closeModal={closeModal} />
+              <ScheduleModalContent data={data} closeModal={closeModal} desc={commit_desc}
+              name={commitMessage}
+              isSlack={isSlack}
+              isForce={isForce} />
             )}
           />
         </div>
