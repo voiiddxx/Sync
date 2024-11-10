@@ -29,6 +29,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import EditCommit from "../modals/editCommit";
 
 const ScheduledCommit = ({ data }: any) => {
 
@@ -114,7 +115,7 @@ const ScheduledCommit = ({ data }: any) => {
       >
         {data?.map((curr: any, index: Number) => {
           return (
-            <div className="min-h-40  pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
+            <div className="   pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
               <div className=" w-full flex items-center  pb-3">
                 <p className="text-zinc-400 text-sm font-normal ">
                   #801254 -{" "}
@@ -328,7 +329,7 @@ const ScheduledCommit = ({ data }: any) => {
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full    transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full  transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
@@ -345,7 +346,7 @@ const ScheduledCommit = ({ data }: any) => {
                             </div>
                           }
                           modalContent={(closeModal: any) => (
-                            <EditScheduleModal
+                            <EditCommit
                               data={curr}
                               closeModal={closeModal}
                             />
