@@ -88,8 +88,8 @@ const SideBar = () => {
         <div
           className={`h-10 shadow-sm transition-all duration-500 ${
             window
-              ? "w-full flex justify-between items-center px-2 border dark:bg-stone-800 shadow-sm rounded-md"
-              : "w-10 bg-black dark:bg-stone-700 shadow-lg flex items-center justify-center rounded-full"
+              ? "w-full flex justify-between items-center px-2 border dark:bg-[#262626] shadow-sm rounded-xl hover:scale-95 cursor-pointer"
+              : "w-10 bg-black dark:bg-[#262626] shadow-lg flex items-center justify-center rounded-full"
           } `}
         >
           <div className=" flex gap-1 items-center text-zinc-500 dark:text-white font-Poppins">

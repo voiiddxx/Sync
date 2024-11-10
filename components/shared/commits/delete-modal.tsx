@@ -81,12 +81,12 @@ const DeleteModalComponent = ({ data, closeModal }: any) => {
         />
       </div>
 
-      <div className=" min-h-12 w-full mt-4 bg-[#282828]">
+      <div className=" min-h-12 w-full mt-4 ">
         <div className="w-full flex items-start gap-2 px-4 mt-4">
           <div>
             <TriangleAlert size={18} className="text-red-400 mt-1" />
           </div>
-          <p className="text-xs text-red-300 font-Poppins">
+          <p className="text-xs text-[#ff9f9f] font-Poppins">
             This action will delete the application and all associated instances
             and data, and is irreversible.
           </p>

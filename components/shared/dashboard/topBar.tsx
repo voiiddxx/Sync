@@ -108,7 +108,7 @@ const TopBar = () => {
         }}
         className={` h-10 transition-all shadow-sm ease-in-out duration-500 ${
           showDynamic === 0 ? "w-36" : showDynamic === 1 ? "w-40 " : "w-[450px]"
-        } cursor-pointer bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-700 rounded-full  ${
+        } cursor-pointer bg-black border rounded-full  ${
           isAnimating ? "animate-stretch" : ""
         } `}
       >
@@ -233,12 +233,12 @@ const TopBar = () => {
           </Avatar>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold truncate flex items-center">
-              Frankie Sullivan
-              <Check className="w-4 h-4 ml-1 text-[#3A84FF]" />
+              {user.username}
+              <Check className="w-4 h-4 ml-1 text-[#ff8d59]" />
             </p>
-            <p className="text-xs text-[#888888] truncate">@frankie</p>
+            <p className="text-xs text-[#888888] truncate">@{user.username}</p>
           </div>
-          <div className="w-2 h-2 bg-[#3A84FF] rounded-full"></div>
+
         </div>
         <div className="py-2 border-b border-[#2a2a2a]">
           <Button variant="ghost" className="w-full justify-start text-[13px] hover:text-white hover:bg-[#444444] text-white/50 rounded-none">
@@ -257,8 +257,8 @@ const TopBar = () => {
         <div className="py-2">
           <p className="px-4 py-1 text-[10px] font-semibold text-[#AAAAAA] uppercase">Switch Account</p>
          <div className="flex gap-4 mt-2 flex-col" >
-         {["Ammar Foley", "Zara Larsson"].map((name, index) => (
-            <Button key={name} variant="ghost" className="w-full py-4 justify-start text-[13px] hover:text-white hover:bg-[#444444] rounded-none">
+         {["voiiddxx", "astro.tsx"].map((name, index) => (
+            <Button key={name} variant="ghost" className="w-full py-4    justify-start text-[13px] hover:text-white hover:bg-[#444444] rounded-none">
               <Avatar className="w-7 h-7 mr-1">
                 <AvatarImage src={user.github_avatar_url} alt={name} />
                 <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>

@@ -1,6 +1,10 @@
 "use client";
 
-import { ChevronUpDownIcon, PlusCircleIcon, ServerStackIcon } from "@heroicons/react/24/solid";
+import {
+  ChevronUpDownIcon,
+  PlusCircleIcon,
+  ServerStackIcon,
+} from "@heroicons/react/24/solid";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
   ChevronDownCircle,
@@ -99,11 +103,11 @@ const MainPage = () => {
       >
         {/* left div */}
         <div className="flex items-center justify-between gap-2 ">
-          <p className="text-[13px] text-white/80 font-Poppins" >{user.username} </p>
-          <p className="ml-2 text-white" >/</p>
-         
-       
-      
+          <p className="text-[13px] text-white/80 font-Poppins">
+            {user.username}{" "}
+          </p>
+          <p className="ml-2 text-white">/</p>
+
           <ComboBox
             data={userRepos}
             onChange={(data: any) => {
@@ -111,7 +115,7 @@ const MainPage = () => {
             }}
             icon={<GitHubLogoIcon />}
           />
-             <p className="text-white ml-2" >/</p>
+          <p className="text-white ml-2">/</p>
           <ComboBox
             data={branches}
             onChange={(data: any) => {
@@ -134,11 +138,11 @@ const MainPage = () => {
           <div className="h-10 w-[250px] flex justify-between items-center px-2 border rounded-md dark:bg-white/10 dark:bg-opacity-10">
             <div className=" flex gap-1 items-center text-zinc-500">
               <Search size={18} className="" />
-              <p className="font-medium text-sm ">Type / to search</p>
+            <p className="font-medium text-sm ">Type ctrl + / to search</p>
             </div>
 
-            <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center">
-              <p className="font-mono font-bold text-sm">/</p>
+            <div className="h-6 w-6 bg-[#5c5c5c] rounded-md flex items-center justify-center">
+              <p className="font-Poppins  text-white/70 text-sm">/</p>
             </div>
           </div>
         </div>
@@ -150,11 +154,11 @@ const MainPage = () => {
           onClick={changeTopBar}
           className=" h-8 w-8 absolute right-28 z-50 top-4 rounded-full bg-[#262626] flex items-center justify-center"
         >
-
-          {
-            showTopBar ? <ChevronUpCircle className="text-white/70" /> : <ChevronDownCircle className="text-white/70" />
-          }
-          
+          {showTopBar ? (
+            <ChevronUpCircle className="text-white/70" />
+          ) : (
+            <ChevronDownCircle className="text-white/70" />
+          )}
         </div>
         <DashBoardTabSection />
       </div>
