@@ -43,7 +43,7 @@ const TopBar = () => {
           />
         </div>
         <p className="text-[15px] font-normal dark:text-white/70">{user?.username}'s</p>
-        <p className=" text-sm bg-zinc-100 px-2 py-1 rounded-md font-medium text-gray-700">
+        <p className=" text-sm bg-[#414141] px-2 py-1 rounded-md font-medium text-white/70">
           codespace
         </p>
       </div>
@@ -118,12 +118,12 @@ const TopBar = () => {
           <InboxArrowDownIcon className="size-5 text-zinc-800 dark:text-white/70" />
         </div>
 
-        <div className="flex px-4 items-center justify-center gap-2 h-10  border rounded-lg shadow-sm bg-white">
+        {/* <div className="flex px-2 items-center justify-center gap-2 h-10  border rounded-lg shadow-sm bg-white">
           <PlusCircle className="text-zinc-800" size={18} />
-          <p className="text-zinc-800 text-sm leading-loose tracking-wide ">
+          <p className="text-zinc-800 text- font-Poppins leading-loose tracking-wide ">
             Schedule{" "}
           </p>
-        </div>
+        </div> */}
 
         <div className=" flex flex-col items-center mt-4 justify-center">
           <div className="h-8 w-8 rounded-full bg-slate-300 shadow-md ">
