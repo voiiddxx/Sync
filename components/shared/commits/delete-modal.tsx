@@ -58,7 +58,7 @@ const DeleteModalComponent = ({ data, closeModal }: any) => {
   };
 
   return (
-    <div className="min-h-24 w-full flex flex-col pb-3">
+    <div className="min-h-24 w-full flex flex-col pb-3m">
       <div className="h-16 w-full border-b border-b-zinc-700 rounded-t-lg flex flex-col justify-center px-4 ">
         <p className=" text-white/90 font-Poppins  text-sm tracking-tight">
           Delete commit and re sync

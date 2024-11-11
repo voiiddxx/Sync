@@ -127,7 +127,7 @@ const EditCommit = ({ data, closeModal }: any) => {
             onChange={(event) => {
               setcommitMessage(event.target.value)
             }}
-            className="outline-none border-none bg-transparent text-xs w-full h-full"
+            className="outline-none border-none bg-transparent text-xs w-full h-full text-white"
             placeholder="Write or generate commit message"
             type="text"
           />

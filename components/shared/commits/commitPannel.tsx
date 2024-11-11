@@ -15,7 +15,9 @@ import {
   FolderPlus,
   GitBranch,
   GitCommit,
+  GitForkIcon,
   GitPullRequest,
+  GitPullRequestDraftIcon,
   Loader,
   Plus,
   Slack,
@@ -41,7 +43,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import {
+  DotsHorizontalIcon,
+  GitHubLogoIcon,
+  StarFilledIcon,
+} from "@radix-ui/react-icons";
 import EditScheduleModal from "./editSchedulemodal";
 import CustomModal from "../modal";
 import DeleteModalComponent from "./delete-modal";
@@ -168,30 +174,25 @@ export default function CommitPannel({ data, user }: any) {
               </Collapsible>
             </div>
           </ScrollArea>
-          <div className="p-4 border-t border-zinc-700">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full text-xs justify-between dark:bg-[#23232392] font-normal border-zinc-700 text-zinc-300"
-                >
-                  <div className="flex items-center">
-                    <GitBranch className="mr-2 h-3 w-3" strokeWidth={1.25} />
-                    <p className="">main</p>
-                  </div>
-                  <ChevronDown className="h-3 w-3 opacity-50" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="w-[200px] bg-[#282828] border-zinc-700 text-zinc-300"
-              >
-                <DropdownMenuItem>Pull origin</DropdownMenuItem>
-                <DropdownMenuItem>Switch branch</DropdownMenuItem>
-                <DropdownMenuItem>Merge</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="p-4 border-t flex items-center flex-wrap gap-2 border-zinc-800">
+            <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
+              <StarFilledIcon className="text-white/50 size-3" />
+              <p className="text-[11px] font-Poppins text-white/70">
+                {data?.stargazers_count} Starred
+              </p>
+            </div>
+            <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
+              <GitForkIcon className="text-white/50 size-3" />
+              <p className="text-[11px] font-Poppins text-white/70">
+                {data?.forks_count} Forks
+              </p>
+            </div>
+            <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
+              <GitPullRequestDraftIcon className="text-white/50 size-3" />
+              <p className="text-[11px] font-Poppins text-white/70">
+                {data?.open_issues} Issues
+              </p>
+            </div>
           </div>
         </div>
 
