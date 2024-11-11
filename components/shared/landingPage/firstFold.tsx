@@ -12,7 +12,7 @@ const FirstFold = () => {
   return (
     < >
     <div className='' >
-    <div className='h-[90vh] w-full flex flex-col justify-center items-center gap-2 dark:bg-zinc-900 dark:text-white' >
+    <div className='h-[90vh] w-full flex flex-col justify-center items-center gap-2 dark:bg-[#050505] dark:text-white' >
       <div className=' bg-zinc-100 px-1 py-1 rounded-full flex items-center group justify-center md:mt-20  cursor-pointer' >
         <div className='bg-zinc-600 text-white rounded-full px-2' >
           <p className='text-sm' >New</p>
