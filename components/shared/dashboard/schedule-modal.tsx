@@ -32,7 +32,6 @@ const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeMo
 
 
 
-  console.log(commit_message , isForcePush , isSlackReminder );
   
 
   const handleCommitSubmission = async () => {
@@ -54,6 +53,7 @@ const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeMo
         `${process.env.NEXT_PUBLIC_URL}/api/commit/request`,
         {
           username: user.username,
+          commit_desc:desc,
           message: commit_message,
           time: utcTime.toISOString(),
           isSlack: isSlackReminder,

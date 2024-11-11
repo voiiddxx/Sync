@@ -54,10 +54,11 @@ const RequestedCommits = ({ data }: any) => {
   }
 
 
+
   return (
     <div>
       {
-      data?.length > 1 && data[0] && (
+      data?.length > 0 && data[0] && (
         <CommitPannel data={data[0]} user={user}/>
       )
     }
