@@ -1,22 +1,23 @@
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { TerminalSquare } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 const SecondFold = () => {
   return (
-    <div className=" mt-16 border-t w-full min-h-[600px] border-b">
+    <div className=" mt-16 border-t w-full min-h-[600px] border-b border-[#262626] ">
       {/* first flex */}
-      <div className=" w-full h-1/2 flex border-b items-center justify-center">
-        <div className=" w-1/2 h-[600px] overflow-hidden border-r pl-16 pt-16 relative">
+      <div className=" w-full h-1/2 md:flex border-b border-[#262626] items-center justify-center">
+        <div className=" md:w-1/2 h-[600px] border-b md:border-b-transparent border-[#262626] overflow-hidden border-r md:pl-16 pl-4 pt-16 relative">
           <div className="flex items-center gap-2">
-            <TerminalSquare className="text-[#7e7e7e]" />
-            <h1 className="text-lg text-white/60 font-Poppins">
-              Synced Workspaces
+            <GitHubLogoIcon className="text-[#7e7e7e] size-5" />
+            <h1 className="text-sm md:text-lg text-white/60 font-Poppins">
+            Your Workspace – Meet Flow
             </h1>
           </div>
-          <h1 className="text-white text-2xl font-Poppins tracking-normal mt-6">
-            From localhost to https, in seconds. <br />{" "}
-            <span className="text-white/60"> Deploy from Git or your CLI</span>
+          <h1 className="text-white md:text-2xl text-lg font-Poppins tracking-normal mt-6">
+          Manage, schedule, and sync all your GitHub commits and  {" "}
+            <span className="text-white/60"> and PRs </span>
           </h1>
 
           <Image
@@ -37,16 +38,16 @@ const SecondFold = () => {
           {/* first box content end */}
         </div>
 
-        <div className=" w-1/2 h-[600px] overflow-hidden border-r pl-16 pt-16 relative">
+        <div className="md:w-1/2 h-[600px] border-b md:border-b-transparent border-[#262626] overflow-hidden border-r md:pl-16 pl-4 pt-16 relative">
           <div className="flex items-center gap-2">
             <TerminalSquare className="text-[#7e7e7e]" />
-            <h1 className="text-lg text-white/60 font-Poppins">
-              Synced Workspaces
+            <h1 className="md:text-lg text-sm text-white/60 font-Poppins">
+            Manage Multiple Git Accounts
             </h1>
           </div>
-          <h1 className="text-white text-2xl font-Poppins tracking-normal mt-6">
-            From localhost to https, in seconds. <br />{" "}
-            <span className="text-white/60"> Deploy from Git or your CLI</span>
+          <h1 className="text-white md:text-2xl text-lg font-Poppins tracking-normal mt-6 mr-4">
+          Effortlessly sync, schedule, and manage {" "}
+            <span className="text-white/60"> multiple gitHub accounts </span>
           </h1>
 
           <Image
@@ -67,15 +68,15 @@ const SecondFold = () => {
           {/* first box content end */}
         </div>
       </div>
-      <div className=" w-full h-1/2 flex border-b items-center justify-center">
-        <div className=" w-1/2 h-[600px] overflow-hidden border-r pl-16 pt-16 relative">
+      <div className=" w-full h-1/2 md:flex border-b border-[#262626] items-center justify-center">
+        <div className="md:w-1/2 h-[600px] border-b md:border-b-transparent border-[#262626] overflow-hidden border-r md:pl-16 pl-4 pt-16 relative">
           <div className="flex items-center gap-2">
             <TerminalSquare className="text-[#7e7e7e]" />
-            <h1 className="text-lg text-white/60 font-Poppins">
+            <h1 className="md:text-lg text-sm text-white/60 font-Poppins">
               Synced Workspaces
             </h1>
           </div>
-          <h1 className="text-white text-2xl font-Poppins tracking-normal mt-6">
+          <h1 className="text-white md:text-2xl text-lg font-Poppins tracking-normal mt-6">
             From localhost to https, in seconds. <br />{" "}
             <span className="text-white/60"> Deploy from Git or your CLI</span>
           </h1>
@@ -91,14 +92,14 @@ const SecondFold = () => {
           {/* first box content end */}
         </div>
 
-        <div className=" w-1/2 h-[600px] overflow-hidden border-r pl-16 pt-16 relative">
+        <div className="md:w-1/2 h-[600px] border-b md:border-b-transparent border-[#262626] overflow-hidden border-r md:pl-16 pl-4 pt-16 relative">
           <div className="flex items-center gap-2">
             <TerminalSquare className="text-[#7e7e7e]" />
-            <h1 className="text-lg text-white/60 font-Poppins">
+            <h1 className="md:text-lg text-sm text-white/60 font-Poppins">
               Synced Workspaces
             </h1>
           </div>
-          <h1 className="text-white text-2xl font-Poppins tracking-normal mt-6">
+          <h1 className="text-white md:text-2xl text-lg font-Poppins tracking-normal mt-6">
             From localhost to https, in seconds. <br />{" "}
             <span className="text-white/60"> Deploy from Git or your CLI</span>
           </h1>

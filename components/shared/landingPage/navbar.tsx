@@ -13,8 +13,8 @@ const NavBar = () => {
 
   const options = ["Documentations", "Products", "Blog", "Showcase"];
   return (
-    <div className=" w-full px-36 py-4">
-      <div className=" h-12 w-full flex items-center justify-between border rounded-2xl px-4 bg-black bg-opacity-50 backdrop-blur-md">
+    <div className=" w-full md:px-36 px-4 py-4">
+      <div className=" h-12 w-full flex items-center justify-between border border-[#262626] rounded-2xl px-4 bg-black bg-opacity-50 backdrop-blur-md">
         <div className=" flex gap-3 items-center">
           <div className="flex gap-1 items-center">
             <Image
@@ -28,7 +28,7 @@ const NavBar = () => {
               Flow
             </p>
           </div>
-          <div className="flex gap-4 ml-6">
+          <div className="md:flex gap-4 ml-6 hidden ">
             {options.map((option, index) => (
               <p
                 key={index}
@@ -44,13 +44,13 @@ const NavBar = () => {
         </div>
 
         <div className=" flex gap-2 items-center" >
-            <div className="h-[35px] w-64 px-2 border bg-gradient-to-r from-[#161616] to-[#161616] bg-opacity-45 rounded-full border-zinc-800 flex items-center justify-between" >
+            <div className="h-[35px] md:w-64 px-2 border bg-gradient-to-r from-[#161616] to-[#161616] bg-opacity-45 rounded-full border-zinc-800 hidden md:flex items-center justify-between" >
             <div className="flex items-center gap-1" >
               <Search size={20} className="text-white/50" />
               <p className="text-white/60 font-normal text-sm" >Search</p>
             </div>
 
-            <div className=" flex items-center gap-2" >
+            <div className=" md:flex items-center hidden  gap-2" >
               <p className="bg-black text-white/50 text-xs font-Poppins px-1 py-1 border rounded-md border-zinc-700" >Ctrl</p>
               <p className="bg-black text-white/50 text-xs font-Poppins px-2 py-1 border rounded-md border-zinc-700" >K</p>
             </div>

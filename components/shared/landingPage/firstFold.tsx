@@ -10,21 +10,24 @@ const FirstFold = () => {
 
   return (
     <>
-      <div className="h-[700px] overflow-hidden w-full border-b relative">
-        <div className=" h-full w-full relative z-50 p-16">
-          <h1 className="text-white/80 text-4xl font-mono  font-medium  ">
+      <div className="h-[700px] overflow-hidden w-full border-b border-[#262626] relative">
+        <div className=" h-full w-full relative z-50 md:p-16 p-8">
+          <h1 className="text-white/80 md:text-4xl text-4xl font-mono  text-center md:text-left font-medium  ">
             Automate your github workflows{" "}
           </h1>
-          <h1 className="text-white/80 text-4xl mt-1 font-mono  font-medium  ">
+          <h1 className="text-white/80 md:text-4xl text-xl mt-2 font-mono  font-medium hidden md:inline-block    ">
             with less effort
           </h1>
-          <p className="text-white/50 font-Poppins text-[18px] font-normal  mt-8">
-            Boost your productivity on GitHub with the floww seamless,
+          <p className="text-white/50 font-Poppins md:text-[18px] text-base font-normal  text-center md:text-left md:mt-8 mt-6">
+            Boost your productivity on GitHub with the floww seamless
+            <span className="hidden md:inline-block mt-2">
             user-friendly tool for developers
-            <br /> Whether you're scheduling issues
+             Whether you're scheduling issues
+            </span>
+           
           </p>
 
-          <div className=" flex items-center gap-3 mt-8">
+          <div className=" flex items-center gap-3 mt-8 justify-center md:justify-start">
             <div className="px-4 py-2 rounded-full  border-white/20 bg-gradient-to-b from-[#ddd] to-[#afafaf] flex items-center justify-center">
               <p className="text-sm text-black  font-Poppins">
                 Getting Started
@@ -37,8 +40,9 @@ const FirstFold = () => {
             </div>
           </div>
 
-          <div className=" h-96 w-full bg-[#262626] border-4 border-[#4c4c4c] rounded-md absolute ml-10 mt-10 object-contain">
+          <div className=" h-72 md:h-96 w-full bg-[#262626] border-4 border-[#4c4c4c] rounded-md absolute ml-10 mt-10 object-contain">
             <Image
+            className="h-full w-full object-cover md:object-top"
               src={`/dashboard.png`}
               height={1500}
               width={1500}
