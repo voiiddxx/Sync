@@ -25,7 +25,7 @@ const NavBar = () => {
               alt="logo"
             />
             <p className="text-sm font-Poppins  font-medium text-white/60">
-              Floww
+              Flow
             </p>
           </div>
           <div className="flex gap-4 ml-6">
