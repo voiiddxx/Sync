@@ -28,14 +28,15 @@ const FirstFold = () => {
           </p>
 
           <div className=" flex items-center gap-3 mt-8 justify-center md:justify-start">
+            <Link href={GITHUB_AUTH_URL}>
             <div className="px-4 py-2 rounded-full  border-white/20 bg-gradient-to-b from-[#ddd] to-[#afafaf] flex items-center justify-center">
               <p className="text-sm text-black  font-Poppins">
                 Getting Started
               </p>
-            </div>
+            </div></Link>
             <div className="px-4 py-2 rounded-full border border-white/20 bg-[#262626] flex items-center justify-center">
               <p className="text-sm text-white/50  font-Poppins">
-                Start on github
+                Star on github
               </p>
             </div>
           </div>

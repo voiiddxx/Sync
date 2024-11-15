@@ -82,6 +82,8 @@ export default function CommitPannel({ data, user }: any) {
   const [isSlack, setisSlack] = React.useState<boolean>(false);
   const [isForce, setisForce] = React.useState<boolean>(false);
 
+
+
   React.useEffect(() => {
     diffFileChangeComp();
   }, [currentDiffFile]);
@@ -210,7 +212,8 @@ export default function CommitPannel({ data, user }: any) {
                     size="sm"
                     className="bg-zinc-800 border-zinc-700 text-zinc-300"
                   >
-                    index.ts
+                    
+                    {currentDiffFile?.path}
                     <ChevronDown className="ml-2 h-3 w-3 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>

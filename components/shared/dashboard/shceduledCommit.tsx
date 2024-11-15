@@ -62,7 +62,7 @@ const ScheduledCommit = ({ data }: any) => {
     }
   };
 
-  if (data?.length < 1) {
+  if (!data || data?.length < 1) {
     return (
       <div className=" h-full w-full flex items-center justify-center overflow-hidden">
         <div className="relative">
@@ -206,8 +206,8 @@ const ScheduledCommit = ({ data }: any) => {
                   Modiflied Files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-                  {curr?.additionFile &&
-                    curr?.additionFile.map((curr: any, index: any) => {
+                  {curr?.diffFile &&
+                    curr?.diffFile.map((curr: any, index: any) => {
                       return (
                         <div
                           onClick={() => {
@@ -228,8 +228,8 @@ const ScheduledCommit = ({ data }: any) => {
                   Deleted Files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-                  {curr?.additionFile &&
-                    curr?.additionFile.map((curr: any, index: any) => {
+                  {curr?.deleteFile &&
+                    curr?.deleteFile.map((curr: any, index: any) => {
                       return (
                         <div
                           onClick={() => {
@@ -237,7 +237,7 @@ const ScheduledCommit = ({ data }: any) => {
                           }}
                           className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
                         >
-                          <FileText className="size-3 text-blue-400" />
+                          <FileText className="size-3 text-red-400" />
                           {curr.path}
                         </div>
                       );
@@ -249,7 +249,7 @@ const ScheduledCommit = ({ data }: any) => {
                   <ChevronDown className="w-3 h-3 mr-1" />
                   Renamed Files
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-2 space-y-2">
+                {/* <CollapsibleContent className="mt-2 space-y-2">
                   {curr?.additionFile &&
                     curr?.additionFile.map((curr: any, index: any) => {
                       return (
@@ -264,7 +264,7 @@ const ScheduledCommit = ({ data }: any) => {
                         </div>
                       );
                     })}
-                </CollapsibleContent>
+                </CollapsibleContent> */}
               </Collapsible>
               </div>
 

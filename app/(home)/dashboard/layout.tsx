@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: any) {
   const darkmode = useSelector((state:any)=>state.window.darkMode);
   
   return (
-    <div className={`${darkmode ? "dark" : ""}`} >
+    <div className={`${darkmode ? "dark" : "dark"}`} >
        <div className="w-full h-screen flex overflow-hidden">
       {/* left div */}
       <div className={` transition-all duration-500 ${window ?'w-72' : 'w-20'}`}>

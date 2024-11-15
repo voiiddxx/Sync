@@ -11,11 +11,12 @@ import CommitPannel from "../commits/commitPannel";
 
 const RequestedCommits = ({ data }: any) => {
   
+
   const user = useSelector((state: any) => state.user.value);
 
 
 
-  if (data?.length < 1) {
+  if (!data || data?.length < 1) {
     return (
       <div className=" h-full w-full flex items-center justify-center overflow-hidden">
         <div className="relative">
