@@ -19,7 +19,6 @@ export async function getPullRequestService(body: any) {
         if (!isUser) {
             throw new Error('User not found');
         }
-
         const response = await axios.get(`https://api.github.com/repos/${username}/${repo}/pulls`, {
             headers: {
                 'Authorization': `token ${isUser.github_access_token}`

@@ -1,3 +1,4 @@
+import MainPage from "@/components/shared/merge/mainPage";
 import React from "react";
 
 const page = () => {
@@ -9,7 +10,9 @@ const page = () => {
         WebkitOverflowScrolling: "touch",
       }}
       className=" w-full h-screen overflow-scroll  bg-white"
-    ></div>
+    >
+        <MainPage/>
+    </div>
   );
 };
 

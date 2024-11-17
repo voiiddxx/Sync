@@ -6,6 +6,9 @@ import { getPullRequestService } from "./mergeService";
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
+
+    console.log("func called");
+    
     try {
 
         const body = await req.json();
@@ -14,6 +17,8 @@ export async function POST(req: NextRequest) {
         if (!response) {
             throw new Error('Error occured while fetching pull request')
         }
+
+        
         return NextResponse.json(response);
 
     } catch (error) {
