@@ -44,7 +44,7 @@ const MainPage = () => {
 
   useEffect(()=>{
     getMerge();
-  } , [])
+  } , [repo])
   return <div>this is the main page for the pull requlests</div>;
 };
 
