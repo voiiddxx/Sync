@@ -1,5 +1,5 @@
 "use client";
-// import LandingPage from "@/components/shared/landingPage/landingPage";
+import LandingPage from "@/components/shared/landingPage/landingPage";
 import { updateUserValue } from "@/store/slices/user";
 
 import axios from "axios";
@@ -50,6 +50,5 @@ export default function Home() {
     }
   }, [username]);
 
-  // return <LandingPage />;
-  return <div></div>
+  return <LandingPage />;
 }

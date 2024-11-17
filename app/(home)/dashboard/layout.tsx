@@ -1,7 +1,8 @@
 "use client";
 
-// import SideBar from "@/components/shared/dashboard/sideBar";
-// import TopBar from "@/components/shared/dashboard/topBar";
+import SecondaryTopBar from "@/components/shared/dashboard/secondaryTopbar";
+import SideBar from "@/components/shared/dashboard/sideBar";
+import TopBar from "@/components/shared/dashboard/topBar";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -18,14 +19,14 @@ export default function DashboardLayout({ children }: any) {
         <div
           className={` transition-all duration-500 ${window ? "w-72" : "w-20"}`}
         >
-          {/* <SideBar /> */}
+          <SideBar />
         </div>
 
         {/* righr div */}
         <div className=" h-screen w-full dark:bg-[#121212]">
           {/* upper bar */}
           <div className="h-[60px] w-full border-b">
-            {/* <TopBar /> */}
+            <TopBar />
 
             <div
               onClick={() => setshowTopBar(!showTopBar)}
@@ -38,7 +39,7 @@ export default function DashboardLayout({ children }: any) {
               )}
             </div>
           </div>
-          {/* <SecondaryUpperBar showTopBar={showTopBar} /> */}
+          <SecondaryTopBar showTopBar={showTopBar} />
           {children}
         </div>
       </div>
