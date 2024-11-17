@@ -1,7 +1,7 @@
 "use client";
 
-import SecondaryTopBar from "@/components/shared/dashboard/secondaryTopbar";
 import SideBar from "@/components/shared/dashboard/sideBar";
+import SecondaryTopBar from "@/components/shared/dashboard/secondaryTopBar";
 import TopBar from "@/components/shared/dashboard/topBar";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
 import { useState } from "react";
@@ -39,7 +39,7 @@ export default function DashboardLayout({ children }: any) {
               )}
             </div>
           </div>
-          <SecondaryTopBar showTopBar={showTopBar} />
+          <SecondaryTopBar={} showTopBar={showTopBar} />
           {children}
         </div>
       </div>
