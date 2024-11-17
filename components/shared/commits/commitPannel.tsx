@@ -52,11 +52,7 @@ import EditScheduleModal from "./editSchedulemodal";
 import CustomModal from "../modal";
 import DeleteModalComponent from "./delete-modal";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import { RectangleStackIcon } from "@heroicons/react/24/solid";
 import GradientButton from "../gradient-button";
 import ScheduleModalContent from "../dashboard/schedule-modal";
