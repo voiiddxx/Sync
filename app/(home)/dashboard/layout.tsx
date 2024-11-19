@@ -1,8 +1,8 @@
 "use client";
 
-import SideBar from "@/components/shared/dashboard/sideBar";
-import SecondaryTopBar from "@/components/shared/dashboard/secondaryTopBar";
-import TopBar from "@/components/shared/dashboard/topBar";
+import SecondaryTopBar from "../../../components/shared/dashboard/SecondaryTopBar";
+import SideBar from "../../../components/shared/dashboard/sideBar";
+import TopBar from "../../../components/shared/dashboard/topBar";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: any) {
   const [showTopBar, setshowTopBar] = useState<boolean>(true);
 
   return (
-    <div className={`${darkmode ? "dark" : "dark"}`}>
+    <div className={"dark"}>
       <div className="w-full h-screen flex overflow-hidden">
         {/* left div */}
         <div
@@ -39,7 +39,7 @@ export default function DashboardLayout({ children }: any) {
               )}
             </div>
           </div>
-          <SecondaryTopBar={} showTopBar={showTopBar} />
+          <SecondaryTopBar showTopBar={showTopBar} />
           {children}
         </div>
       </div>

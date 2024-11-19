@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronsUpDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import {
   Command,
   CommandEmpty,
@@ -10,12 +9,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "../ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "../ui/popover";
 import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
 
 const ComboBox = ({ data, onChange, icon , prevItem }: any) => {
