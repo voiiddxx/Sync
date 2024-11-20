@@ -1,8 +1,7 @@
 "use client";
 
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/hooks/use-toast";
-import { updateSidebar } from "@/store/slices/windowSlice";
+import { useToast } from "../../../hooks/use-toast";
+import { updateSidebar } from "../../../store/slices/windowSlice";
 import {
   BellAlertIcon,
   CogIcon,
@@ -29,10 +28,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SlackSVGIcon } from "./sideBar";
-import DynamicIsland from "@/modules/dynamicIsland";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import DynamicIsland from "modules/dynamicIsland";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Button } from "../../ui/button";
 
 const TopBar = () => {
   const user = useSelector((state: any) => state.user.value);

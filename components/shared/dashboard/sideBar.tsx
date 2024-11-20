@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { updateCurrentTab } from "@/store/slices/windowSlice";
+import { updateCurrentTab } from "../../../store/slices/windowSlice";
 import Image from "next/image";
 
 const sideBarOptions = [

@@ -11,7 +11,7 @@ import {
   Search,
 } from "lucide-react";
 import axios from "axios";
-import { updateUserRepo } from "@/store/slices/repoSlice";
+import { updateUserRepo } from "../../../store/slices/repoSlice";
 import { ServerStackIcon } from "@heroicons/react/24/solid";
 
 const SecondaryTopBar = ({ showTopBar }: any) => {
