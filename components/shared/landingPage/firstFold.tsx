@@ -1,53 +1,68 @@
-import { GlobeDemo } from '@/components/ui/GitGlobe';
-import { ChevronRight } from 'lucide-react'
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react'
+import { GlobeDemo } from "@/components/ui/GitGlobe";
+import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import GradientButton from "../gradient-button";
 
 const FirstFold = () => {
-
-
   const GITHUB_AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URL}&scope=repo,workflow,admin:repo_hook,user`;
 
   return (
-    < >
-    <div className='' >
-    <div className='h-[90vh] w-full flex flex-col justify-center items-center gap-2 dark:bg-zinc-900 dark:text-white' >
-      <div className=' bg-zinc-100 px-1 py-1 rounded-full flex items-center group justify-center md:mt-20  cursor-pointer' >
-        <div className='bg-zinc-600 text-white rounded-full px-2' >
-          <p className='text-sm' >New</p>
+    <>
+      <div className="h-[700px] overflow-hidden w-full border-b border-[#262626] relative">
+        <div className=" h-full w-full relative z-50 md:p-16 p-8">
+          <h1 className="text-white/80 md:text-4xl text-4xl font-mono  text-center md:text-left font-medium  ">
+            Automate your github workflows{" "}
+          </h1>
+          <h1 className="text-white/80 md:text-4xl text-xl mt-2 font-mono  font-medium hidden md:inline-block    ">
+            with less effort
+          </h1>
+          <p className="text-white/50 font-Poppins md:text-[18px] text-base font-normal  text-center md:text-left md:mt-8 mt-6">
+            Boost your productivity on GitHub with the floww seamless
+            <span className="hidden md:inline-block mt-2">
+            user-friendly tool for developers
+             Whether you're scheduling issues
+            </span>
+           
+          </p>
+
+          <div className=" flex items-center gap-3 mt-8 justify-center md:justify-start">
+            <Link href={GITHUB_AUTH_URL}>
+            <div className="px-4 py-2 rounded-full  border-white/20 bg-gradient-to-b from-[#ddd] to-[#afafaf] flex items-center justify-center">
+              <p className="text-sm text-black  font-Poppins">
+                Getting Started
+              </p>
+            </div></Link>
+            <div className="px-4 py-2 rounded-full border border-white/20 bg-[#262626] flex items-center justify-center">
+              <p className="text-sm text-white/50  font-Poppins">
+                Star on github
+              </p>
+            </div>
+          </div>
+
+          <div className=" h-72 md:h-96 w-full bg-[#262626] border-4 border-[#4c4c4c] rounded-md absolute ml-10 mt-10 object-contain">
+            <Image
+            className="h-full w-full object-cover md:object-top"
+              src={`/dashboard.png`}
+              height={1500}
+              width={1500}
+              alt="image"
+            />
+          </div>
         </div>
-      <p className='text-sm text-zinc-700 font-medium ml-2' > PR Scheduler on the way of launch 🎉</p>
-      <div>
-        <ChevronRight className='group-hover:scale-125 transition-all'  strokeWidth={1.25} size={16} />
+        <div>
+          <Image
+            className=" h-full object-cover w-full absolute  bottom-0 z-10 "
+            src={`/bg.svg`}
+            height={1500}
+            width={1500}
+            alt="image"
+          />
+        </div>
       </div>
-      </div>
-
-    <div className='px-36' >
-    <p className='text-[100px] text-center font-sans text-[#1C1D1F] dark:text-white tracking-[-3.6px]' >Automate</p>
-    <p className='text-[100px] text-center font-sans text-[#1C1D1F] -mt-14 dark:text-white tracking-[-3.6px]' >your workflows</p>
-    <p className='text-[22px]  font-Poppins  text-zinc-700 dark:text-zinc-500 text-center ' >No more late-night commits or missed PR deadlines! Our platform <br />lets you schedule GitHub commits, pull requests 
-    </p>
-
-    <div className=' flex gap-2 z-50 w-full items-center justify-center mt-8' >
-     <Link href={GITHUB_AUTH_URL}>
-     <div className='px-6 py-3 rounded-xl flex items-center justify-center bg-gradient-to-b from-zinc-800 shadow-lg to-zinc-700 text-white cursor-pointer' >
-      <p className='font-mono font-medium' >Sign in with github</p>
-      </div></Link>
-      <div className='px-6 py-3 rounded-xl flex items-center justify-center border border-zinc-400 text-zinc-800 cursor-pointer' >
-      <p className='font-mono font-semibold' >Star on github</p>
-      </div>
-    </div>
-    {/* <Image className='' src={`/nodata.png`} height={1500} width={1500} alt='image'/> */}
-    </div>
-    </div>
-    <div className='z-20 mt-52' >
-    {/* <GlobeDemo/> */}
-    </div>
-
-    </div>
     </>
-  )
-}
+  );
+};
 
-export default FirstFold
+export default FirstFold;

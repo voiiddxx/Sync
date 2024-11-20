@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronsUpDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import {
   Command,
   CommandEmpty,
@@ -10,31 +9,24 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "../ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "../ui/popover";
+import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
 
-const ComboBox = ({ data, onChange, icon }: any) => {
+const ComboBox = ({ data, onChange, icon , prevItem }: any) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[250px] flex justify-between dark:text-white/70 dark:bg-white/10"
-        >
-          <div className="flex items-center gap-2">
-            {icon}
-            {value || "Select Repo"}
+        <div className="flex items-center gap-1 ml-1" >
+          <p className="text-white text-[13px] font-Poppins text-white/80" >{value || 'Select'}</p>
+          <ChevronUpDownIcon className="text-white size-4" />
           </div>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0 ">
         <Command className="bg-[#262626] border-none" >

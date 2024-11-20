@@ -15,7 +15,9 @@ import {
   FolderPlus,
   GitBranch,
   GitCommit,
+  GitForkIcon,
   GitPullRequest,
+  GitPullRequestDraftIcon,
   Loader,
   Plus,
   Slack,
@@ -41,21 +43,24 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import {
+  DotsHorizontalIcon,
+  GitHubLogoIcon,
+  StarFilledIcon,
+} from "@radix-ui/react-icons";
 import EditScheduleModal from "./editSchedulemodal";
 import CustomModal from "../modal";
 import DeleteModalComponent from "./delete-modal";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import { RectangleStackIcon } from "@heroicons/react/24/solid";
 import GradientButton from "../gradient-button";
 import ScheduleModalContent from "../dashboard/schedule-modal";
+import { useSelector } from "react-redux";
 
 export default function CommitPannel({ data, user }: any) {
+  const repo = useSelector((state: any) => state.repo.value);
+
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
@@ -72,6 +77,8 @@ export default function CommitPannel({ data, user }: any) {
   const [commit_desc, setcommit_desc] = React.useState<string>("");
   const [isSlack, setisSlack] = React.useState<boolean>(false);
   const [isForce, setisForce] = React.useState<boolean>(false);
+
+
 
   React.useEffect(() => {
     diffFileChangeComp();
@@ -112,7 +119,7 @@ export default function CommitPannel({ data, user }: any) {
                     className="flex items-center space-x-2 text-[11px]"
                   >
                     <FileText className="w-3 h-3 text-blue-400" />
-                    <span className="line-clamp-1" >{file?.path}</span>
+                    <span className="line-clamp-1">{file?.path}</span>
                     <span className="px-1 py-0.5 bg-[#1d1d1d] text-zinc-400 rounded text-[10px]">
                       Modified
                     </span>
@@ -133,8 +140,9 @@ export default function CommitPannel({ data, user }: any) {
                           onClick={() => {
                             setcurrentDiffFile(curr);
                           }}
-                          className="text-[11px] pl-4"
+                          className="text-[11px] pl-4 flex items-center gap-1 cursor-pointer"
                         >
+                          <FileText className="w-3 h-3 text-orange-400" />
                           {curr.path}
                         </div>
                       );
@@ -151,8 +159,12 @@ export default function CommitPannel({ data, user }: any) {
                   {data?.deleteFile &&
                     data?.deleteFile.map((curr: any, index: any) => {
                       return (
-                        <div onClick={() => {}} className="text-[11px] pl-4">
-                          {curr.path}
+                        <div
+                          onClick={() => {}}
+                          className="text-[11px] pl-4 flex items-center gap-1 cursor-pointer"
+                        >
+                          <FileText className="w-3 h-3 text-red-400" />
+                          {curr.path || "Null Path Found"}
                         </div>
                       );
                     })}
@@ -160,30 +172,25 @@ export default function CommitPannel({ data, user }: any) {
               </Collapsible>
             </div>
           </ScrollArea>
-          <div className="p-4 border-t border-zinc-700">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full text-xs justify-between dark:bg-[#23232392] font-normal border-zinc-700 text-zinc-300"
-                >
-                  <div className="flex items-center">
-                    <GitBranch className="mr-2 h-3 w-3" strokeWidth={1.25} />
-                    <p className="">main</p>
-                  </div>
-                  <ChevronDown className="h-3 w-3 opacity-50" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="w-[200px] bg-[#282828] border-zinc-700 text-zinc-300"
-              >
-                <DropdownMenuItem>Pull origin</DropdownMenuItem>
-                <DropdownMenuItem>Switch branch</DropdownMenuItem>
-                <DropdownMenuItem>Merge</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="p-4 border-t flex items-center flex-wrap gap-2 border-zinc-800">
+            <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
+              <StarFilledIcon className="text-white/50 size-3" />
+              <p className="text-[11px] font-Poppins text-white/70">
+                {data?.stargazers_count} Starred
+              </p>
+            </div>
+            <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
+              <GitForkIcon className="text-white/50 size-3" />
+              <p className="text-[11px] font-Poppins text-white/70">
+                {data?.forks_count} Forks
+              </p>
+            </div>
+            <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
+              <GitPullRequestDraftIcon className="text-white/50 size-3" />
+              <p className="text-[11px] font-Poppins text-white/70">
+                {data?.open_issues} Issues
+              </p>
+            </div>
           </div>
         </div>
 
@@ -191,7 +198,9 @@ export default function CommitPannel({ data, user }: any) {
         <div className="flex-1 h-[70vh] overflow-hidden flex flex-col dark:bg-[#1f1f1f87] rounded-r-xl">
           <div className="flex items-center justify-between p-2 border-b border-zinc-800">
             <div className="flex items-center space-x-2">
-              <span className="text-blue-400 font-semibold">TypeScript</span>
+              <span className="text-blue-400 font-semibold">
+                {repo.language}
+              </span>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -199,7 +208,8 @@ export default function CommitPannel({ data, user }: any) {
                     size="sm"
                     className="bg-zinc-800 border-zinc-700 text-zinc-300"
                   >
-                    index.ts
+                    
+                    {currentDiffFile?.path}
                     <ChevronDown className="ml-2 h-3 w-3 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -340,35 +350,19 @@ export default function CommitPannel({ data, user }: any) {
         <div className="flex space-x-4">
           <div className="flex-1 space-y-2">
             <Input
+              onChange={(event) => {
+                setcommitMessage(event.target.value);
+              }}
               placeholder="Add TypeScript interface for Props"
               className="text-[11px] bg-[#292929] border-zinc-700 text-zinc-300"
             />
             <Textarea
+              onChange={(event) => {
+                setcommit_desc(event.target.value);
+              }}
               placeholder="Detailed description (optional)"
               className="text-[11px] h-20 resize-none bg-[#292929] border-zinc-700 text-zinc-300"
             />
-          </div>
-          <div className="w-48 space-y-2">
-            <div className="text-[11px] font-semibold text-zinc-500">
-              Co-authors
-            </div>
-            <div className="flex space-x-2">
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="/placeholder-avatar.jpg" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="/placeholder-avatar-2.jpg" />
-                <AvatarFallback>AS</AvatarFallback>
-              </Avatar>
-              <Button
-                size="icon"
-                variant="outline"
-                className="w-6 h-6 bg-zinc-800 border-zinc-700 text-zinc-300"
-              >
-                <Plus className="h-3 w-3" />
-              </Button>
-            </div>
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -377,16 +371,23 @@ export default function CommitPannel({ data, user }: any) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    onClick={() => {
+                      setisSlack(!isSlack);
+                    }}
                     size="sm"
                     variant="outline"
-                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
+                    className={`bg-[#272727] text-zinc-300 border border-[#585858] ${
+                      !isSlack ? "border-[#585858]" : "border-orange-400"
+                    }`}
                   >
                     <Slack className=" h-3 w-3" />
                     Slack
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className="bg-zinc-800 border-zinc-700 text-zinc-300">
-                  <p className="text-[10px]">Enable commit notifications</p>
+                  <p className="text-[10px] font-Poppins">
+                    Enable commit notifications
+                  </p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -394,9 +395,14 @@ export default function CommitPannel({ data, user }: any) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    onClick={() => {
+                      setisForce(!isForce);
+                    }}
                     size="sm"
                     variant="outline"
-                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
+                    className={`bg-[#272727] text-zinc-300 border border-[#585858] ${
+                      !isForce ? "border-[#585858]" : "border-orange-400"
+                    }`}
                   >
                     <Upload className=" h-3 w-3" />
                     Force Push
@@ -404,23 +410,6 @@ export default function CommitPannel({ data, user }: any) {
                 </TooltipTrigger>
                 <TooltipContent className="bg-zinc-800 border-zinc-700 text-zinc-300">
                   <p className="text-[10px]">Force push this commit</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="bg-[#272727] text-zinc-300 border border-[#585858]"
-                  >
-                    <Calendar className=" h-3 w-3" />
-                    Schedule
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className="bg-zinc-800 border-zinc-700 text-zinc-300">
-                  <p className="text-[10px]">Schedule this commit</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -436,7 +425,14 @@ export default function CommitPannel({ data, user }: any) {
               />
             }
             modalContent={(closeModal: any) => (
-              <ScheduleModalContent data={data} closeModal={closeModal} />
+              <ScheduleModalContent
+                data={data}
+                closeModal={closeModal}
+                desc={commit_desc}
+                name={commitMessage}
+                isSlack={isSlack}
+                isForce={isForce}
+              />
             )}
           />
         </div>
@@ -449,7 +445,7 @@ export default function CommitPannel({ data, user }: any) {
             <AvatarImage src={`${user.github_avatar_url}`} />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <span>John Doe committed 5 minutes ago</span>
+          <span>{user.username} committed 5 minutes ago</span>
         </div>
         <div className="flex items-center space-x-2">
           <GitPullRequest className="h-3 w-3" />

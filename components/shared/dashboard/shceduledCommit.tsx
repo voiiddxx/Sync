@@ -29,6 +29,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import EditCommit from "../modals/editCommit";
 
 const ScheduledCommit = ({ data }: any) => {
 
@@ -61,34 +62,34 @@ const ScheduledCommit = ({ data }: any) => {
     }
   };
 
-  if (data?.length < 1) {
+  if (!data || data?.length < 1) {
     return (
       <div className=" h-full w-full flex items-center justify-center overflow-hidden">
         <div className="relative">
-          <div className=" h-[350px] w-[450px] flex items-center  justify-center">
+          <div className=" h-[450px] w-[450px] flex items-center  justify-center">
             <Image
               className="h-full w-full object-cover  animate-stretch "
               src={`/nodata.png`}
-              height={1500}
-              width={1500}
+              height={3000}
+              width={3000}
               alt="image"
             />
           </div>
-          <div className=" w-full flex flex-col items-center justify-center">
-            <p className=" text-[15px] font-Poppins text-center font-semibold">
+          <div className=" w-full flex flex-col items-center justify-center -mt-12">
+            <p className=" text-[15px] font-Poppins text-white/70 text-center font-semibold">
               Requested commit will show here!
             </p>
-            <p className="text-[12px] text-center mt-2 font-medium text-zinc-700 font-Poppins">
+            <p className="text-[12px] text-center mt-2 font-medium text-white/30 font-Poppins">
               Hold tight! , we are looking for your requests, <br /> please
               check back in few minutes.
             </p>
 
             <div className=" w-full flex items-center justify-center gap-2 mt-4">
-              <div className=" px-2 py-2 border border-zinc-400 rounded-md flex items-center justify-center gap-1">
-                <Loader size={15} />
-                <p className="text-xs font-Poppins font-medium">Refresh now </p>
+              <div className=" px-4 py-2 border border-zinc-400 rounded-md flex items-center justify-center gap-1">
+                
+                <p className="text-xs font-Poppins font-medium text-white/50">Refresh now </p>
               </div>
-              <div className=" px-2 py-2 shadow-md bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-700 rounded-md flex items-center justify-center gap-1">
+              <div className=" px-2 py-2 shadow-md bg-[#3f3f3f] rounded-md flex items-center justify-center gap-1">
                 <FireIcon className="size-4 text-white" />
                 <p className="text-xs text-white font-Poppins font-medium">
                   Create commit{" "}
@@ -103,7 +104,7 @@ const ScheduledCommit = ({ data }: any) => {
 
   return (
     <div className="w-full h-[76vh] overflow-hidden  px-4 font-Poppins">
-      <p className="text-sm text-gray-500">Sheduled Requests</p>
+     
       <div
         style={{
           scrollbarWidth: "none",
@@ -114,7 +115,7 @@ const ScheduledCommit = ({ data }: any) => {
       >
         {data?.map((curr: any, index: Number) => {
           return (
-            <div className="min-h-40  pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
+            <div className="   pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
               <div className=" w-full flex items-center  pb-3">
                 <p className="text-zinc-400 text-sm font-normal ">
                   #801254 -{" "}
@@ -133,7 +134,7 @@ const ScheduledCommit = ({ data }: any) => {
 
 
               <div className=" w-full border-b pb-3" >
-              <p className="text-xs text-white/20" >Update the ui for the scheduling commit page and evolve the new uio desgin with figma</p>
+              <p className="text-xs text-white/20" >{curr.commit_desc || 'No Descripton provided'}</p>
               </div>
 
               <div className=" w-full flex items-center gap-3 mt-3  border-b pb-4">
@@ -205,8 +206,8 @@ const ScheduledCommit = ({ data }: any) => {
                   Modiflied Files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-                  {curr?.additionFile &&
-                    curr?.additionFile.map((curr: any, index: any) => {
+                  {curr?.diffFile &&
+                    curr?.diffFile.map((curr: any, index: any) => {
                       return (
                         <div
                           onClick={() => {
@@ -227,8 +228,8 @@ const ScheduledCommit = ({ data }: any) => {
                   Deleted Files
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-                  {curr?.additionFile &&
-                    curr?.additionFile.map((curr: any, index: any) => {
+                  {curr?.deleteFile &&
+                    curr?.deleteFile.map((curr: any, index: any) => {
                       return (
                         <div
                           onClick={() => {
@@ -236,7 +237,7 @@ const ScheduledCommit = ({ data }: any) => {
                           }}
                           className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
                         >
-                          <FileText className="size-3 text-blue-400" />
+                          <FileText className="size-3 text-red-400" />
                           {curr.path}
                         </div>
                       );
@@ -248,7 +249,7 @@ const ScheduledCommit = ({ data }: any) => {
                   <ChevronDown className="w-3 h-3 mr-1" />
                   Renamed Files
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-2 space-y-2">
+                {/* <CollapsibleContent className="mt-2 space-y-2">
                   {curr?.additionFile &&
                     curr?.additionFile.map((curr: any, index: any) => {
                       return (
@@ -263,7 +264,7 @@ const ScheduledCommit = ({ data }: any) => {
                         </div>
                       );
                     })}
-                </CollapsibleContent>
+                </CollapsibleContent> */}
               </Collapsible>
               </div>
 
@@ -328,7 +329,7 @@ const ScheduledCommit = ({ data }: any) => {
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full    transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full  transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
@@ -345,7 +346,7 @@ const ScheduledCommit = ({ data }: any) => {
                             </div>
                           }
                           modalContent={(closeModal: any) => (
-                            <EditScheduleModal
+                            <EditCommit
                               data={curr}
                               closeModal={closeModal}
                             />
