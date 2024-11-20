@@ -1,8 +1,8 @@
 "use client";
 
-import SecondaryTopBar from "../../../components/shared/dashboard/SecondaryTopBar";
-import SideBar from "../../../components/shared/dashboard/sideBar";
-import TopBar from "../../../components/shared/dashboard/topBar";
+import SecondaryTopBar from "@/components/shared/dashboard/SecondaryTopBar";
+import SideBar from "@/components/shared/dashboard/sideBar";
+import TopBar from "@/components/shared/dashboard/topBar";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
