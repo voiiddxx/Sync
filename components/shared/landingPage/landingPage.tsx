@@ -77,8 +77,11 @@ const LandingPage = () => {
             <div className=" w-full h-96 mt-12 flex items-center gap-3 justify-center border-t flex-col border-b relative overflow-hidden border-[#262626]">
               <h1 className="text-4xl text-white font-extralight  z-50 tracking-wide text-center" >Automate Your <span className="text-white/70" >Workflow Now</span></h1>
               <div className=" px-4 py-2 z-50 border bg-gradient-to-r mt-4 border-[#515151] cursor-pointer from-[#262626] to-[#161616] rounded-full flex items-center justify-center" >
-                <h1 className="text-white z-50 font-Poppins font-extralight text-sm " >$ git sync -u voiiddxx</h1>
-                <CopyIcon className="size-4 ml-6 text-white" />
+                <h1 className="text-white z-50 font-Poppins font-extralight text-sm " >$ git sync -u username</h1>
+                <CopyIcon onClick={()=>{
+                  navigator.clipboard.writeText('git sync -u username');
+                  
+                }} className="size-4 ml-6 text-white" />
               </div>
               <Image
                 className="absolute opacity-25 grayscale hover:grayscale-0 transition-all hover:scale-110 top-10 drop-shadow-md decoration-fuchsia-300 hover:rotate-2 duration-1000 ease-in-out"

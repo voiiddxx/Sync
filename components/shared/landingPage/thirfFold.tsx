@@ -9,14 +9,14 @@ const ThirdFold = () => {
       <div className=" w-full h-1/2 md:flex border-b items-center border-[#262626] justify-center">
         <div className=" md:w-1/2 h-[600px] border-b md:border-b-transparent border-[#262626] overflow-hidden border-r md:pl-16 pl-4 pt-16 relative">
           <div className="flex items-center gap-2">
-            <TerminalSquare className="text-[#7e7e7e]" />
-            <h1 className="md:text-lg text-sm text-white/60 font-Poppins">
+            <TerminalSquare className="text-[#262626] size-5" />
+            <h1 className="md:text-sm text-sm text-white/60 font-Poppins">
               Synced Workspaces
             </h1>
           </div>
-          <h1 className="text-white md:text-2xl text-lg font-Poppins tracking-normal mt-6">
-            From localhost to https, in seconds. <br />{" "}
-            <span className="text-white/60"> Deploy from Git or your CLI</span>
+          <h1 className="text-white md:text-xl text-lg font-Poppins tracking-normal mt-6">
+          Sync with CLI, Schedule with Flow<br />{" "}
+            <span className="text-white/60"> at minimum effort</span>
           </h1>
 
           <Image
@@ -39,14 +39,14 @@ const ThirdFold = () => {
 
         <div className=" md:w-1/2 h-[600px] border-b md:border-b-transparent border-[#262626] overflow-hidden border-r md:pl-16 pl-4 pt-16 relative">
           <div className="flex items-center gap-2">
-            <TerminalSquare className="text-[#7e7e7e]" />
-            <h1 className="md:text-lg text-sm text-white/60 font-Poppins">
-              Synced Workspaces
+            <TerminalSquare className="text-[#262626] size-5" />
+            <h1 className="md:text-sm text-sm text-white/60 font-Poppins">
+            Track  Progress
             </h1>
           </div>
-          <h1 className="text-white md:text-2xl text-lg font-Poppins tracking-normal mt-6">
-            From localhost to https, in seconds. <br />{" "}
-            <span className="text-white/60"> Deploy from Git or your CLI</span>
+          <h1 className="text-white md:text-xl text-lg font-Poppins tracking-normal mt-6">
+          Visualize your workflow and see how <br />{" "}
+            <span className="text-white/60"> you are progressing</span>
           </h1>
 
           <Image

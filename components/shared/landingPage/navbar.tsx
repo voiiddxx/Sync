@@ -17,14 +17,8 @@ const NavBar = () => {
       <div className=" h-12 w-full flex items-center justify-between border border-[#262626] rounded-2xl px-4 bg-black bg-opacity-50 backdrop-blur-md">
         <div className=" flex gap-3 items-center">
           <div className="flex gap-1 items-center">
-            <Image
-              className="h-8 w-8 "
-              src={"/logo.png"}
-              height={1500}
-              width={1500}
-              alt="logo"
-            />
-            <p className="text-sm font-Poppins  font-medium text-white/60">
+           
+            <p className="text-sm font-mono  font-medium text-white/90">
               Flow
             </p>
           </div>

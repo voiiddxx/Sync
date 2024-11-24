@@ -16,13 +16,12 @@ const FirstFold = () => {
             Automate your github workflows{" "}
           </h1>
           <h1 className="text-white/80 md:text-4xl text-xl mt-2 font-mono  font-medium hidden md:inline-block    ">
-            with less effort
+            with less effort and ease
           </h1>
-          <p className="text-white/50 font-Poppins md:text-[18px] text-base font-normal  text-center md:text-left md:mt-8 mt-6">
-            Boost your productivity on GitHub with the floww seamless
-            <span className="hidden md:inline-block mt-2">
-            user-friendly tool for developers
-             Whether you're scheduling issues
+          <p className="text-white/50 font-Poppins md:text-[18px] text-base text-center md:text-left md:mt-8 mt-6">
+          Simplify your development workflow by automating commit and PR scheduling
+            <span className="hidden md:inline-block mt-1">
+            saving time, boosting productivity, and focusing on coding brilliance.
             </span>
            
           </p>
@@ -30,12 +29,12 @@ const FirstFold = () => {
           <div className=" flex items-center gap-3 mt-8 justify-center md:justify-start">
             <Link href={GITHUB_AUTH_URL}>
             <div className="px-4 py-2 rounded-full  border-white/20 bg-gradient-to-b from-[#ddd] to-[#afafaf] flex items-center justify-center">
-              <p className="text-sm text-black  font-Poppins">
-                Getting Started
+              <p className="text-[12px] text-black  font-Poppins">
+                Comming Soon
               </p>
             </div></Link>
             <div className="px-4 py-2 rounded-full border border-white/20 bg-[#262626] flex items-center justify-center">
-              <p className="text-sm text-white/50  font-Poppins">
+              <p className="text-[12px] text-white/50  font-Poppins">
                 Star on github
               </p>
             </div>
