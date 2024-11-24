@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
         const commit = await prisma.commit.findFirst({
             where: { id: commitId }, include: {
-                files: true
+                additionFile:true
             }
         });
 
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: 400, message: 'No Commit Found' })
         }
 
-        const push = await postCommit(username, commit.repo, commit.files, 'main', user.github_access_token! , commit.isForce!);
+        const push = await postCommit(username, commit.repo, commit.additionFile, 'main', user.github_access_token! , commit.isForce!);
 
         if (!push) {
             return NextResponse.json({ status: 400, message: 'Failed To commit , try again later!' });
