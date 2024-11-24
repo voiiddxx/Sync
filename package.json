@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "npx prisma generate && npm install  && next build",
+    "vercel-build": "npx prisma generate && next build",
     "run-db": "npx prisma migrate dev --name init"
   },
   "dependencies": {
