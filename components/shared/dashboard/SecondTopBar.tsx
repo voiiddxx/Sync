@@ -14,7 +14,7 @@ import axios from "axios";
 import { updateUserRepo } from "../../../store/slices/repoSlice";
 import { ServerStackIcon } from "@heroicons/react/24/solid";
 
-const SecondaryTopBar = ({ showTopBar }: any) => {
+const SecondTopBar = ({ showTopBar }: any) => {
   const dispatch = useDispatch();
   const repo = useSelector((state: any) => state.repo.value);
   const user = useSelector((state: any) => state.user.value);
@@ -137,4 +137,4 @@ const SecondaryTopBar = ({ showTopBar }: any) => {
   );
 };
 
-export default SecondaryTopBar;
+export default SecondTopBar;
