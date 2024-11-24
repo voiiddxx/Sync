@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState : any = {
     value: true,
     currentTab: 'home',
+    darkMode: false
 }
 
 
@@ -17,11 +18,14 @@ const windowSlice = createSlice({
         },
         updateCurrentTab : (state , action)=>{
             state.currentTab = action.payload;
+        },
+        updateDarkMode : (state , action)=>{
+            state.darkMode = action.payload
         }
     }
 })
 
 
-export const  {updateSidebar , updateCurrentTab} = windowSlice.actions;
+export const  {updateSidebar , updateCurrentTab , updateDarkMode} = windowSlice.actions;
 
 export default windowSlice.reducer;

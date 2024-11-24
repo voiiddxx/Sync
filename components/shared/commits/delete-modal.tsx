@@ -13,7 +13,7 @@ const DeleteModalComponent = ({ data, closeModal }: any) => {
   const dispatch = useDispatch();
 
 
-  console.log("this is the val of data" , data);
+
   
 
   const onChangeHandle = (event: any) => {
@@ -58,35 +58,35 @@ const DeleteModalComponent = ({ data, closeModal }: any) => {
   };
 
   return (
-    <div className="min-h-24 w-full flex flex-col pb-3">
-      <div className="h-16 w-full border-b rounded-t-lg flex flex-col justify-center px-4 bg-zinc-100">
-        <p className="text-base text-gray-800 font-Poppins font-medium">
-          Delete commit
+    <div className="min-h-24 w-full flex flex-col pb-3m">
+      <div className="h-16 w-full border-b border-b-zinc-700 rounded-t-lg flex flex-col justify-center px-4 ">
+        <p className=" text-white/90 font-Poppins  text-sm tracking-tight">
+          Delete commit and re sync
         </p>
       </div>
 
       <div className="px-4 mt-4">
-        <p className=" text-sm text-gray-800 font-Poppins tracking-tight font-medium">
+        <p className=" text-xs text-white/50 font-Poppins tracking-tight font-light">
           Are you sure you want to delete the commit?
         </p>
 
-        <p className="mt-6 text-xs font-medium font-Poppins text-gray-700">
+        <p className="mt-6 text-xs font-light font-Poppins text-white/30">
           commit id{" "}
         </p>
         <input
           onChange={onChangeHandle}
-          className="outline-none h-8 w-full border shadow-sm rounded-lg mt-2 text-xs text-black font-Poppins px-2"
+          className="outline-none h-8 w-full border shadow-sm bg-transparent rounded-lg mt-2 text-xs border-white/20 text-white font-Poppins px-2 "
           placeholder="write your commit id"
           type="text"
         />
       </div>
 
-      <div className=" min-h-12 w-full mt-4 bg-gradient-to-b from-red-50  to-white">
+      <div className=" min-h-12 w-full mt-4 ">
         <div className="w-full flex items-start gap-2 px-4 mt-4">
           <div>
-            <TriangleAlert size={18} className="text-red-500 mt-1" />
+            <TriangleAlert size={18} className="text-red-400 mt-1" />
           </div>
-          <p className="text-xs text-red-400 font-Poppins">
+          <p className="text-xs text-[#ff9f9f] font-Poppins">
             This action will delete the application and all associated instances
             and data, and is irreversible.
           </p>
@@ -95,8 +95,8 @@ const DeleteModalComponent = ({ data, closeModal }: any) => {
         <div className=" w-full flex items-center justify-end px-4 mt-6">
           <div
               onClick={hanldleDeleteSubmission}
-            className={`relative px-4 shadow-sm py-2 rounded-lg bg-gradient-to-b from-red-700  to-red-400 flex items-center justify-center 
-    transition-transform duration-300 ease-in-out cursor-pointer hover:scale-105 hover:from-red-600 hover:to-red-400 ${
+            className={`relative px-4 shadow-sm py-2 rounded-lg bg-gradient-to-b from-red-600  to-red-800 flex items-center justify-center 
+    transition-transform duration-300 ease-in-out cursor-pointer hover:scale-105 hover:from-red-600 hover:to-red-500 ${
       isMatch ? "opacity-100" : "opacity-50"
     }`}
           >

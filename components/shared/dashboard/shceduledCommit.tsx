@@ -2,18 +2,14 @@
 import {
   CalendarDateRangeIcon,
   ClockIcon,
+  DocumentArrowDownIcon,
   FireIcon,
   FolderIcon,
   RectangleStackIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import { DotsHorizontalIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import {
-  ChevronRight,
-  GitBranch,
-  Loader,
-  Trash2,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, FileText, GitBranch, Loader, Trash2 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -28,18 +24,16 @@ import axios from "axios";
 import CustomModal from "../modal";
 import EditScheduleModal from "../commits/editSchedulemodal";
 import DeleteModalComponent from "../commits/delete-modal";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import EditCommit from "../modals/editCommit";
 
 const ScheduledCommit = ({ data }: any) => {
-  const dataforpopOver = [
-    {
-      label: "Edit commit",
-      icon: <GitHubLogoIcon className="size-4" />,
-    },
-    {
-      label: "Reschedule commit",
-      icon: <CalendarDateRangeIcon className="size-4" />,
-    },
-  ];
+
+
 
   const user = useSelector((state: any) => state.user.value);
 
@@ -68,34 +62,34 @@ const ScheduledCommit = ({ data }: any) => {
     }
   };
 
-  if (data?.length < 1) {
+  if (!data || data?.length < 1) {
     return (
       <div className=" h-full w-full flex items-center justify-center overflow-hidden">
         <div className="relative">
-          <div className=" h-[350px] w-[450px] flex items-center  justify-center">
+          <div className=" h-[450px] w-[450px] flex items-center  justify-center">
             <Image
               className="h-full w-full object-cover  animate-stretch "
               src={`/nodata.png`}
-              height={1500}
-              width={1500}
+              height={3000}
+              width={3000}
               alt="image"
             />
           </div>
-          <div className=" w-full flex flex-col items-center justify-center">
-            <p className=" text-[15px] font-Poppins text-center font-semibold">
+          <div className=" w-full flex flex-col items-center justify-center -mt-12">
+            <p className=" text-[15px] font-Poppins text-white/70 text-center font-semibold">
               Requested commit will show here!
             </p>
-            <p className="text-[12px] text-center mt-2 font-medium text-zinc-700 font-Poppins">
+            <p className="text-[12px] text-center mt-2 font-medium text-white/30 font-Poppins">
               Hold tight! , we are looking for your requests, <br /> please
               check back in few minutes.
             </p>
 
             <div className=" w-full flex items-center justify-center gap-2 mt-4">
-              <div className=" px-2 py-2 border border-zinc-400 rounded-md flex items-center justify-center gap-1">
-                <Loader size={15} />
-                <p className="text-xs font-Poppins font-medium">Refresh now </p>
+              <div className=" px-4 py-2 border border-zinc-400 rounded-md flex items-center justify-center gap-1">
+                
+                <p className="text-xs font-Poppins font-medium text-white/50">Refresh now </p>
               </div>
-              <div className=" px-2 py-2 shadow-md bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-700 rounded-md flex items-center justify-center gap-1">
+              <div className=" px-2 py-2 shadow-md bg-[#3f3f3f] rounded-md flex items-center justify-center gap-1">
                 <FireIcon className="size-4 text-white" />
                 <p className="text-xs text-white font-Poppins font-medium">
                   Create commit{" "}
@@ -110,7 +104,7 @@ const ScheduledCommit = ({ data }: any) => {
 
   return (
     <div className="w-full h-[76vh] overflow-hidden  px-4 font-Poppins">
-      <p className="text-sm text-gray-500">Sheduled Requests</p>
+     
       <div
         style={{
           scrollbarWidth: "none",
@@ -121,59 +115,157 @@ const ScheduledCommit = ({ data }: any) => {
       >
         {data?.map((curr: any, index: Number) => {
           return (
-            <div className="min-h-40 pb-3 w-full rounded-xl border px-6 py-6 ">
+            <div className="   pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
               <div className=" w-full flex items-center  pb-3">
-                <p className="text-zinc-600 text-sm font-medium ">
+                <p className="text-zinc-400 text-sm font-normal ">
                   #801254 -{" "}
-                  <span className="text-black tracking-tight">
+                  <span className="text-white tracking-tight">
                     {curr.commit_message}
                   </span>
                 </p>
-                <div className="flex items-center justify-between px-2 py-1 ml-2 bg-blue-50  rounded-lg border-[1.5px] border-blue-200">
-                  <ClockIcon className="size-4 text-blue-600" />
-                  <p className="text-xs ml-1 font-normal">
+                <div className="flex items-center justify-between px-2 py-1 ml-2 bg-gradient-to-r from-[#262626] to-[#131313]   rounded-lg border-[1.5px] border-zinc-700">
+                  <ClockIcon className="size-4 text-[#522fff]" />
+                  <p className="text-xs ml-1 font-normal text-white/60">
                     Commit on{" "}
                     {moment(curr.scheduled_time).format("MMMM Do, YYYY h:mm A")}
                   </p>
                 </div>
               </div>
 
+
+              <div className=" w-full border-b pb-3" >
+              <p className="text-xs text-white/20" >{curr.commit_desc || 'No Descripton provided'}</p>
+              </div>
+
               <div className=" w-full flex items-center gap-3 mt-3  border-b pb-4">
                 <div className="flex items-center gap-1 cursor-pointer ">
-                  <GitHubLogoIcon className="size-4" />
-                  <p className="text-xs tracking-tight font-medium px-1 py-1 text-gray-600 hover:text-purple-800 rounded-sm">
+                  <GitHubLogoIcon className="size-4 text-zinc-300" />
+                  <p className="text-xs tracking-tight font-medium px-1 py-1 text-white/70 hover:text-purple-800 rounded-sm">
                     github/voiiddxx/{curr.repo}
                   </p>
                 </div>
                 <div className="flex items-center  cursor-pointer ">
-                  <GitBranch className="size-3.5 text-gray-600" />
-                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-gray-600">
+                  <GitBranch className="size-3.5 text-red-400" />
+                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-red-400">
                     {curr?.branch}
                   </p>
                 </div>
-                <div className="flex items-center bg-purple-50 border rounded-md px-2   cursor-pointer gap-1">
-                  <FolderIcon className="size-3.5 text-purple-600" />
-                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-purple-600">
+                <div className="flex items-center  border rounded-md px-2   cursor-pointer gap-1">
+                  <FolderIcon className="size-3.5 text-purple-400" />
+                  <p className="text-xs tracking-tight px-1 py-1  font-medium text-purple-400">
                     {curr?.files?.length} File changes
                   </p>
                 </div>
-                <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
+                <div className="flex items-center bg-[#262626]  rounded-md px-2   cursor-pointer gap-1">
                   <div className="h-5 w-5 rounded-md flex items-center justify-center">
                     <SlackSVGIcon />
                   </div>
-                  <p className="text-xs tracking-tight px-1 py-1 text-gray-600  font-medium ">
+                  <p className="text-xs tracking-tight px-1 py-1 text-gray-300  font-medium ">
                     Slack <span>{curr.isSlack ? "Enabled" : "Disabled"}</span>
                   </p>
                 </div>
-                <div className="flex items-center bg-white  rounded-md px-2   cursor-pointer gap-1">
+                <div className="flex items-center bg-[#ff5e07] bg-opacity-5  rounded-md px-2   cursor-pointer gap-1">
                   <div className="h-5 w-5 rounded-md flex items-center justify-center">
-                    <RocketLaunchIcon className="size-4 text-gray-600" />
+                    <RocketLaunchIcon className="size-4 text-[#ff8341]" />
                   </div>
-                  <p className="text-xs tracking-tight text-gray-600  font-medium ">
+                  <p className="text-xs tracking-tight text-[#f67733]  font-medium ">
                     Force Push{" "}
                     <span>{curr.isForce ? "Enabled" : "Disabled"}</span>
                   </p>
                 </div>
+              </div>
+
+
+
+              <div className="border-b pb-3 w-full flex items-start mt-4 gap-8" >
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Newly created files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.additionFile &&
+                    curr?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Modiflied Files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.diffFile &&
+                    curr?.diffFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Deleted Files
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.deleteFile &&
+                    curr?.deleteFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-red-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center text-[11px] font-semibold text-zinc-500">
+                  <ChevronDown className="w-3 h-3 mr-1" />
+                  Renamed Files
+                </CollapsibleTrigger>
+                {/* <CollapsibleContent className="mt-2 space-y-2">
+                  {curr?.additionFile &&
+                    curr?.additionFile.map((curr: any, index: any) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            // setcurrentDiffFile(curr);
+                          }}
+                          className="text-[11px] pl-4 flex gap-1 items-center text-white/60"
+                        >
+                          <FileText className="size-3 text-blue-400" />
+                          {curr.path}
+                        </div>
+                      );
+                    })}
+                </CollapsibleContent> */}
+              </Collapsible>
               </div>
 
               <div className=" w-full flex items-center mt-3 justify-between">
@@ -187,8 +279,8 @@ const ScheduledCommit = ({ data }: any) => {
                       alt="user image"
                     />
                   </div>
-                  <p className="text-xs font-Poppins tracking-tight font-medium ml-2">
-                    Synced on <span className="text-purple-600">floww</span> by
+                  <p className="text-xs font-Poppins text-gray-400 tracking-tight font-medium ml-2">
+                    Synced on <span className="text-purple-400">floww</span> by
                     voiiddxx
                   </p>
                   <p className="text-xs ml-1 tracking-tight text-gray-600">
@@ -200,21 +292,17 @@ const ScheduledCommit = ({ data }: any) => {
                   <Popover>
                     <PopoverTrigger>
                       <div>
-                        <DotsHorizontalIcon />
+                        <DotsHorizontalIcon className="text-white/50" />
                       </div>
                     </PopoverTrigger>
-                    <PopoverContent className="flex  flex-col   w-60  ">
-                      <div className=" h-12 flex items-center pl-4 gap-2 justify-start px-2 w-full bg-zinc-50 border-b rounded-t-xl">
-                        <RectangleStackIcon className="size-5 text-gray-800" />
-                        <p className="text-sm font-medium">Manage</p>
-                      </div>
+                    <PopoverContent className="flex  flex-col   w-60 ">
                       <div className=" flex flex-col  ">
                         <CustomModal
                           width={"500px"}
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full hover:bg-zinc-100  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full    transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
@@ -226,7 +314,7 @@ const ScheduledCommit = ({ data }: any) => {
                                 </p>
                               </div>
                               <div>
-                                <ChevronRight className="size-3" />
+                                <ChevronRight className="size-3 text-white/40" />
                               </div>
                             </div>
                           }
@@ -241,33 +329,33 @@ const ScheduledCommit = ({ data }: any) => {
                           prevItem={
                             <div
                               key={""}
-                              className="h-12 w-full hover:bg-zinc-100  px-3 transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
+                              className="h-12 w-full  transition-all duration-200 ease-in-out flex items-center justify-between  font-Poppins hover:bg-zinc-50w-full cursor-pointer"
                             >
                               <div className=" flex items-center gap-2">
                                 <div className="flex items-center gap-1 text-gray-700">
                                   {/* {item.icon} */}
-                                  <GitHubLogoIcon className="size-4" />
+                                  <GitHubLogoIcon className="size-4 text-white/80" />
                                 </div>
-                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-800">
+                                <p className="text-xs font-Poppins font-medium tracking-tight  text-zinc-400">
                                   Reschedule commit
                                 </p>
                               </div>
                               <div>
-                                <ChevronRight className="size-3" />
+                                <ChevronRight className="size-3 text-white/40" />
                               </div>
                             </div>
                           }
                           modalContent={(closeModal: any) => (
-                            <EditScheduleModal
+                            <EditCommit
                               data={curr}
                               closeModal={closeModal}
                             />
                           )}
                         />
                       </div>
-                      <div className=" pb-2 px-2">
+                      <div className="">
                         <div
-                          className="h-8 w-full flex items-center justify-center bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-700  rounded-lg mt-3 cursor-pointer"
+                          className="h-8 w-full flex items-center justify-center bg-gradient-to-b from-[#262626] to-[#272727] border border-zinc-700  rounded-md mt-3 cursor-pointer"
                           onClick={() => {
                             postCommit(curr.id);
                           }}

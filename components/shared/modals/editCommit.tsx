@@ -78,48 +78,48 @@ const EditCommit = ({ data, closeModal }: any) => {
       <div className=" w-full flex justify-between">
         <div className=" flex items-center gap-2">
           <div className="h-9 w-9 shadow-sm flex items-center justify-center rounded-md border">
-            <CubeIcon className="size-5" />
+            <CubeIcon className="size-5 text-white/70" />
           </div>
           <div>
-            <p className="text-sm font-Poppins font-medium">Commit overview</p>
-            <p className="font-Poppins text-xs text-gray-800">
+            <p className="text-sm font-Poppins font-medium text-white/50">Commit overview</p>
+            <p className="font-Poppins text-xs text-gray-400">
               Manage your changes and schedule commit
             </p>
           </div>
         </div>
       </div>
 
-      <div className="min-h-20 w-full bg-zinc-50 rounded-lg mt-10 px-3 py-3">
+      <div className="min-h-20 w-full bg-[#242427] border border-[#323236] rounded-lg mt-10 px-3 py-3">
         <div className="w-full flex justify-between items-center gap-2">
           <div>
-            <p className="text-sm font-medium">Direct link</p>
-            <p className="text-xs font-medium text-zinc-600 tracking-tight">
+            <p className="text-sm font-medium text-orange-300">Direct link</p>
+            <p className="text-xs font-medium text-zinc-400 tracking-tight">
               Anyone can view the commit details
             </p>
           </div>
-          <div className="px-2 py-2 rounded-md flex items-center justify-center gap-1 border shadow-sm bg-white">
-            <p className="text-xs font-medium text-gray-800">SHA link</p>
+          <div className="px-2 py-2 rounded-md flex items-center justify-center gap-1  shadow-sm bg-black]">
+            <p className="text-xs font-medium text-gray-400">SHA link</p>
             <ChevronDownIcon className="size-3" />
           </div>
         </div>
-        <div className="h-10 w-full px-4 flex items-center justify-between rounded-lg bg-white border border-zinc-200 mt-4">
+        <div className="h-10 w-full px-4 flex items-center justify-between rounded-lg bg-[#353539] border border-white/20 mt-4">
           <div className=" flex gap-2">
-            <LucideLink2 className="size-4 transform -rotate-45" />
-            <p className="text-xs text-zinc-900 font-medium">
+            <LucideLink2 className="size-4 text-white/30 transform -rotate-45 " />
+            <p className="text-xs text-white/60 font-medium">
               github.com/voiiddxx/floww/commits/globes/59551
             </p>
           </div>
-          <p className="text-xs text-zinc-900 font-medium">Copy link</p>
+          <p className="text-xs text-white/30 font-medium">Copy link</p>
         </div>
       </div>
 
-      <p className="text-xs   tracking-tight text-gray-600 mt-6">
+      <p className="text-xs tracking-tight text-gray-400 mt-6">
         Commit message
       </p>
       <div className=" w-full flex items-center justify-between gap-2 mt-3">
-        <div className=" h-10 w-full border rounded-lg  px-2 flex items-center justify-center">
+        <div className=" h-10 w-full border border-white/30 rounded-lg  px-2 flex items-center justify-center">
           <GithubIcon
-            className="mr-2 text-gray-500"
+            className="mr-2 text-white/30"
             size={15}
             strokeWidth={2.25}
           />
@@ -127,13 +127,13 @@ const EditCommit = ({ data, closeModal }: any) => {
             onChange={(event) => {
               setcommitMessage(event.target.value)
             }}
-            className="outline-none border-none text-xs w-full h-full"
+            className="outline-none border-none bg-transparent text-xs w-full h-full text-white"
             placeholder="Write or generate commit message"
             type="text"
           />
         </div>
         <div className="">
-          <div className="bg-purple-600 px-2 py-2 rounded-lg shadow-sm border ">
+          <div className="bg-purple-600 px-2 py-2 rounded-lg shadow-sm border border-purple-300 ">
             <SparklesIcon className="size-5 text-white" />
           </div>
         </div>
@@ -144,14 +144,14 @@ const EditCommit = ({ data, closeModal }: any) => {
           Files Changes
         </p>
         <div className="flex flex-col gap-2 mt-3">
-          {data?.files.map((curr: any) => {
+          {data?.diffFile.map((curr: any) => {
             return (
               <div className=" w-full flex items-center justify-between">
                 <div className=" flex gap-1 items-center">
-                  <div className=" px-1 py-1 rounded-md bg-zinc-100">
+                  <div className=" px-1 py-1 rounded-md bg-[#353539] border border-white/20">
                     <DocumentArrowUpIcon className="size-4 text-zinc-600" />
                   </div>
-                  <p className="text-xs font-medium ml-2">{curr.path}</p>
+                  <p className="text-xs text-white/50 font-medium ml-2">{curr.path}</p>
                 </div>
 
                 <ForwardIcon className="size-4 text-zinc-600" />
@@ -163,17 +163,17 @@ const EditCommit = ({ data, closeModal }: any) => {
 
       <p className="text-xs  mt-6 tracking-tight text-gray-600">Additinols</p>
       <div className=" w-full flex items-center justify-start mt-3 gap-4">
-        <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-green-50 rounded-full border border-green-200">
+        <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-green-900 bg-opacity-15 rounded-full border border-green-600">
           <ServerIcon className="text-green-500 size-3" />
           <p className="text-xs font-medium text-green-500">{data.repo}</p>
         </div>
-        <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-orange-50 rounded-full border border-orange-200">
-          <GitBranchIcon size={15} className="text-orange-600" />
-          <p className="text-xs font-medium text-orange-500">{data?.branch}</p>
+        <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-orange-900 bg-opacity-15 rounded-full border border-orange-500">
+          <GitBranchIcon size={12} className="text-orange-400" />
+          <p className="text-xs font-medium text-orange-400">{data?.branch}</p>
         </div>
-        <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-pink-100 rounded-full border border-pink-300">
-          <ClockIcon className="size-3 text-pink-500" />
-          <p className="text-xs font-medium text-pink-500">{data?.status}</p>
+        <div className=" px-2 py-1 flex items-center justify-center gap-2 bg-pink-900 bg-opacity-15 rounded-full border border-pink-500">
+          <ClockIcon className="size-3 text-pink-400" />
+          <p className="text-xs font-medium text-pink-400">{data?.status}</p>
         </div>
       </div>
 
@@ -188,9 +188,9 @@ const EditCommit = ({ data, closeModal }: any) => {
               alt="logo"
             />
           </div>
-          <p className=" text-xs tracking-tight font-medium">
+          <p className=" text-xs tracking-tight font-medium text-white/30">
             created by voiddxx{" "}
-            <span className="text-gray-600 font-normal">
+            <span className="text-white/70 font-normal">
               {moment(data?.updatedAt).startOf("date").fromNow()}
             </span>
           </p>

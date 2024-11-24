@@ -11,7 +11,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 
@@ -28,30 +28,61 @@ model User {
   commits   Commit[] 
 }
 
+
+
 model Commit {
-  id              Int           @id @default(autoincrement())
+  id              Int              @id @default(autoincrement())
   repo            String
   branch          String
-  status          String? @default("")
-  commit_message  String? @default("")
-  commit_desc     String? @default("")
-  scheduled_time  DateTime @default(now())
-  isSlack         Boolean @default(false)
-  isForce         Boolean @default(false)
-  
-  files           changeFiles[] 
+  status          String?          @default("")
+  commit_message  String?          @default("")
+  commit_desc     String?          @default("")
+  scheduled_time  DateTime         @default(now())
+  isSlack         Boolean           @default(false)
+  isForce         Boolean           @default(false)
+
+  additionFile additionFIle[]
+  deleteFile deleteFile[]
+  modifiedFile modifiedFile[]
+  diffFile diffFile[]
 
   userId          Int  
-  user            User    @relation(fields: [userId], references: [id] )
+  user            User              @relation(fields: [userId], references: [id])
 
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
-model changeFiles {
-  id        Int     @id @default(autoincrement())
-  path      String?
-  content   String?
-  commitId  Int     
-  commit    Commit  @relation(fields: [commitId], references: [id] , onDelete: Cascade)
+
+model additionFIle {
+  id Int @id @default(autoincrement())
+  path String?
+  content String
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
 }
+model deleteFile {
+  id Int @id @default(autoincrement())
+  path String?
+  content String?
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
+}
+
+model modifiedFile {
+  id Int @id @default(autoincrement())
+  path String?
+  content String?
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
+}
+
+model diffFile {
+  id Int @id @default(autoincrement())
+  path String?
+  content String?
+  commitId Int
+  commit Commit @relation(fields: [commitId] , references: [id] , onDelete: Cascade)
+}
+
+

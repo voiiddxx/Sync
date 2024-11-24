@@ -17,37 +17,37 @@ cron.schedule('* * * * *', async () => {
 
     if (pendingCommits.length > 0) {
       for (const commit of pendingCommits) {
-        console.log(`Processing commit for user: ${commit.user.username}`);
+        // console.log(`Processing commit for user: ${commit.user.username}`);
 
         // Try pushing the commit
-        const res = await pushCommitModule(
-          commit.user.username,
-          commit.repo,
-          commit.files,
-          commit.branch,
-          commit.user.github_access_token!,
-          commit.isForce
-        );
+        // const res = await pushCommitModule(
+        //   commit.user.username,
+        //   commit.repo,
+        //   commit.files,
+        //   commit.branch,
+        //   commit.user.github_access_token!,
+        //   commit.isForce
+        // );
 
-        if (res) {
-          console.log(`Commit pushed successfully for user: ${commit.user.username}`);
+        // if (res) {
+          // console.log(`Commit pushed successfully for user: ${commit.user.username}`);
 
-          if (commit.isSlack && commit.user.slack_channel_id && commit.user.slack_access_token) {
-            await pushMessageToSlack(commit.user.slack_channel_id, "Commit Created", commit.user.slack_access_token);
-          }
-          const updateCommitData = await prisma.commit.update({
-            where: {
-              id: commit.id,
-            },
-            data: {
-              status: 'Pushed'
-            }
-          });
+          // if (commit.isSlack && commit.user.slack_channel_id && commit.user.slack_access_token) {
+          //   await pushMessageToSlack(commit.user.slack_channel_id, "Commit Created", commit.user.slack_access_token);
+          // }
+          // const updateCommitData = await prisma.commit.update({
+          //   where: {
+          //     id: commit.id,
+          //   },
+          //   data: {
+          //     status: 'Pushed'
+          //   }
+          // });
 
 
-        } else {
-          console.error(`Failed to push commit for user: ${commit.user.username}`);
-        }
+        // } else {
+        //   console.error(`Failed to push commit for user: ${commit.user.username}`);
+        // }
       }
     } else {
       console.log("No pending commits for this minute.");
@@ -86,7 +86,7 @@ const getAllPendingCommit = async () => {
       }
     },
     include: {
-      files: true,
+      // files: true,
       user: true
     }
   });

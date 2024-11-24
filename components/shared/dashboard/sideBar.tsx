@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { updateCurrentTab } from "@/store/slices/windowSlice";
+import { updateCurrentTab } from "../../../store/slices/windowSlice";
 import Image from "next/image";
 
 const sideBarOptions = [
@@ -57,17 +57,27 @@ const sideBarOptions = [
 const SideBar = () => {
   const user = useSelector((state: any) => state.user.value);
   const window = useSelector((state: any) => state.window.value);
-  const activeTab = useSelector((state:any)=>state.window.currentTab);
+  const activeTab = useSelector((state: any) => state.window.currentTab);
   const dispatch = useDispatch();
 
   const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://floww-one.vercel.app/api/auth/callback/slack&state=${user.username}`;
 
   return (
-    <div className="h-screen px-4  border-r py-4 w-full">
+    <div className="h-screen px-4  border-r py-4 w-full dark:bg-[#121212] dark:text-white">
       <div className=" flex items-center justify-between gap-2">
         <div className=" flex gap-1 items-center">
-          <Image className="h-8 w-8" src={'/logo.png'} height={1500} width={1500} alt="logo" />
-          {window && <p className="font-Poppins text-lg font-bold text-black">Floww</p>}
+          <Image
+            className="h-8 w-8"
+            src={"/logo.png"}
+            height={1500}
+            width={1500}
+            alt="logo"
+          />
+          {window && (
+            <p className="font-Poppins text-lg font-bold text-black dark:text-white">
+              Floww
+            </p>
+          )}
         </div>
 
         <div>{/* <PanelRightOpen size={20} strokeWidth={1.5} /> */}</div>
@@ -78,17 +88,17 @@ const SideBar = () => {
         <div
           className={`h-10 shadow-sm transition-all duration-500 ${
             window
-              ? "w-full flex justify-between items-center px-2 border rounded-md"
-              : "w-10 bg-black shadow-lg flex items-center justify-center rounded-full"
+              ? "w-full flex justify-between items-center px-2 border dark:bg-[#262626] shadow-sm rounded-xl hover:scale-95 cursor-pointer"
+              : "w-10 bg-black dark:bg-[#262626] shadow-lg flex items-center justify-center rounded-full"
           } `}
         >
-          <div className=" flex gap-1 items-center text-zinc-500">
-            <Search size={20} className={`${!window && "text-white"}`} />
-            {window && <p className="font-mono font-medium text-sm ">Search</p>}
+          <div className=" flex gap-1 items-center text-zinc-500 dark:text-white font-Poppins">
+            <Search size={20} className={`${!window && "text-white "}`} />
+            {window && <p className="font-normal text-sm ">Search</p>}
           </div>
 
           {window && (
-            <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center">
+            <div className="h-6 w-6 bg-zinc-100 rounded-md flex items-center justify-center dark:bg-stone-700">
               <p className="font-mono font-bold text-sm">/</p>
             </div>
           )}
@@ -107,10 +117,18 @@ const SideBar = () => {
         <div className=" flex flex-col gap-3">
           {sideBarOptions.map((curr: any, index: number) => {
             return (
-              <div key={index} onClick={()=>{
-                dispatch(updateCurrentTab(curr.popup))
-              }} className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 px-2 rounded-lg ${activeTab === curr.popup ? 'bg-zinc-100 text-black ' :'text-gray-600'}`}>
-                <div className="ml-1" >{curr.icon}</div>
+              <div
+                key={index}
+                onClick={() => {
+                  dispatch(updateCurrentTab(curr.popup));
+                }}
+                className={`w-full group cursor-pointer relative h-10 flex items-center gap-2 -md  hover:text-zinc-950 hover:bg-zinc-100 hover:dark:bg-[#181818] hover:dark:text-white hover:dark:bg-opacity-65 px-2 rounded-lg ${
+                  activeTab === curr.popup
+                    ? "bg-zinc-100 dark:bg-[#262626] dark:bg-opacity-40 text-black dark:text-white "
+                    : "text-gray-600 dark:text-white dark:text-opacity-50"
+                }`}
+              >
+                <div className="ml-1">{curr.icon}</div>
                 <p
                   className={`font-normal font-Poppins tracking-tight text-sm transition-all duration-500 ${
                     window ? "opacity-100" : "opacity-0"
@@ -239,7 +257,7 @@ export const SlackSVGIcon = () => (
       id="SVGRepo_tracerCarrier"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke="#CCCCCC"
+      stroke="#ffffff"
       stroke-width="4.905"
     ></g>
     <g id="SVGRepo_iconCarrier">
@@ -277,7 +295,7 @@ export const LinedInIcon = () => (
     ></g>
     <g id="SVGRepo_iconCarrier">
       <path
-        fill="#1a8cff"
+        fill="#ffffff"
         d="M12.225 12.225h-1.778V9.44c0-.664-.012-1.519-.925-1.519-.926 0-1.068.724-1.068 1.47v2.834H6.676V6.498h1.707v.783h.024c.348-.594.996-.95 1.684-.925 1.802 0 2.135 1.185 2.135 2.728l-.001 3.14zM4.67 5.715a1.037 1.037 0 01-1.032-1.031c0-.566.466-1.032 1.032-1.032.566 0 1.031.466 1.032 1.032 0 .566-.466 1.032-1.032 1.032zm.889 6.51h-1.78V6.498h1.78v5.727zM13.11 2H2.885A.88.88 0 002 2.866v10.268a.88.88 0 00.885.866h10.226a.882.882 0 00.889-.866V2.865a.88.88 0 00-.889-.864z"
       ></path>
     </g>
@@ -300,7 +318,7 @@ export const GithubIcon = () => (
     ></g>
     <g id="SVGRepo_iconCarrier">
       <path
-        fill="#161514"
+        fill="#ffffff"
         fill-rule="evenodd"
         d="M8 1C4.133 1 1 4.13 1 7.993c0 3.09 2.006 5.71 4.787 6.635.35.064.478-.152.478-.337 0-.166-.006-.606-.01-1.19-1.947.423-2.357-.937-2.357-.937-.319-.808-.778-1.023-.778-1.023-.635-.434.048-.425.048-.425.703.05 1.073.72 1.073.72.624 1.07 1.638.76 2.037.582.063-.452.244-.76.444-.935-1.554-.176-3.188-.776-3.188-3.456 0-.763.273-1.388.72-1.876-.072-.177-.312-.888.07-1.85 0 0 .586-.189 1.924.716A6.711 6.711 0 018 4.381c.595.003 1.194.08 1.753.236 1.336-.905 1.923-.717 1.923-.717.382.963.142 1.674.07 1.85.448.49.72 1.114.72 1.877 0 2.686-1.638 3.278-3.197 3.45.251.216.475.643.475 1.296 0 .934-.009 1.688-.009 1.918 0 .187.127.404.482.336A6.996 6.996 0 0015 7.993 6.997 6.997 0 008 1z"
         clip-rule="evenodd"
@@ -325,7 +343,7 @@ export const TwitterIcon = () => (
     ></g>
     <g id="SVGRepo_iconCarrier">
       <path
-        fill="#1D9BF0"
+        fill="#ffffff"
         d="M13.567 5.144c.008.123.008.247.008.371 0 3.796-2.889 8.173-8.172 8.173v-.002A8.131 8.131 0 011 12.398a5.768 5.768 0 004.25-1.19 2.876 2.876 0 01-2.683-1.995c.431.083.875.066 1.297-.05A2.873 2.873 0 011.56 6.348v-.036c.4.222.847.345 1.304.36a2.876 2.876 0 01-.89-3.836 8.152 8.152 0 005.92 3 2.874 2.874 0 014.895-2.619 5.763 5.763 0 001.824-.697 2.883 2.883 0 01-1.262 1.588A5.712 5.712 0 0015 3.656a5.834 5.834 0 01-1.433 1.488z"
       ></path>
     </g>

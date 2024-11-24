@@ -1,6 +1,7 @@
 "use client";
-import LandingPage from "@/components/shared/landingPage/landingPage";
-import { updateUserValue } from "@/store/slices/user";
+
+import LandingPage from "../components/shared/landingPage/landingPage";
+import { updateUserValue } from "../store/slices/user";
 
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
