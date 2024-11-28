@@ -28,12 +28,14 @@ export async function POST(req: NextRequest) {
                 additionFile: true,
                 deleteFile: true,
                 modifiedFile: true,
+
             }
         });
 
         if (!commit) {
             return NextResponse.json({ status: 400, message: 'No Commit Found' })
         }
+
 
         const additionFiles = commit.additionFile.map((curr: any) => ({
             path: curr.path,
@@ -50,6 +52,7 @@ export async function POST(req: NextRequest) {
 
 
         const push = await postCommit(username, commit.repo, commitFiles, 'main', user.github_access_token!, commit.isForce! , commit.deleteFile);
+
 
         if (!push) {
             return NextResponse.json({ status: 400, message: 'Failed To commit , try again later!' });

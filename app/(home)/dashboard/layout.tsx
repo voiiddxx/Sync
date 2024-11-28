@@ -1,7 +1,7 @@
 "use client";
 
+import SecondTopBar from "@/components/shared/dashboard/SecondTopBar";
 import SideBar from "@/components/shared/dashboard/sideBar";
-import SecondaryTopBar from "@/components/shared/dashboard/secondaryTopBar";
 import TopBar from "@/components/shared/dashboard/topBar";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
 import { useState } from "react";
@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: any) {
   const [showTopBar, setshowTopBar] = useState<boolean>(true);
 
   return (
-    <div className={`${darkmode ? "dark" : "dark"}`}>
+    <div className={"dark"}>
       <div className="w-full h-screen flex overflow-hidden">
         {/* left div */}
         <div
@@ -39,7 +39,7 @@ export default function DashboardLayout({ children }: any) {
               )}
             </div>
           </div>
-          <SecondaryTopBar={} showTopBar={showTopBar} />
+          <SecondTopBar showTopBar={showTopBar} />
           {children}
         </div>
       </div>
