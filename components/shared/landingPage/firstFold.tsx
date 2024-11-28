@@ -23,7 +23,7 @@ const FirstFold = () => {
             scheduling
             <span className="hidden md:inline-block mt-1">
               saving time, boosting productivity, and focusing on coding
-              brilliance.
+              brilliance
             </span>
           </p>
 
