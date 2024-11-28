@@ -37,7 +37,7 @@ const LandingPage = () => {
           <NavBar />
         </div>
 
-        <div className=" w-auto md:px-[27vh] px-2 mt-10 relative z-20">
+        <div className=" w-auto md:px-[27vh] px-2 md:mt-10 top-5 relative z-20">
           <div className=" w-auto min-h-[1600px] border border-[#262626] relative ">
             <FirstFold />
             <div className=" w-full overflow-hidden border-[#262626] flex items-center justify-center mt-10 flex-col border-t h-64 border-b relative ">
