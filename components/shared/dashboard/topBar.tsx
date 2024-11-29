@@ -227,15 +227,15 @@ const TopBar = () => {
             <PopoverContent className="w-[290px] border mr-10 font-Poppins p-0 bg-[#1f1f21] text-[#DDDDDD] rounded-lg shadow-lg animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-200">
         <div className="flex items-center space-x-4 p-4 border-b border-[#2a2a2a]">
           <Avatar className="w-9 h-9">
-            <AvatarImage src={user.github_avatar_url} alt="Frankie Sullivan" />
+            <AvatarImage src={user?.github_avatar_url} alt="Frankie Sullivan" />
             <AvatarFallback>FS</AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold truncate flex items-center">
-              {user.username}
+              {user?.username}
               <Check className="w-4 h-4 ml-1 text-[#ff8d59]" />
             </p>
-            <p className="text-xs text-[#888888] truncate">@{user.username}</p>
+            <p className="text-xs text-[#888888] truncate">@{user?.username || 'No User'}</p>
           </div>
 
         </div>
@@ -259,7 +259,7 @@ const TopBar = () => {
          {["voiiddxx", "astro.tsx"].map((name, index) => (
             <Button key={name} variant="ghost" className="w-full py-4    justify-start text-[13px] hover:text-white hover:bg-[#444444] rounded-none">
               <Avatar className="w-7 h-7 mr-1">
-                <AvatarImage src={user.github_avatar_url} alt={name} />
+                <AvatarImage src={user?.github_avatar_url} alt={name} />
                 <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0 text-left">

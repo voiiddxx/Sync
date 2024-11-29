@@ -91,7 +91,7 @@ const SecondTopBar = ({ showTopBar }: any) => {
       {/* left div */}
       <div className="flex items-center justify-between gap-2 ">
         <p className="text-[13px] text-white/80 font-Poppins">
-          {user.username}{" "}
+          {user?.username}{" "}
         </p>
         <p className="ml-2 text-white">/</p>
 

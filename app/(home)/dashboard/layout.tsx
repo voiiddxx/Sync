@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: any) {
       <div className="w-full h-screen flex overflow-hidden">
         {/* left div */}
         <div
-          className={` transition-all duration-500 ${window ? "w-72" : "w-20"}`}
+          className={` transition-all duration-500 ${window ? "min-w-72 w-72" : "w-20"}`}
         >
           <SideBar />
         </div>
