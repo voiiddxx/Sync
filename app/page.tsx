@@ -16,34 +16,34 @@ export default function Home() {
   console.log("this is user" , user);
   
 
-  const getUserdata = async (username: string) => {
-    try {
-      if (username) {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_URL}/api/user?username=${username}`
-        );
-  
-        if (res.status !== 200 || !res.data.data) {
-          console.log("No user found");
-          return;
-        }
-  
-        console.log("Data received:", res.data.data);
-        // Ensure that the response data is an object
-        if (typeof res.data.data !== 'object' || res.data.data === null) {
-          throw new Error("Invalid user data received");
-        }
+    const getUserdata = async (username: string) => {
+      try {
+        if (username) {
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_URL}/api/user?username=${username}`
+          );
+    
+          if (res.status !== 200 || !res.data.data) {
+            console.log("No user found");
+            return;
+          }
+    
+          console.log("Data received:", res.data.data);
+          // Ensure that the response data is an object
+          if (typeof res.data.data !== 'object' || res.data.data === null) {
+            throw new Error("Invalid user data received");
+          }
 
 
-        // Dispatch the user data
-        dispatch(updateUserValue(res.data.data));
-        console.log("User stored");
+          // Dispatch the user data
+          dispatch(updateUserValue(res.data.data));
+          console.log("User stored");
+        }
+      } catch (error) {
+        console.log("No Data found", error);
       }
-    } catch (error) {
-      console.log("No Data found", error);
-    }
-  };
-  
+    };
+    
 
   useEffect(() => {
     if (username) {

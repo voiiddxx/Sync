@@ -1,7 +1,6 @@
 "use client";
 import { updateDarkMode } from "@/store/slices/windowSlice";
 import { Rabbit, Search } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GithubIcon } from "../dashboard/sideBar";

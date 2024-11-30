@@ -11,6 +11,8 @@ import {
   Calendar,
   ChevronDown,
   ChevronRight,
+  Dot,
+  File,
   FileText,
   FolderPlus,
   GitBranch,
@@ -77,8 +79,6 @@ export default function CommitPannel({ data, user }: any) {
   const [isSlack, setisSlack] = React.useState<boolean>(false);
   const [isForce, setisForce] = React.useState<boolean>(false);
 
-
-
   React.useEffect(() => {
     diffFileChangeComp();
   }, [currentDiffFile]);
@@ -89,6 +89,7 @@ export default function CommitPannel({ data, user }: any) {
       setdiffFileData(lines);
     } else {
       if (data && data.diffFile) {
+        setcurrentDiffFile(data?.diffFile[0]);
         setdiffFileData(data?.diffFile[0]?.content.split("\n"));
       }
     }
@@ -197,24 +198,29 @@ export default function CommitPannel({ data, user }: any) {
         <div className="flex-1 h-[70vh] overflow-hidden flex flex-col dark:bg-[#1f1f1f87] rounded-r-xl">
           <div className="flex items-center justify-between p-2 border-b border-zinc-800">
             <div className="flex items-center space-x-2">
-              <span className="text-blue-400 font-semibold">
-                {repo.language}
-              </span>
+              <div className="bg-[#262626] bg-opacity-50 px-2 pr-3 py-[4px] rounded-full flex gap-1 items-center justify-center">
+                <div className=" size-2 rounded-full mt-[2px] bg-orange-400" />
+                <span className="text-orange-400 font-medium tracking-normal text-[10px]">
+                  {repo.language}
+                </span>
+              </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-300"
+                    className="bg-[#1a1a1a] w-48 flex items-center  justify-start border-white/5 text-zinc-300"
                   >
-                    
-                    {currentDiffFile?.path}
+                    <p className="text-[10px] text-white/100 tracking-wide font-light truncate ">
+                      {" "}
+                      {currentDiffFile?.path}
+                    </p>
                     <ChevronDown className="ml-2 h-3 w-3 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="start"
-                  className="w-[200px] bg-[#262626]  border-zinc-700 text-zinc-300"
+                  className="w-[200px] bg-[#191919]  border-white/5 text-zinc-300"
                 >
                   {data?.diffFile.map((curr: any, index: number) => {
                     return (
@@ -222,10 +228,13 @@ export default function CommitPannel({ data, user }: any) {
                         onClick={() => {
                           setcurrentDiffFile(curr);
                         }}
-                        className=""
+                        className="flex gap-1 items-center"
                         key={index}
                       >
-                        <p className="text-xs font-normal font-Poppins">
+                        <div>
+                          <div className=" size-1 rounded-full mt-[2px] bg-orange-400" />
+                        </div>
+                        <p className="text-[11px] font-light truncate font-Poppins">
                           {curr.path}
                         </p>
                       </DropdownMenuItem>

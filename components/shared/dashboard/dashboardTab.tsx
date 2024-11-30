@@ -106,9 +106,9 @@ const DashBoardTabSection = () => {
           <PanelLeft size={16} className="dark:text-white/70 " />
         </div>
         {/* Show content while either showActivity is true OR animation is in progress */}
-        {(showActivity || isAnimating) && (
+        {/* {(showActivity || isAnimating) && (
           <ActivitySection activities={activities} />
-        )}
+        )} */}
       </div>
     </div>
   );
