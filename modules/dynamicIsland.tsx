@@ -3,11 +3,13 @@ import { BellAlertIcon } from '@heroicons/react/24/solid';
 import { GitBranch, Github, Rabbit } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 const DynamicIsland = ({user} : any) => {
 
     const [showDynamic, setshowDynamic] = useState<number>(0);
     const [isAnimating, setisAnimating] = useState<boolean>(false)
+    const repo = useSelector((state:any)=>state.repo.value)
 
 
   return (

@@ -39,7 +39,7 @@ export async function PUT (req : NextRequest){
             return NextResponse.json({status:500 , message: 'Failed to update commit'})
         }
         
-        const usersRepo = await getUserRepos(existingCommit.user , existingCommit.repo);
+        const usersRepo = await getUserRepos(existingCommit.user , existingCommit.repo , existingCommit.branch);
 
         return NextResponse.json({status:200 , data:usersRepo , message: 'Commit updated successfully'})
 

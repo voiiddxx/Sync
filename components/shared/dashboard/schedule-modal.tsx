@@ -30,10 +30,6 @@ const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeMo
   const [isScheduling, setisScheduling] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-
-
-  
-
   const handleCommitSubmission = async () => {
     const istTime = moment.tz(date, "Asia/Kolkata");
     const utcTime = istTime.utc(); // Convert to UTC

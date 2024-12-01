@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
         // getting repo data
 
-        const userUpdatedRepoData = await getUserRepos(existingUser , updateCommit.repo);
+        const userUpdatedRepoData = await getUserRepos(existingUser , updateCommit.repo , updateCommit.branch);
 
         if(!userUpdatedRepoData){
             return NextResponse.json({status:404 , message:'Some error occured'});

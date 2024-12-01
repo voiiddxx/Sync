@@ -46,13 +46,14 @@ const SecondTopBar = ({ showTopBar }: any) => {
     }
   };
 
-  const getSpecificRepo = async (repo: string, username: string) => {
+  const getSpecificRepo = async (repo: string, username: string , branch: string) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/api/github/repo/get`,
         {
           repo,
           username,
+          branch,
         }
       );
       if (res.status !== 200) {
@@ -98,7 +99,7 @@ const SecondTopBar = ({ showTopBar }: any) => {
         <ComboBox
           data={userRepos}
           onChange={(data: any) => {
-            getSpecificRepo(data?.value, user?.username);
+            getSpecificRepo(data?.value, user?.username , 'main');
           }}
           icon={<GitHubLogoIcon />}
         />
@@ -106,7 +107,7 @@ const SecondTopBar = ({ showTopBar }: any) => {
         <ComboBox
           data={branches}
           onChange={(data: any) => {
-            getSpecificRepo(data?.value, user?.username);
+            getSpecificRepo(repo?.name, user?.username ,  data?.value);
           }}
           icon={<GitBranch size={20} />}
         />

@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
     try {
 
-        const { username, repo } = await req.json();
+        const { username, repo , branch } = await req.json();
 
         if (!username && !repo) {
             return NextResponse.json({ status: 400, message: 'Please provide both username and repo' });
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ status: 404, message: 'User not found' });
         }
 
-        const data = await getUserRepos(user, repo);
+        const data = await getUserRepos(user, repo , branch);
 
         return NextResponse.json({
             repo: data,
