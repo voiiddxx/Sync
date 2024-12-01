@@ -48,7 +48,7 @@ export async function POST (req : NextRequest){
             return NextResponse.json({status:404 , error:'Error while deleting commit'});
         }
 
-        const updatedUserRepo = await getUserRepos(existinUser , commit.repo);
+        const updatedUserRepo = await getUserRepos(existinUser , commit.repo , commit.branch);
 
         if(!updatedUserRepo){
             return NextResponse.json({status:500 , error:'Error while updating user repos'});
