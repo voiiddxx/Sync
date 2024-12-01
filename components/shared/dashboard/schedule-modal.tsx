@@ -17,9 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { updateUserRepo } from "@/store/slices/repoSlice";
 import moment from "moment-timezone";
+import GradientButton from "../gradient-button";
 
 const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeModal }: any) => {
   const user = useSelector((state: any) => state.user.value);
+  const repo = useSelector((state: any) => state.repo.value);
   const { toast } = useToast();
 
   const [date, setDate] = useState<Date>();
@@ -81,22 +83,22 @@ const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeMo
   return (
     <div className=" w-full font-Poppins min-h-48 relative">
       <div className="">
-        <div className=" w-full border-b border-zinc-700 px-4 py-4 bg-[#161616] rounded-t-lg flex items-start gap-2">
-          <GitHubLogoIcon className="size-5 text-white mt-1" />
+        <div className=" w-full border-b border-white/10 px-4 py-4 bg-[#131313] rounded-t-lg flex items-start gap-2">
+          <GitHubLogoIcon className="size-6 text-white mt-1" />
           <div>
-            <p className=" tracking-tight text-white/90">Schedule commit</p>
-            <p className="text-xs  text-white/60  tracking-tight">
+            <p className=" tracking-tight font-Poppins text-sm font-normal text-white/90">Schedule commit</p>
+            <p className="text-xs text-white/50 font-light  tracking-tight">
               Want to commit later? schedule now
             </p>
           </div>
         </div>
 
         <div className="px-5 mt-6 pb-6">
-          <p className="text-sm text-white/60">Commit message</p>
+          <p className="text-xs text-white/60 font-Poppins font-light">Commit message</p>
 
           <div className="flex border rounded-lg w-full h-10 mt-2 border-zinc-700 ">
             <div className="w-12 flex items-center justify-center h-full border-r border-zinc-700">
-              <BoltIcon className="size-4 text-purple-300" />
+              <BoltIcon className="size-5 text-[#f341ed]" />
             </div>
 
             <input
@@ -111,10 +113,10 @@ const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeMo
           </div>
 
           <div className="flex flex-col mt-6">
-            <div className="px-2 py-1 border border-zinc-600 w-fit flex items-center gap-1 rounded-full bg-[#262626]">
+            <div className="px-2 py-1 border border-white/10 w-fit flex items-center gap-1 rounded-full bg-[#262626]">
               <GitBranch size={15} strokeWidth={1.25} className="text-white/80" />
-              <p className="text-[13px] tracking-tight text-xs font-light text-white/60 ">
-                github/voiiddxx/flow-cli/commits
+              <p className="text-[13px] tracking-wide text-xs font-extralight text-white/70 ">
+                github/{user?.username}/{repo?.name}
               </p>
             </div>
           </div>
@@ -226,19 +228,8 @@ const ScheduleModalContent = ({ data, name , desc , isSlack , isForce ,  closeMo
             </div>
           )}
           <div className=" mt-6 w-full flex items-center gap-2 justify-end">
+            <GradientButton title="Schedule" onClick={handleCommitSubmission} isLoading={isLoading} />
             
-            <Button
-              onClick={handleCommitSubmission}
-              className="bg-[#ff5e07] hover:bg-[#262626]"
-            >
-              {isLoading ? (
-                <div className=" w-full flex items-center justify-center">
-                  <LoaderIcon className="animate-spin" strokeWidth={2} />
-                </div>
-              ) : (
-                <p className="text-xs font-normal font-Poppins">Schedule</p>
-              )}
-            </Button>
           </div>
         </div>
       </div>
