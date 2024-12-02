@@ -60,7 +60,7 @@ const SideBar = () => {
   const activeTab = useSelector((state: any) => state.window.currentTab);
   const dispatch = useDispatch();
 
-  const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://floww-one.vercel.app/api/auth/callback/slack&state=${user.username}`;
+  const slackUrl = `https://slack.com/oauth/v2/authorize?client_id=7867821280625.7914237431189&scope=chat:write,chat:write.public,channels:read,chat:write.customize,incoming-webhook&redirect_uri=https://floww-one.vercel.app/api/auth/callback/slack&state=${user?.username}`;
 
   return (
     <div className="h-screen px-4  border-r py-4 w-full dark:bg-[#121212] dark:text-white">

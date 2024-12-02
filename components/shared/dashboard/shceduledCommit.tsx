@@ -30,10 +30,13 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import EditCommit from "../modals/editCommit";
+import { ScheduledCommitCountdown } from "./commitCountDown";
 
 const ScheduledCommit = ({ data }: any) => {
 
 
+  console.log("this is scheduled commit data" , data);
+  
 
   const user = useSelector((state: any) => state.user.value);
 
@@ -115,21 +118,24 @@ const ScheduledCommit = ({ data }: any) => {
       >
         {data?.map((curr: any, index: Number) => {
           return (
-            <div className="   pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
-              <div className=" w-full flex items-center  pb-3">
-                <p className="text-zinc-400 text-sm font-normal ">
-                  #801254 -{" "}
+            <div  className="   pb-3 w-full rounded-xl border bg-[#191919] px-6 py-6 ">
+              <div className=" w-full flex items-center justify-between  pb-3">
+                  <div className=" w-auto flex items-center" >
+                  <p className="text-zinc-400 text-sm font-normal ">
+                  #801254{curr?.id} -{" "}
                   <span className="text-white tracking-tight">
                     {curr.commit_message}
                   </span>
                 </p>
                 <div className="flex items-center justify-between px-2 py-1 ml-2 bg-gradient-to-r from-[#262626] to-[#131313]   rounded-lg border-[1.5px] border-zinc-700">
-                  <ClockIcon className="size-4 text-[#522fff]" />
-                  <p className="text-xs ml-1 font-normal text-white/60">
+                  <ClockIcon className="size-4 text-[#4a68ff]" />
+                  <p className="text-xs font-normal text-white/60">
                     Commit on{" "}
                     {moment(curr.scheduled_time).format("MMMM Do, YYYY h:mm A")}
                   </p>
                 </div>
+                </div>
+                <ScheduledCommitCountdown scheduledTime={curr?.scheduled_time} />
               </div>
 
 

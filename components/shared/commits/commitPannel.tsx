@@ -11,6 +11,8 @@ import {
   Calendar,
   ChevronDown,
   ChevronRight,
+  Dot,
+  File,
   FileText,
   FolderPlus,
   GitBranch,
@@ -52,11 +54,11 @@ import EditScheduleModal from "./editSchedulemodal";
 import CustomModal from "../modal";
 import DeleteModalComponent from "./delete-modal";
 
-
 import { RectangleStackIcon } from "@heroicons/react/24/solid";
 import GradientButton from "../gradient-button";
 import ScheduleModalContent from "../dashboard/schedule-modal";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 export default function CommitPannel({ data, user }: any) {
   const repo = useSelector((state: any) => state.repo.value);
@@ -78,8 +80,6 @@ export default function CommitPannel({ data, user }: any) {
   const [isSlack, setisSlack] = React.useState<boolean>(false);
   const [isForce, setisForce] = React.useState<boolean>(false);
 
-
-
   React.useEffect(() => {
     diffFileChangeComp();
   }, [currentDiffFile]);
@@ -90,6 +90,7 @@ export default function CommitPannel({ data, user }: any) {
       setdiffFileData(lines);
     } else {
       if (data && data.diffFile) {
+        setcurrentDiffFile(data?.diffFile[0]);
         setdiffFileData(data?.diffFile[0]?.content.split("\n"));
       }
     }
@@ -116,12 +117,11 @@ export default function CommitPannel({ data, user }: any) {
                 {data?.diffFile.map((file: any, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-2 text-[11px]"
+                    className="flex  items-center space-x-2 text-[11px]"
                   >
                     <FileText className="w-3 h-3 text-blue-400" />
-                    <span className="line-clamp-1">{file?.path}</span>
-                    <span className="px-1 py-0.5 bg-[#1d1d1d] text-zinc-400 rounded text-[10px]">
-                      Modified
+                    <span className="block max-w-48 truncate">
+                      {file?.path}
                     </span>
                   </div>
                 ))}
@@ -143,7 +143,7 @@ export default function CommitPannel({ data, user }: any) {
                           className="text-[11px] pl-4 flex items-center gap-1 cursor-pointer"
                         >
                           <FileText className="w-3 h-3 text-orange-400" />
-                          {curr.path}
+                          <p>{curr.path}</p>
                         </div>
                       );
                     })}
@@ -176,46 +176,51 @@ export default function CommitPannel({ data, user }: any) {
             <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
               <StarFilledIcon className="text-white/50 size-3" />
               <p className="text-[11px] font-Poppins text-white/70">
-                {data?.stargazers_count} Starred
+                {repo?.stargazers_count} Starred
               </p>
             </div>
             <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
               <GitForkIcon className="text-white/50 size-3" />
               <p className="text-[11px] font-Poppins text-white/70">
-                {data?.forks_count} Forks
+                {repo?.forks_count} Forks
               </p>
             </div>
             <div className="flex px-1.5 py-1.5 rounded-md bg-[#262626] border border-white/10 items-center gap-1">
               <GitPullRequestDraftIcon className="text-white/50 size-3" />
               <p className="text-[11px] font-Poppins text-white/70">
-                {data?.open_issues} Issues
+                {repo?.open_issues} Issues
               </p>
             </div>
           </div>
         </div>
 
         {/* File Diff Viewer (Main Section) */}
-        <div className="flex-1 h-[70vh] overflow-hidden flex flex-col dark:bg-[#1f1f1f87] rounded-r-xl">
+        <div className="flex-1 h-[70vh] overflow-hidden  flex flex-col dark:bg-[#1f1f1f87] rounded-r-xl">
           <div className="flex items-center justify-between p-2 border-b border-zinc-800">
             <div className="flex items-center space-x-2">
-              <span className="text-blue-400 font-semibold">
-                {repo.language}
-              </span>
+              <div className="bg-[#262626] bg-opacity-50 px-2 pr-3 py-[4px] rounded-full flex gap-1 items-center justify-center">
+                <div className=" size-2 rounded-full mt-[2px] bg-orange-400" />
+                <span className="text-orange-400 font-medium tracking-normal text-[10px]">
+                  {repo.language}
+                </span>
+              </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-300"
+                    className="bg-[#1a1a1a] w-48 flex items-center  justify-start border-white/5 text-zinc-300"
                   >
-                    
-                    {currentDiffFile?.path}
+                    <p className="text-[10px] text-white/100 tracking-wide font-light truncate ">
+                      {" "}
+                      {currentDiffFile?.path}
+                    </p>
                     <ChevronDown className="ml-2 h-3 w-3 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="start"
-                  className="w-[200px] bg-[#262626]  border-zinc-700 text-zinc-300"
+                  className="w-[200px] bg-[#191919]  border-white/5 text-zinc-300"
                 >
                   {data?.diffFile.map((curr: any, index: number) => {
                     return (
@@ -223,10 +228,13 @@ export default function CommitPannel({ data, user }: any) {
                         onClick={() => {
                           setcurrentDiffFile(curr);
                         }}
-                        className=""
+                        className="flex gap-1 items-center"
                         key={index}
                       >
-                        <p className="text-xs font-normal font-Poppins">
+                        <div>
+                          <div className=" size-1 rounded-full mt-[2px] bg-orange-400" />
+                        </div>
+                        <p className="text-[11px] font-light truncate font-Poppins">
                           {curr.path}
                         </p>
                       </DropdownMenuItem>
@@ -237,6 +245,25 @@ export default function CommitPannel({ data, user }: any) {
             </div>
 
             <div className="flex z-10">
+              <div className="flex items-center space-x-2 w-full mr-10">
+                <span className="text-[10px] font-medium text-zinc-500">
+                  Guide:
+                </span>
+                <div className="flex items-center space-x-2">
+                  <span className="flex items-center">
+                    <span className="w-2 h-2 mr-1 inline-block bg-green-400 rounded-full"></span>
+                    <span className="text-[10px]">Added</span>
+                  </span>
+                  <span className="flex items-center">
+                    <span className="w-2 h-2 mr-1 inline-block bg-red-400 rounded-full"></span>
+                    <span className="text-[10px]">Removed</span>
+                  </span>
+                  <span className="flex items-center">
+                    <span className="w-2 h-2 mr-1 inline-block bg-white/50 rounded-full"></span>
+                    <span className="text-[10px]">No Changes</span>
+                  </span>
+                </div>
+              </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <DotsHorizontalIcon className="dark:text-white size-4" />
@@ -314,7 +341,7 @@ export default function CommitPannel({ data, user }: any) {
             {diffFileData && (
               <div className="p-4 space-y-1 font-mono text-[11px]">
                 {diffFileData.map((line: any, index: number) => {
-                  let lineClass = "text-gray-600";
+                  let lineClass = "text-gray-200";
                   if (line.startsWith("+") && !line.startsWith("+++")) {
                     lineClass = "bg-green-500/10 text-green-400";
                   } else if (line.startsWith("-") && !line.startsWith("---")) {
@@ -409,7 +436,9 @@ export default function CommitPannel({ data, user }: any) {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className="bg-zinc-800 border-zinc-700 text-zinc-300">
-                  <p className="text-[10px]">Force push this commit</p>
+                  <p className="text-[10px] font-Poppins">
+                    Force push this commit
+                  </p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -445,7 +474,9 @@ export default function CommitPannel({ data, user }: any) {
             <AvatarImage src={`${user.github_avatar_url}`} />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <span>{user.username} committed 5 minutes ago</span>
+          <span>
+            {user.username} committed {moment(data?.createdAt).fromNow()}{" "}
+          </span>
         </div>
         <div className="flex items-center space-x-2">
           <GitPullRequest className="h-3 w-3" />

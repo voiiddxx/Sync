@@ -5,7 +5,7 @@ import axios from "axios";
 
 const prisma = new PrismaClient();
 
-export const getUserRepos = async (user: any, repo: string) => {
+export const getUserRepos = async (user: any, repo: string , branch :string) => {
     try {
         const repoData = await axios.get(`https://api.github.com/repos/${user.username}/${repo}`, {
             headers: {
@@ -22,6 +22,7 @@ export const getUserRepos = async (user: any, repo: string) => {
         const commits = await prisma.commit.findMany({
             where: {
                 repo: repo,
+                branch:branch,
                 status: 'Requested',
                 user: {
                     username: user.username
