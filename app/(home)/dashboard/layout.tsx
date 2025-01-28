@@ -1,6 +1,6 @@
 "use client";
 
-import SecondaryTopBar from "@/components/shared/dashboard/SecondaryTopBar";
+import SecondTopBar from "@/components/shared/dashboard/SecondTopBar";
 import SideBar from "@/components/shared/dashboard/sideBar";
 import TopBar from "@/components/shared/dashboard/topBar";
 import { ChevronDownCircle, ChevronUpCircle } from "lucide-react";
@@ -17,7 +17,9 @@ export default function DashboardLayout({ children }: any) {
       <div className="w-full h-screen flex overflow-hidden">
         {/* left div */}
         <div
-          className={` transition-all duration-500 ${window ? "w-72" : "w-20"}`}
+          className={` transition-all duration-500 ${
+            window ? " w-72" : "w-20"
+          }`}
         >
           <SideBar />
         </div>
@@ -39,7 +41,7 @@ export default function DashboardLayout({ children }: any) {
               )}
             </div>
           </div>
-          <SecondaryTopBar showTopBar={showTopBar} />
+          <SecondTopBar showTopBar={showTopBar} />
           {children}
         </div>
       </div>

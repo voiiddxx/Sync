@@ -14,7 +14,7 @@ import axios from "axios";
 import { updateUserRepo } from "../../../store/slices/repoSlice";
 import { ServerStackIcon } from "@heroicons/react/24/solid";
 
-const SecondaryTopBar = ({ showTopBar }: any) => {
+const SecondTopBar = ({ showTopBar }: any) => {
   const dispatch = useDispatch();
   const repo = useSelector((state: any) => state.repo.value);
   const user = useSelector((state: any) => state.user.value);
@@ -46,13 +46,14 @@ const SecondaryTopBar = ({ showTopBar }: any) => {
     }
   };
 
-  const getSpecificRepo = async (repo: string, username: string) => {
+  const getSpecificRepo = async (repo: string, username: string , branch: string) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/api/github/repo/get`,
         {
           repo,
           username,
+          branch,
         }
       );
       if (res.status !== 200) {
@@ -91,14 +92,14 @@ const SecondaryTopBar = ({ showTopBar }: any) => {
       {/* left div */}
       <div className="flex items-center justify-between gap-2 ">
         <p className="text-[13px] text-white/80 font-Poppins">
-          {user.username}{" "}
+          {user?.username}{" "}
         </p>
         <p className="ml-2 text-white">/</p>
 
         <ComboBox
           data={userRepos}
           onChange={(data: any) => {
-            getSpecificRepo(data?.value, user?.username);
+            getSpecificRepo(data?.value, user?.username , 'main');
           }}
           icon={<GitHubLogoIcon />}
         />
@@ -106,7 +107,7 @@ const SecondaryTopBar = ({ showTopBar }: any) => {
         <ComboBox
           data={branches}
           onChange={(data: any) => {
-            getSpecificRepo(data?.value, user?.username);
+            getSpecificRepo(repo?.name, user?.username ,  data?.value);
           }}
           icon={<GitBranch size={20} />}
         />
@@ -137,4 +138,4 @@ const SecondaryTopBar = ({ showTopBar }: any) => {
   );
 };
 
-export default SecondaryTopBar;
+export default SecondTopBar;

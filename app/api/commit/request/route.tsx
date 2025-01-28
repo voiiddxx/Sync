@@ -200,7 +200,8 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const { username, message, time, isSlack, isForce, commitId } = body;
+    const { username, message, time, isSlack, isForce, commitId, commit_desc } =
+      body;
 
     if (message == "") {
       return NextResponse.json({
@@ -244,6 +245,7 @@ export async function PATCH(req: NextRequest) {
       data: {
         branch: commit.branch,
         commit_message: message,
+        commit_desc: commit_desc,
         repo: commit.repo,
         status: "Scheduled",
         isForce: isForce,
@@ -256,7 +258,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ status: 500, message: "Some error occured" });
     }
 
-    const data = await getUserRepos(user, commit.repo);
+    const data = await getUserRepos(user, commit.repo, commit.branch);
     return NextResponse.json({
       status: 200,
       data: data,
